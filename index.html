@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Alexandru Turcanu</title>
+
+    <!-- declaring character encoding -->
+    <meta charset="utf-8"/>
+    <!-- setting viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/menu.css">
+    <link rel="stylesheet" type="text/css" href="css/button.css">
+    <link rel="stylesheet" type="text/css" href="css/animation.css">
+  </head>
+  <body>
+    <div id="overlay">
+      <ul id="menu">
+        <li><a href="experience">Experience</a></li>
+        <li><a href="awards">Awards</a></li>
+        <li><a href="apps">Apps</a></li>
+      </ul>
+    </div>
+
+    <!-- Top of the page -->
+    <div id="header">
+      <!-- Top bar -->
+      <ul id="navbar">
+        <li id="name"><a id="active">Alexandru Turcanu</a></li>
+        <li id="button"><a>Menu</a></li>
+        <li><a href="experience">Experience</a></li>
+        <li><a href="awards">Awards</a></li>
+        <li><a href="apps">Apps</a></li>
+      </ul>
+    </div>
+
+    <!-- Main body of web page (uses flexbox) -->
+    <div id="main">
+      <img title="Alexandru Turcanu" alt="photo of me" src="images/faces/octocat.png">
+      <h1 id="title">Hey there.</h1>
+      <h2 id="subtitle">
+        I mostly do <strong>iOS Development</strong> in <strong>Swift</strong><br>
+        Picking up <strong>SwiftUI</strong> and <strong>ARKit</strong>
+      </h2>
+      <!-- Mail to button -->
+      <a class="button" href="mailto:me@alexandruturcanu.com">
+        Contact me@alexandruturcanu.com
+      </a>
+      <hr>
+      <p id="status"></p>
+      <div class="button" id="support">
+        Click to support me
+      </div>
+    </div>
+
+    <!-- referencing jquery libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- reading js files -->
+    <script type="text/javascript" src="js/index.js"></script>
+  </body>
+</html>
