@@ -12,7 +12,7 @@ var data = [{
 	"details" : "Overall 3rd Place"
 }, {
 	"link" 		: "https://github.com/Pondorasti/Pozativity",
-	"img" 		: "awards/Megahack.png",
+	"img" 		: "awards/megahack.png",
 	"name" 		: "Techfest - Megahack 2018",
 	"details" : "Overall 2nd Place"
 }, {
