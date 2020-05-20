@@ -12,7 +12,7 @@ var data = [{
 	"details" : "Sauna Tracker App"
 },{
 	"link" 		: "https://www.makeschool.com",
-	"img" 		: "experience/MakeSchool.png",
+	"img" 		: "experience/makeschool.png",
 	"name" 		: "Summer Academy",
 	"details" : "iOS Development"
 }, {
