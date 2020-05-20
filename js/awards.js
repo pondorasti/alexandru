@@ -8,7 +8,7 @@ var data = [{
 }, {
 	"link" 		: "https://2019.health-hackathon.ro",
 	"img" 		: "awards/HackingHealth.png",
-	"name" 		: "Hacking Health",
+	"name" 		: "Hacking Health 2018",
 	"details" : "Best Team Effort & Youngest Team"
 }, {
 	"link" 		: "https://github.com/Pondorasti/RocketLaunches",
