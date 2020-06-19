@@ -1,7 +1,12 @@
 // array of awards as json
 
 var data = [{
-	"link" 		: "https://developer.apple.com/wwdc/",
+		"link" 		: "https://github.com/Pondorasti/SimonDraws",
+		"img" 		: "awards/WWDC2020.png",
+		"name" 		: "WWDC 2020",
+		"details" : "Swift Student Challenge Winner"
+}, {
+	"link" 		: "https://github.com/Pondorasti/Memoji",
 	"img" 		: "awards/wwdc2018.png",
 	"name" 		: "WWDC 2018",
 	"details" : "Scholarship Winner"

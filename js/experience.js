@@ -4,12 +4,12 @@ var data = [{
 	"link" 		: "https://qrobotics.eu",
 	"img" 		: "experience/QuantumRobotics.png",
 	"name" 		: "Quantum Robotics",
-	"details" : "Founder & Mentor"
+	"details" : "Founder & Alumni"
 },{
 	"link" 		: "https://www.linkedin.com/in/pondorasti/",
 	"img" 		: "experience/IllumeHealth.png",
-	"name" 		: "Remote iOS Engineer",
-	"details" : "Sauna Tracker App"
+	"name" 		: "Sauna Tracker App",
+	"details" : "Remote iOS Engineer"
 },{
 	"link" 		: "https://www.makeschool.com",
 	"img" 		: "experience/makeschool.png",
