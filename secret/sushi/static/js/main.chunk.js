@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("https://alexandruturcanu.com/secret/sushi/brain.c8176d3d.png");
+/* harmony default export */ __webpack_exports__["default"] = ("https://alexandruturcanu.com/secret/sushi/static/images/brain.c8176d3d.png");
 
 /***/ }),
 
@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("https://alexandruturcanu.com/secret/sushi/hero.ad96fd13.jpg");
+/* harmony default export */ __webpack_exports__["default"] = ("https://alexandruturcanu.com/secret/sushi/static/images/hero.ad96fd13.jpg");
 
 /***/ }),
 
@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("https://alexandruturcanu.com/secret/sushi/neurons.3cbe007b.png");
+/* harmony default export */ __webpack_exports__["default"] = ("https://alexandruturcanu.com/secret/sushi/static/images/neurons.3cbe007b.png");
 
 /***/ }),
 
