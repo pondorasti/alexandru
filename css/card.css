@@ -1,8 +1,6 @@
 .card {
   display: block;
 
-  border-radius: 16px;
-
   width: calc((100% - 120px)/3);
 
   background-color: white;
@@ -11,7 +9,7 @@
   box-sizing: border-box;
   padding: 20px;
 
-  border-radius: 1%;
+  border-radius: 16px;
   box-shadow: 0 0 5px rgba(0,0,0,0.0);
   transition: all 0.5s;
 }
