@@ -22,6 +22,7 @@
 
 .card:hover {
   transform: scale(1.1, 1.1);
+  border-radius: 16px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
@@ -29,6 +30,7 @@
   display: block;
   margin: 0 -20px;
   margin-top: -20px;
+  border-radius: 16px;
   width: calc(100% + 40px);
   height: 100%;
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
