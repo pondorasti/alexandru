@@ -52,6 +52,7 @@ $("#support").click(function() {
 	$("img").fadeTo(500, 0.1).fadeTo(500, 1);
 	localStorage.supports++;
 	updateStatus();
+	window.fathom.trackGoal('1WTW2T47', 0);
 });
 
 $("#main status").ready(function() {
