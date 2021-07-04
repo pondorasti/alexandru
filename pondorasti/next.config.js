@@ -8,6 +8,10 @@ module.exports = {
       {
         source: "/secret/:90s-portfolio",
         destination: "/secret/:90s-portfolio/index.html",
+      },
+      {
+        source: "/secret/:teamo-design",
+        destination: "/secret/:teamo-design/index.html",
       }
     ]
 }
