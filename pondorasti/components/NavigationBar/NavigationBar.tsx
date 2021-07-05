@@ -1,9 +1,19 @@
 import Link from "next/link"
+import dynamic from 'next/dynamic'
 import classNames from "@utils/classNames"
 import { bluredBackground, navigationBarHeight, horizontalPadding, navigationBarLinkStyling } from "@utils/styles"
-import { DarkModeSwitch } from "react-toggle-dark-mode"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
+import { DarkModeSwitch } from "react-toggle-dark-mode"
+
+// Source: https://github.com/vercel/next.js/issues/4515#issuecomment-810635574
+const DynamicDarkModeSwitch = dynamic(
+  () => {
+    const promise = import("react-toggle-dark-mode").then((module) => module.DarkModeSwitch)
+    return promise
+  },
+  { ssr: false, loading: () => <DarkModeSwitch checked={false} onChange={() => undefined} /> }
+)
 
 export default function NavigationBar(): JSX.Element {
   const [, setMounted] = useState(false)
@@ -41,14 +51,12 @@ export default function NavigationBar(): JSX.Element {
             <a className={navigationBarLinkStyling}>Journal</a>
           </Link>
 
-          {resolvedTheme !== undefined && (
-            <DarkModeSwitch
-              className={navigationBarLinkStyling}
-              checked={resolvedTheme === "dark"}
-              onChange={handleDarkModeSwitch}
-              size={20}
-            />
-          )}
+          <DynamicDarkModeSwitch
+            className={navigationBarLinkStyling}
+            checked={resolvedTheme === "dark"}
+            onChange={handleDarkModeSwitch}
+            size={20}
+          />
 
           <a
             className={navigationBarLinkStyling}
