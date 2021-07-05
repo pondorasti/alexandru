@@ -12,6 +12,10 @@ module.exports = {
       {
         source: "/secret/:teamo-design",
         destination: "/secret/:teamo-design/index.html",
+      },
+      {
+        source: "/:journal",
+        destination: "/secret/:journal/index.html",
       }
     ]
 }
