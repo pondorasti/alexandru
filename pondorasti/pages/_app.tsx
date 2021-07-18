@@ -4,7 +4,6 @@ import { useRouter } from "next/router"
 import * as Fathom from "fathom-client"
 import "tailwindcss/tailwind.css"
 import { ThemeProvider } from "next-themes"
-import { horizontalPadding } from "@utils/styles"
 import NavigationBar from "@components/NavigationBar"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
@@ -30,7 +29,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ThemeProvider attribute="class" storageKey="marketplace-theme" defaultTheme="system">
       <NavigationBar />
-      <div className={horizontalPadding}>
+      <div className="px-body">
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Component {...pageProps} />
       </div>

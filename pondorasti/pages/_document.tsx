@@ -19,7 +19,7 @@ export default class Document extends NextDocument {
             rel="stylesheet"
           />
         </Head>
-        <body className="max-w-7xl mx-auto bg-gray-50 dark:bg-darkGray-600">
+        <body className="max-w-7xl mx-auto bg-gray-50">
           <Main />
           <NextScript />
         </body>

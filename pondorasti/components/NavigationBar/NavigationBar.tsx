@@ -1,7 +1,5 @@
 import Link from "next/link"
 import dynamic from 'next/dynamic'
-import classNames from "@utils/classNames"
-import { bluredBackground, navigationBarHeight, horizontalPadding, navigationBarLinkStyling } from "@utils/styles"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { DarkModeSwitch } from "react-toggle-dark-mode"
@@ -31,12 +29,9 @@ export default function NavigationBar(): JSX.Element {
   }
 
   return (
-    <header className={classNames("sticky top-0 z-30", bluredBackground, horizontalPadding)}>
+    <header className="sticky top-0 z-30 px-body bg-blur">
       <div
-        className={classNames(
-          "flex items-center justify-between py-5 border-b border-opacity-75 border-gray-200 dark:border-darkGray-800",
-          navigationBarHeight
-        )}
+        className="flex items-center justify-between py-5 border-b border-opacity-75 border-gray-200 h-navbar bg-blur"
       >
         <Link href="/">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -48,18 +43,18 @@ export default function NavigationBar(): JSX.Element {
         <div className="flex items-center space-x-3">
           <Link href="/journal">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a className={navigationBarLinkStyling}>Journal</a>
+            <a className="navbar-link">Journal</a>
           </Link>
 
           <DynamicDarkModeSwitch
-            className={navigationBarLinkStyling}
+            className="navbar-link"
             checked={resolvedTheme === "dark"}
             onChange={handleDarkModeSwitch}
             size={20}
           />
 
           <a
-            className={navigationBarLinkStyling}
+            className="navbar-link"
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/pondorasti/"
