@@ -2,21 +2,21 @@ module.exports = {
   rewrites: async () => {
     return [
       {
-        source: "/secret/:github-contributions",
-        destination: "/secret/:github-contributions/index.html",
+        source: "/secrets/:github-contributions",
+        destination: "/secrets/:github-contributions/index.html",
       },
       {
-        source: "/secret/:90s-portfolio",
-        destination: "/secret/:90s-portfolio/index.html",
+        source: "/secrets/:90s-portfolio",
+        destination: "/secrets/:90s-portfolio/index.html",
       },
       {
-        source: "/secret/:teamo-design",
-        destination: "/secret/:teamo-design/index.html",
+        source: "/secrets/:teamo-design",
+        destination: "/secrets/:teamo-design/index.html",
       },
       {
         source: "/:journal",
-        destination: "/secret/:journal/index.html",
-      }
+        destination: "/secrets/:journal/index.html",
+      },
     ]
-}
+  },
 }
