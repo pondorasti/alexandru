@@ -20,6 +20,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("nightwind"),
     require("@tailwindcss/line-clamp"),
+    require("nightwind"),
     plugin(function ({ addUtilities }) {
       addUtilities({
         ".h-navbar": {

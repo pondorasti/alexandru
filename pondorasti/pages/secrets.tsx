@@ -28,7 +28,7 @@ export default function Secret() {
         </thead>
         <tbody>
           {secretWebsites.map((website) => (
-            <tr>
+            <tr key={website.name}>
               <td className={rowStyling}>
                 <a href={website.link} target="_blank">{website.name}</a>
               </td>
