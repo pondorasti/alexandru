@@ -18,6 +18,10 @@ module.exports = {
         destination: "/secrets/amie/index.html",
       },
       {
+        source: "/secrets/the-rise-of-micro-computers",
+        destination: "/secrets/the-rise-of-micro-computers/index.html",
+      },
+      {
         source: "/secrets/90s-portfolio",
         destination: "/secrets/90s-portfolio/index.html",
       },

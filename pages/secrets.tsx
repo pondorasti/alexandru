@@ -10,7 +10,7 @@ const secretWebsites: IWebsite[] = [
   { name: "github-contributions", description: "Utility URL for showing Github stats on my always on display", creationDate: "Nov 2020", link: "/secrets/github-contributions" },
   { name: "sushi", description: "Just a Netflix meme...", creationDate: "Nov 2020", link: "/secrets/sushi" },
   { name: "amie", description: "An amie.so clone to hone my skills", creationDate: "Oct 2020", link: "/secrets/amie" },
-  { name: "the-rise-of-microcontrollers", description: "Portfolio inspired by Raspberry Pi's CLI", creationDate: "Sep 2020", link: "/secrets/90s-portfolio" },
+  { name: "the-rise-of-micro-computers", description: "Fun design challenge!", creationDate: "Sep 2020", link: "/secrets/the-rise-of-micro-computers" },
   { name: "90s-portfolio", description: "Portfolio inspired by Raspberry Pi's CLI", creationDate: "Sep 2020", link: "/secrets/90s-portfolio" },
   { name: "og-personal-website", description: "My first proper personal website", creationDate: "Sep 2019", link: "/" },
   { name: "national-day", description: "The first website I've ever created", creationDate: "Sep 2017", link: "/secrets/national-day" },
