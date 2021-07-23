@@ -6,9 +6,10 @@ interface IWebsite {
 }
 
 const secretWebsites: IWebsite[] = [
-  { name: "90s-portfolio", description: "Inspired by Raspberry Pi's CLI", creationDate: "Sep 2020", link: "/secrets/90s-portfolio" },
   { name: "teamo-design", description: "Design Assets of my first startup", creationDate: "Dec 2020", link: "/secrets/teamo-design" },
   { name: "github-contributions", description: "Utility URL for showing Github stats on my always on display", creationDate: "Nov 2020", link: "/secrets/github-contributions" },
+  { name: "amie", description: "An amie.so clone to hone my skills", creationDate: "Oct 2020", link: "/secrets/amie" },
+  { name: "90s-portfolio", description: "Inspired by Raspberry Pi's CLI", creationDate: "Sep 2020", link: "/secrets/90s-portfolio" },
   { name: "og-personal-website", description: "My first proper personal website", creationDate: "Sep 2019", link: "/" },
 ]
 
