@@ -33,6 +33,10 @@ module.exports = {
         source: "/experience",
         destination: "/secrets/og-personal-website/experience/index.html",
       },
+      {
+        source: "/secrets/national-day",
+        destination: "/secrets/national-day/index.html",
+      },
     ]
   },
 }

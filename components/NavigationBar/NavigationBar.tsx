@@ -41,11 +41,6 @@ export default function NavigationBar(): JSX.Element {
         </Link>
 
         <div className="flex items-center space-x-3">
-          <Link href="/journal">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a className="navbar-link">Journal</a>
-          </Link>
-
           <DynamicDarkModeSwitch
             className="navbar-link"
             checked={resolvedTheme === "dark"}
