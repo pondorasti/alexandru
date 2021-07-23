@@ -2,6 +2,10 @@ module.exports = {
   rewrites: async () => {
     return [
       {
+        source: "/resume",
+        destination: "/assets/resume.pdf",
+      },
+      {
         source: "/secrets/teamo-design",
         destination: "/secrets/teamo-design/index.html",
       },
