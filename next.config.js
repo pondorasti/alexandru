@@ -10,6 +10,10 @@ module.exports = {
         destination: "/secrets/github-contributions/index.html",
       },
       {
+        source: "/secrets/sushi",
+        destination: "/secrets/sushi/index.html",
+      },
+      {
         source: "/secrets/amie",
         destination: "/secrets/amie/index.html",
       },
