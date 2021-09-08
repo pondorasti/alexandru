@@ -13,36 +13,40 @@ const secretWebsites: IWebsite[] = [
   { name: "the-rise-of-micro-computers", description: "Fun design challenge!", creationDate: "Sep 2020", link: "/secrets/the-rise-of-micro-computers" },
   { name: "90s-portfolio", description: "Portfolio inspired by Raspberry Pi's CLI", creationDate: "Sep 2020", link: "/secrets/90s-portfolio" },
   { name: "og-personal-website", description: "My first proper personal website", creationDate: "Sep 2019", link: "/" },
-  { name: "national-day", description: "The first website I've ever created", creationDate: "Sep 2017", link: "/secrets/national-day" },
+  { name: "national-day", description: "The first website I've ever created!", creationDate: "Sep 2017", link: "/secrets/national-day" },
 ]
 
 export default function Secret() {
-
-  const headerStyling = "border-b-[3px] uppercase text-left text-xs font-medium tracking-wider py-1 px-3 text-gray-500 border-gray-500"
-  const rowStyling = "p-3 text-gray-900"
+  const headerStyling = "uppercase text-left text-xs font-semibold tracking-wider p-3 text-gray-500"
+  const rowStyling = "p-3 text-gray-900 whitespace-nowrap"
+  const linkStyling = "text-blue-600 hover:text-blue-700 hover:underline"
 
   return (
-    <main className="`pt-10">
-      <table className="table-auto w-full">
-        <thead>
-          <tr>
-            <th className={headerStyling}>Website</th>
-            <th className={headerStyling}>Description</th>
-            <th className={headerStyling}>Crafted In</th>
-          </tr>
-        </thead>
-        <tbody>
-          {secretWebsites.map((website) => (
-            <tr key={website.name}>
-              <td className={rowStyling}>
-                <a href={website.link} target="_blank">{website.name}</a>
-              </td>
-              <td className={rowStyling}>{website.description}</td>
-              <td className={rowStyling}>{website.creationDate}</td>
+    <main className="pt-10">
+      <h3 className="text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mb-3">Secrets</h3>
+      <p className="text-gray-500 mb-5">A collection of projects which I have worked on.</p>
+      <div className="shadow-lg overflow-x-auto border border-gray-200 rounded-lg"> 
+        <table className="table-auto w-full">
+          <thead className="border-b border-gray-200">
+            <tr>
+              <th className={headerStyling}>Website</th>
+              <th className={headerStyling}>Description</th>
+              <th className={headerStyling}>Crafted In</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {secretWebsites.map((website, index) => (
+              <tr key={website.name} className={index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50"}>
+                <td className={rowStyling}>
+                  <a className={linkStyling} href={website.link} target="_blank">{website.name}</a>
+                </td>
+                <td className={rowStyling}>{website.description}</td>
+                <td className={rowStyling}>{website.creationDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   )
 }
