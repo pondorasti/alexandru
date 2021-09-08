@@ -6,6 +6,8 @@ interface IWebsite {
 }
 
 const secretWebsites: IWebsite[] = [
+  { name: "makeschool.fail", description: "A conservatory of everything Make School related before it shutdown", creationDate: "Jul 2021", link: "https://makeschool.fail/" },
+  { name: "scriptcommands.com", description: "Unofficial Marketplace for Raycast Script Commands", creationDate: "Mar 2021", link: "https://scriptcommands.com/" },
   { name: "teamo-design", description: "Design Assets of my first startup", creationDate: "Dec 2020", link: "/secrets/teamo-design" },
   { name: "github-contributions", description: "Utility URL for showing Github stats on my always on display", creationDate: "Nov 2020", link: "/secrets/github-contributions" },
   { name: "sushi", description: "Just a Netflix meme...", creationDate: "Nov 2020", link: "/secrets/sushi" },
