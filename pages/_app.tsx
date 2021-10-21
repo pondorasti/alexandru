@@ -12,6 +12,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const router = useRouter()
   useEffect(() => {
     Fathom.load("LTCIFPOU", {
+      url: "https://rook.alexandru.so/script.js",
       includedDomains: ["alexandru.so"],
     })
 
