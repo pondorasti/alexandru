@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+
+    // Enables eslint-plugin-prettier and eslint-config-prettier.
+    // Also disables ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier.
+    // This will display prettier errors as ESLint errors.
+    // Make sure this is always the last configuration in the extends array.
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "react-hooks/exhaustive-deps": "off"
+  }
+}
