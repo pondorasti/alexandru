@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@notionhq/client": "^0.4.4",
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/line-clamp": "^0.2.1",
     "@tailwindcss/typography": "^0.4.1",

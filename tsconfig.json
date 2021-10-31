@@ -20,7 +20,8 @@
     "paths": {
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"]
-    }
+    },
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.js", "**/*.tsx"],
   "exclude": ["node_modules"]
