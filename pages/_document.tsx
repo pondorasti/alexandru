@@ -19,7 +19,10 @@ export default class Document extends NextDocument {
             rel="stylesheet"
           />
 
-          <meta name="description" content="This the personal website of Alexandru Turcanu, also known as Pondorasti." />
+          <meta
+            name="description"
+            content="This the personal website of Alexandru Turcanu, also known as Pondorasti."
+          />
         </Head>
         <body className="max-w-7xl mx-auto bg-gray-50">
           <Main />
