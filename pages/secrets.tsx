@@ -1,24 +1,30 @@
-interface IWebsite {
-  name: string;
-  description: string;
-  creationDate: string;
-  link: string;
+import { InferGetStaticPropsType } from 'next'
+import notion from "@utils/notionClient"
+
+export const getStaticProps = async () => {
+  const database_id = "535325d661164beeac5e561977f25fca" // Secrets Database
+  const response = await notion.databases.query({database_id, sorts: [
+    {
+      property: 'Order',
+      direction: 'ascending',
+    },
+  ]})
+  const secrets = response.results.reverse().map(({properties}: any) => ({
+      name: properties["Name"].title[0].plain_text,
+      description: properties["Description"].rich_text[0].plain_text,
+      creationDate: properties["Creation Date"].rich_text[0].plain_text,
+      link: properties["Link"].url,
+    })
+  )
+
+  return {
+    props: {
+      secrets: secrets
+    }
+  }
 }
 
-const secretWebsites: IWebsite[] = [
-  { name: "makeschool.fail", description: "A conservatory of everything Make School related before it shutdown", creationDate: "Jul 2021", link: "https://makeschool.fail/" },
-  { name: "scriptcommands.com", description: "Unofficial Marketplace for Raycast Script Commands", creationDate: "Mar 2021", link: "https://scriptcommands.com/" },
-  { name: "teamo-design", description: "Design Assets of my first startup", creationDate: "Dec 2020", link: "/secrets/teamo-design" },
-  { name: "github-contributions", description: "Utility URL for showing Github stats on my always on display", creationDate: "Nov 2020", link: "/secrets/github-contributions" },
-  { name: "sushi", description: "Just a Netflix meme...", creationDate: "Nov 2020", link: "/secrets/sushi" },
-  { name: "amie", description: "An amie.so clone to hone my skills", creationDate: "Oct 2020", link: "/secrets/amie" },
-  { name: "the-rise-of-micro-computers", description: "Fun design challenge!", creationDate: "Sep 2020", link: "/secrets/the-rise-of-micro-computers" },
-  { name: "90s-portfolio", description: "Portfolio inspired by Raspberry Pi's CLI", creationDate: "Sep 2020", link: "/secrets/90s-portfolio" },
-  { name: "og-personal-website", description: "My first proper personal website", creationDate: "Sep 2019", link: "/" },
-  { name: "national-day", description: "The first website I've ever created!", creationDate: "Sep 2017", link: "/secrets/national-day" },
-]
-
-export default function Secret() {
+export default function Secret({ secrets }: InferGetStaticPropsType<typeof getStaticProps>) {
   const headerStyling = "uppercase text-left text-xs font-semibold tracking-wider p-3 text-gray-500"
   const rowStyling = "p-3 text-gray-900 whitespace-nowrap"
   const linkStyling = "text-blue-600 hover:text-blue-700 hover:underline"
@@ -37,7 +43,7 @@ export default function Secret() {
             </tr>
           </thead>
           <tbody>
-            {secretWebsites.map((website, index) => (
+            {secrets.map((website, index) => (
               <tr key={website.name} className={index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50"}>
                 <td className={rowStyling}>
                   <a className={linkStyling} href={website.link} target="_blank">{website.name}</a>
