@@ -3,13 +3,39 @@ const plugin = require("tailwindcss/plugin")
 
 module.exports = {
   mode: "jit",
-  purge: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./utils/**/*.{js,ts,jsx,tsx}",
-  ],
+  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./utils/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class", // or 'media' or 'class'
   theme: {
+    nightwind: {
+      typography: {
+        color: "#c2c7ca",
+        h1: {
+          color: "#f4f4f6",
+        },
+        h2: {
+          color: "#f4f4f6",
+        },
+        h3: {
+          color: "#f4f4f6",
+        },
+        h4: {
+          color: "#f4f4f6",
+        },
+        pre: {
+          color: "gray.200",
+          backgroundColor: "#18191a",
+        },
+        a: {
+          color: "gray.400",
+        },
+        code: {
+          color: "gray.400",
+        },
+        "a code": {
+          color: "gray.400",
+        },
+      },
+    },
     extend: {},
   },
   variants: {
