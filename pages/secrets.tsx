@@ -32,9 +32,9 @@ export default function Secret({ secrets }: InferGetStaticPropsType<typeof getSt
   const linkStyling = "text-blue-600 hover:text-blue-700 hover:underline"
 
   return (
-    <main className="pt-10">
-      <h3 className="text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mb-3">Secrets</h3>
-      <p className="text-gray-500 mb-5">A collection of projects which I have worked on.</p>
+    <main>
+      <h3 className="title1">Secrets</h3>
+      <p className="subtitle">A collection of projects which I have worked on.</p>
       <div className="shadow-lg overflow-x-auto border border-gray-200 rounded-lg">
         <table className="table-auto w-full">
           <thead className="border-b border-gray-200">

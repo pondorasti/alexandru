@@ -64,6 +64,12 @@ module.exports = {
         ".px-body": {
           "@apply px-4 sm:px-6 xl:px-8": {},
         },
+        ".title1": {
+          "@apply text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mb-3": {},
+        },
+        ".subtitle": {
+          "@apply text-gray-500 mb-5": {},
+        },
         kbd: {
           "@apply inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400":
             {},
