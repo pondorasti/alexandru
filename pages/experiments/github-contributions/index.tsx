@@ -1,17 +1,35 @@
 import { useRef, useEffect } from "react"
 import * as d3 from "d3"
-import payload from "./payload.json"
+import { fetchContributions, IContributionsCollection } from "./fetchContributions"
 
 export default function GithubContributions() {
   const svgRef = useRef<SVGSVGElement>(null)
 
-  function drawChart() {
+  function drawChart(payload: IContributionsCollection) {
     const contributions = payload.data.user.contributionsCollection.contributionCalendar.weeks
 
     const chartWidth = 740
     const chartHeight = 88
     const topMargin = 12
     const leftMargin = 24
+
+    // Source: https://github.com/github/feedback/discussions/7078
+    const colorPallete = {
+      dark: {
+        NONE: "#161B22",
+        FIRST_QUARTILE: "#0E4429",
+        SECOND_QUARTILE: "#006D32",
+        THIRD_QUARTILE: "#26A641",
+        FOURTH_QUARTILE: "#39D353",
+      },
+      light: {
+        NONE: "#EBEDF0",
+        FIRST_QUARTILE: "#9BE9A8",
+        SECOND_QUARTILE: "#30C463",
+        THIRD_QUARTILE: "#30A14E",
+        FOURTH_QUARTILE: "#216d39",
+      },
+    }
 
     const fontFamily =
       "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'"
@@ -25,7 +43,7 @@ export default function GithubContributions() {
     const chartContainer = svg
       .append("g")
       .attr("id", "chartContainer")
-      .attr("transform", (d, i) => `translate(${leftMargin}, ${topMargin})`)
+      .attr("transform", `translate(${leftMargin}, ${topMargin})`)
     const weekPaths = chartContainer
       .selectAll("g")
       .data(contributions)
@@ -50,7 +68,7 @@ export default function GithubContributions() {
         "style",
         "shape-rendering: geometricPrecision; outline: 1px solid rgba(27, 31, 35, 0.06); outline-offset: -1px; border-radius: 2px"
       )
-      .attr("fill", (d) => d.color)
+      .attr("fill", (d) => colorPallete.light[d.contributionLevel])
 
     // Top Axis
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -84,8 +102,13 @@ export default function GithubContributions() {
       .style("font-family", fontFamily)
   }
 
+  async function render() {
+    const payload = await fetchContributions("pondorasti")
+    drawChart(payload)
+  }
+
   useEffect(() => {
-    drawChart()
+    render()
   }, [svgRef])
 
   return (
