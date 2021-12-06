@@ -2,6 +2,7 @@ export interface IContributionWeek {
   color: string
   contributionCount: number
   contributionLevel: "NONE" | "FIRST_QUARTILE" | "SECOND_QUARTILE" | "THIRD_QUARTILE" | "FOURTH_QUARTILE"
+  date: string
 }
 
 export interface IContributionsCollection {
@@ -35,6 +36,7 @@ export async function fetchContributions(username: string): Promise<IContributio
                   color
                   contributionCount
                   contributionLevel
+                  date
                 }
               }
             }
