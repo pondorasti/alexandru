@@ -1,6 +1,103 @@
 import { useState, useEffect, RefObject, createRef } from "react"
 import * as d3 from "d3"
-import { fetchAllContributions, IContributionsCollection } from "./fetchContributions"
+import { SearchIcon } from "@heroicons/react/solid"
+
+const api = "https://api.github.com/graphql"
+const ghToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN ?? ""
+const ghHeaders = { Authorization: `bearer ${ghToken}` }
+
+interface IContributionWeek {
+  color: string
+  contributionCount: number
+  contributionLevel: "NONE" | "FIRST_QUARTILE" | "SECOND_QUARTILE" | "THIRD_QUARTILE" | "FOURTH_QUARTILE"
+  date: string
+}
+interface IContributionsCollection {
+  data: {
+    user: {
+      contributionsCollection: {
+        year?: number
+        contributionYears: number[]
+        contributionCalendar: {
+          totalContributions: number
+          weeks: {
+            contributionDays: IContributionWeek[]
+          }[]
+        }
+      }
+    }
+  }
+}
+
+async function fetchYearlyContributions(username: string, year: number): Promise<IContributionsCollection> {
+  const body = {
+    query: `query {
+        user(login: "${username}") {
+          contributionsCollection(from: "${year}-01-01T00:00:00.000Z", to: "${year}-12-31T00:00:00.000Z") {
+            contributionCalendar {
+              totalContributions
+              weeks {
+                contributionDays {
+                  color
+                  contributionCount
+                  contributionLevel
+                  date
+                }
+              }
+            }
+          }
+        }
+      }`,
+  }
+  const response = await fetch(api, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: ghHeaders,
+  })
+  const data = (await response.json()) as IContributionsCollection
+  data.data.user.contributionsCollection.year = year
+
+  return data
+}
+
+export async function fetchAllContributions(username: string): Promise<IContributionsCollection[]> {
+  const body = {
+    query: `query {
+        user(login: "${username}") {
+          contributionsCollection {
+            contributionYears
+            contributionCalendar {
+              totalContributions
+              weeks {
+                contributionDays {
+                  color
+                  contributionCount
+                  contributionLevel
+                  date
+                }
+              }
+            }
+          }
+        }
+      }`,
+  }
+  const response = await fetch(api, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: ghHeaders,
+  })
+  const collections: IContributionsCollection[] = []
+  const currentCollection = (await response.json()) as IContributionsCollection
+  collections.push(currentCollection)
+
+  const years = currentCollection.data.user.contributionsCollection.contributionYears
+  for (let year of years) {
+    const collection = fetchYearlyContributions(username, year)
+    collections.push(await collection)
+  }
+
+  return collections
+}
 
 export default function GithubContributions() {
   const [collections, setCollections] = useState<IContributionsCollection[]>([])
@@ -137,14 +234,33 @@ export default function GithubContributions() {
   }, [svgRefs])
 
   return (
-    <div className="mb-6">
+    <div className="flex flex-col items-center">
+      <div>
+        <h2 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          Github Contributions
+        </h2>
+        <p className="mt-4 max-w-3xl mx-auto text-center text-xl text-gray-500">
+          visualize, analyze and contrast your commits
+        </p>
+        <div className="mt-8 mb-12 relative rounded-md shadow-sm w-96">
+          <input
+            className="focus:ring-red-500 focus:border-red-500 block text-xl border border-gray-300 rounded-lg w-96 p-4 pr-12"
+            placeholder="username"
+          />
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <SearchIcon className="h-8 w-8 text-gray-400" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
       {collections.map((item, i) => {
         const numberOfContributions = item.data.user.contributionsCollection.contributionCalendar.totalContributions
+        const year = item.data.user.contributionsCollection.year
         return (
           <div key={i} className="mb-8">
-            <div className="pb-2 pl-5">
-              {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in the last year
-            </div>
+            <span className="pb-2 pl-5 inline-block">
+              {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
+              {year !== undefined ? year : "the last year"}
+            </span>
             <svg ref={svgRefs[i]}></svg>
           </div>
         )
