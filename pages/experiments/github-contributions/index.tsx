@@ -1,11 +1,12 @@
-import { useRef, useEffect } from "react"
+import { useState, useEffect, RefObject, createRef } from "react"
 import * as d3 from "d3"
-import { fetchContributions, IContributionsCollection } from "./fetchContributions"
+import { fetchAllContributions, IContributionsCollection } from "./fetchContributions"
 
 export default function GithubContributions() {
-  const svgRef = useRef<SVGSVGElement>(null)
+  const [collections, setCollections] = useState<IContributionsCollection[]>([])
+  const [svgRefs, setSvgRefs] = useState<RefObject<SVGSVGElement>[]>([])
 
-  function drawChart(payload: IContributionsCollection) {
+  function drawChart(payload: IContributionsCollection, svgRef: RefObject<SVGSVGElement>) {
     const contributions = payload.data.user.contributionsCollection.contributionCalendar.weeks
 
     const chartWidth = 740
@@ -36,7 +37,9 @@ export default function GithubContributions() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     const months = contributions.reduce((months, item) => {
       item.contributionDays.forEach((contribution) => {
-        const date = new Date(contribution.date)
+        const utcDate = new Date(contribution.date)
+        const date = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000)
+
         const month = date.toLocaleDateString("en-us", { month: "short" })
         if (!months.includes(month)) {
           months.push(month)
@@ -49,6 +52,9 @@ export default function GithubContributions() {
       .select(svgRef.current)
       .attr("width", chartWidth + leftMargin)
       .attr("height", chartHeight + topMargin)
+
+    // clean-up previous render
+    svg.selectAll("*").remove()
 
     // Chart
     const chartContainer = svg
@@ -109,18 +115,40 @@ export default function GithubContributions() {
       .style("font-family", fontFamily)
   }
 
-  async function render() {
-    const payload = await fetchContributions("pondorasti")
-    drawChart(payload)
+  async function fetchData() {
+    const payload = await fetchAllContributions("pondorasti")
+
+    const newRefs = new Array(payload.length).fill(undefined).map((_, i) => svgRefs[i] || createRef<SVGSVGElement>())
+
+    setCollections(payload)
+    setSvgRefs(newRefs)
   }
 
   useEffect(() => {
-    render()
-  }, [svgRef])
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    collections.forEach((item, i) => {
+      if (svgRefs[i] && svgRefs[i].current) {
+        drawChart(item, svgRefs[i])
+      }
+    })
+  }, [svgRefs])
 
   return (
-    <div>
-      <svg ref={svgRef}></svg>
+    <div className="mb-6">
+      {collections.map((item, i) => {
+        const numberOfContributions = item.data.user.contributionsCollection.contributionCalendar.totalContributions
+        return (
+          <div key={i} className="mb-8">
+            <div className="pb-2 pl-5">
+              {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in the last year
+            </div>
+            <svg ref={svgRefs[i]}></svg>
+          </div>
+        )
+      })}
     </div>
   )
 }
