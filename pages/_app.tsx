@@ -28,7 +28,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   }, [])
 
   return (
-    <ThemeProvider attribute="class" storageKey="marketplace-theme" defaultTheme="system">
+    <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
       <NavigationBar />
       <div className="px-body">
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
