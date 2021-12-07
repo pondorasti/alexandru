@@ -1,5 +1,6 @@
 import { useState, useEffect, RefObject, createRef } from "react"
 import * as d3 from "d3"
+import { useTheme } from "next-themes"
 import { SearchIcon } from "@heroicons/react/solid"
 
 const api = "https://api.github.com/graphql"
@@ -100,6 +101,7 @@ export async function fetchAllContributions(username: string): Promise<IContribu
 }
 
 export default function GithubContributions() {
+  const { resolvedTheme } = useTheme()
   const [collections, setCollections] = useState<IContributionsCollection[]>([])
   const [svgRefs, setSvgRefs] = useState<RefObject<SVGSVGElement>[]>([])
 
@@ -114,7 +116,7 @@ export default function GithubContributions() {
     // Source: https://github.com/github/feedback/discussions/7078
     const colorPallete = {
       dark: {
-        NONE: "#161B22",
+        NONE: "#1F2937", //"#161B22"
         FIRST_QUARTILE: "#0E4429",
         SECOND_QUARTILE: "#006D32",
         THIRD_QUARTILE: "#26A641",
@@ -165,6 +167,7 @@ export default function GithubContributions() {
       .append("g")
       .attr("transform", (d, i) => `translate(${i * 14}, 0)`)
 
+    const outline = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(27, 31, 35, 0.06)"
     weekPaths
       .selectAll("rect")
       .data((d) => {
@@ -180,9 +183,11 @@ export default function GithubContributions() {
       .attr("ry", 2)
       .attr(
         "style",
-        "shape-rendering: geometricPrecision; outline: 1px solid rgba(27, 31, 35, 0.06); outline-offset: -1px; border-radius: 2px"
+        `shape-rendering: geometricPrecision; outline: 1px solid ${outline}; outline-offset: -1px; border-radius: 2px`
       )
-      .attr("fill", (d) => colorPallete.light[d.contributionLevel])
+      .attr("fill", (d) =>
+        resolvedTheme === "dark" ? colorPallete.dark[d.contributionLevel] : colorPallete.light[d.contributionLevel]
+      )
 
     // Top Axis
     const topAxis = svg.append("g").attr("id", "topAxis")
@@ -196,6 +201,7 @@ export default function GithubContributions() {
       .attr("y", (d) => 7)
       .style("font-size", "9px")
       .style("font-family", fontFamily)
+      .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
 
     // Left Axis
     const leftAxis = svg.append("g").attr("id", "leftAxis")
@@ -210,6 +216,7 @@ export default function GithubContributions() {
       .attr("style", (d, i) => `display: ${i % 2 === 1 ? "block" : "none"}`)
       .style("font-size", "9px")
       .style("font-family", fontFamily)
+      .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
   }
 
   async function fetchData() {
@@ -221,30 +228,34 @@ export default function GithubContributions() {
     setSvgRefs(newRefs)
   }
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  useEffect(() => {
+  function render() {
     collections.forEach((item, i) => {
       if (svgRefs[i] && svgRefs[i].current) {
         drawChart(item, svgRefs[i])
       }
     })
-  }, [svgRefs])
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    render()
+  }, [svgRefs, resolvedTheme])
 
   return (
-    <div className="flex flex-col items-center">
-      <div>
+    <div className="flex flex-col md:items-center">
+      <div className="flex flex-col items-center">
         <h2 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
           Github Contributions
         </h2>
         <p className="mt-4 max-w-3xl mx-auto text-center text-xl text-gray-500">
           visualize, analyze and contrast your commits
         </p>
-        <div className="mt-8 mb-12 relative rounded-md shadow-sm w-96">
+        <div className="mt-8 mb-12 relative rounded-md shadow-sm w-full md:w-96">
           <input
-            className="focus:ring-red-500 focus:border-red-500 block text-xl border border-gray-300 rounded-lg w-96 p-4 pr-12"
+            className="focus:ring-red-500 focus:border-red-500 dark:bg-gray-800 dark:bg-opacity-40 block text-xl border border-gray-300 rounded-lg w-full md:w-96 p-4 pr-12"
             placeholder="username"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -256,11 +267,11 @@ export default function GithubContributions() {
         const numberOfContributions = item.data.user.contributionsCollection.contributionCalendar.totalContributions
         const year = item.data.user.contributionsCollection.year
         return (
-          <div key={i} className="mb-8">
-            <span className="pb-2 pl-5 inline-block">
+          <div key={i} className="mb-8 overflow-x-scroll">
+            <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-900">
               {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
               {year !== undefined ? year : "the last year"}
-            </span>
+            </p>
             <svg ref={svgRefs[i]}></svg>
           </div>
         )
