@@ -36,7 +36,11 @@ module.exports = {
         },
       },
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
   variants: {
     extend: {},
