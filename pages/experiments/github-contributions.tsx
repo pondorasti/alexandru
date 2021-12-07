@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject, createRef } from "react"
+import { useState, useEffect, RefObject, createRef, useRef } from "react"
 import * as d3 from "d3"
 import { useTheme } from "next-themes"
 import { SearchIcon } from "@heroicons/react/solid"
@@ -61,7 +61,7 @@ async function fetchYearlyContributions(username: string, year: number): Promise
   return data
 }
 
-export async function fetchAllContributions(username: string): Promise<IContributionsCollection[]> {
+async function fetchAllContributions(username: string): Promise<IContributionsCollection[]> {
   const body = {
     query: `query {
         user(login: "${username}") {
@@ -102,6 +102,8 @@ export async function fetchAllContributions(username: string): Promise<IContribu
 
 export default function GithubContributions() {
   const { resolvedTheme } = useTheme()
+  const [loading, setLoading] = useState(false)
+  const usernameRef = useRef<HTMLInputElement>(null)
   const [collections, setCollections] = useState<IContributionsCollection[]>([])
   const [svgRefs, setSvgRefs] = useState<RefObject<SVGSVGElement>[]>([])
 
@@ -130,6 +132,7 @@ export default function GithubContributions() {
         FOURTH_QUARTILE: "#216d39",
       },
     }
+    const rectOutline = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(27, 31, 35, 0.06)"
     const fontFamily =
       "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'"
 
@@ -167,7 +170,6 @@ export default function GithubContributions() {
       .append("g")
       .attr("transform", (d, i) => `translate(${i * 14}, 0)`)
 
-    const outline = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(27, 31, 35, 0.06)"
     weekPaths
       .selectAll("rect")
       .data((d) => {
@@ -183,7 +185,7 @@ export default function GithubContributions() {
       .attr("ry", 2)
       .attr(
         "style",
-        `shape-rendering: geometricPrecision; outline: 1px solid ${outline}; outline-offset: -1px; border-radius: 2px`
+        `shape-rendering: geometricPrecision; outline: 1px solid ${rectOutline}; outline-offset: -1px; border-radius: 2px`
       )
       .attr("fill", (d) =>
         resolvedTheme === "dark" ? colorPallete.dark[d.contributionLevel] : colorPallete.light[d.contributionLevel]
@@ -217,10 +219,15 @@ export default function GithubContributions() {
       .style("font-size", "9px")
       .style("font-family", fontFamily)
       .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
+
+    setLoading(false)
   }
 
   async function fetchData() {
-    const payload = await fetchAllContributions("pondorasti")
+    setLoading(true)
+
+    const username = usernameRef.current?.value || ""
+    const payload = await fetchAllContributions(username)
 
     const newRefs = new Array(payload.length).fill(undefined).map((_, i) => svgRefs[i] || createRef<SVGSVGElement>())
 
@@ -253,15 +260,42 @@ export default function GithubContributions() {
         <p className="mt-4 max-w-3xl mx-auto text-center text-xl text-gray-500">
           visualize, analyze and contrast your commits
         </p>
-        <div className="mt-8 mb-12 relative rounded-md shadow-sm w-full md:w-96">
+        <form
+          className="mt-8 mb-12 relative rounded-md shadow-sm w-full md:w-96"
+          onSubmit={(event) => {
+            event.preventDefault()
+            fetchData()
+          }}
+        >
           <input
-            className="focus:ring-red-500 focus:border-red-500 dark:bg-gray-800 dark:bg-opacity-40 block text-xl border border-gray-300 rounded-lg w-full md:w-96 p-4 pr-12"
+            className="focus:ring-red-500 focus:border-red-500 dark:bg-gray-800 dark:bg-opacity-40 block text-xl border border-gray-300 rounded-lg w-full md:w-96 p-4 pr-14"
+            type="text"
             placeholder="username"
+            defaultValue="pondorasti"
+            ref={usernameRef}
           />
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <SearchIcon className="h-8 w-8 text-gray-400" aria-hidden="true" />
-          </div>
-        </div>
+          <button className="absolute inset-y-0 right-0 px-3 flex items-center" onClick={() => fetchData()}>
+            {!loading ? (
+              <SearchIcon className="h-8 w-8 text-gray-400" aria-hidden="true" />
+            ) : (
+              <div className="h-8 w-8 flex">
+                <svg
+                  className="animate-spin h-6 w-6 text-black m-auto"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              </div>
+            )}
+          </button>
+        </form>
       </div>
       {collections.map((item, i) => {
         const numberOfContributions = item.data.user.contributionsCollection.contributionCalendar.totalContributions
