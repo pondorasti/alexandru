@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject, createRef, useRef } from "react"
+import { useState, useEffect, RefObject, createRef, useRef, Fragment } from "react"
 import * as d3 from "d3"
 import { useTheme } from "next-themes"
 import { SearchIcon } from "@heroicons/react/solid"
@@ -268,7 +268,7 @@ export default function GithubContributions() {
           }}
         >
           <input
-            className="focus:ring-red-500 focus:border-red-500 dark:bg-gray-800 dark:bg-opacity-40 block text-xl border border-gray-300 rounded-lg w-full md:w-96 p-4 pr-14"
+            className="focus:ring-blue-300 focus:border-blue-300 dark:focus:ring-blue-900 dark:focus:border-blue-900 dark:bg-gray-800 dark:bg-opacity-40 block text-xl border border-gray-300 rounded-lg w-full md:w-96 p-4 pr-14"
             type="text"
             placeholder="username"
             defaultValue="pondorasti"
@@ -301,13 +301,16 @@ export default function GithubContributions() {
         const numberOfContributions = item.data.user.contributionsCollection.contributionCalendar.totalContributions
         const year = item.data.user.contributionsCollection.year
         return (
-          <div key={i} className="mb-8 overflow-x-scroll">
-            <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-900">
-              {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
-              {year !== undefined ? year : "the last year"}
-            </p>
-            <svg ref={svgRefs[i]}></svg>
-          </div>
+          <Fragment key={i}>
+            <div className="mb-8 overflow-x-scroll">
+              <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-900">
+                {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
+                {year !== undefined ? year : "the last year"}
+              </p>
+              <svg ref={svgRefs[i]}></svg>
+            </div>
+            {i === 0 && <div className="mb-8 max-w-screen-md w-full bg-gray-200 bg-opacity-75 h-px" />}
+          </Fragment>
         )
       })}
     </div>
