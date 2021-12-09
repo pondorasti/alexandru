@@ -371,16 +371,27 @@ export default function GithubContributions() {
           </button>
         </form>
       </div>
-      {error && (
-        <div className="flex flex-col items-center">
-          {/* <h2 className="mt-2 text-2xl font-extrabold tracking-tight">Uh oh! I think you’re lost</h2> */}
-          <p className="mt-2 text-black text-lg text-gray-500">
-            Uh oh! It looks like the user you&apos;re looking for doesn&#39;t exist.
-          </p>
-        </div>
-      )}
+      <div
+        className={classNames(
+          "flex flex-col items-center",
+          "transition duration-300 ease-out transform",
+          loading || !error ? "opacity-0" : "opacity-100",
+          loading || !error ? "" : "translate-y-4"
+        )}
+      >
+        <p className="mt-2 text-black text-lg text-gray-500">
+          Uh oh! It looks like the user you&apos;re looking for doesn&#39;t exist.
+        </p>
+      </div>
 
-      <div className={classNames(error ? "opacity-0" : "opacity-100")}>
+      <div
+        className={classNames(
+          "-mt-9",
+          "transition duration-300 ease-out transform",
+          loading || error ? "opacity-0" : "opacity-100",
+          loading || error ? "" : "translate-y-4"
+        )}
+      >
         {collections.map((item, i) => {
           const numberOfContributions = item.data.user.contributionsCollection.contributionCalendar.totalContributions
           const year = item.data.user.contributionsCollection.year
