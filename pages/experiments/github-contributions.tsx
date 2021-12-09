@@ -140,7 +140,7 @@ async function fetchAllContributions(username: string): Promise<IUserInformation
     const contributions = contributionCalendar.weeks
     totalContributions += contributionCalendar.totalContributions
     for (let contribution of [...contributions].reverse()) {
-      for (let day of contribution.contributionDays) {
+      for (let day of [...contribution.contributionDays].reverse()) {
         if (day.contributionCount === 0) {
           longestStreak = Math.max(potentialStreak, longestStreak)
           if (currentStreak === -1 && day.date < today) {
