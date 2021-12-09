@@ -2,6 +2,7 @@ import { useState, useEffect, RefObject, createRef, useRef, Fragment } from "rea
 import * as d3 from "d3"
 import { useTheme } from "next-themes"
 import { SearchIcon } from "@heroicons/react/solid"
+import classNames from "@utils/classNames"
 
 const api = "https://api.github.com/graphql"
 const ghToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN ?? ""
@@ -91,6 +92,10 @@ async function fetchAllContributions(username: string): Promise<IContributionsCo
   const currentCollection = (await response.json()) as IContributionsCollection
   collections.push(currentCollection)
 
+  if (currentCollection.data.user === null) {
+    throw new Error("User not found.")
+  }
+
   const years = currentCollection.data.user.contributionsCollection.contributionYears
   for (let year of years) {
     const collection = fetchYearlyContributions(username, year)
@@ -103,6 +108,7 @@ async function fetchAllContributions(username: string): Promise<IContributionsCo
 export default function GithubContributions() {
   const { resolvedTheme } = useTheme()
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const usernameRef = useRef<HTMLInputElement>(null)
   const [collections, setCollections] = useState<IContributionsCollection[]>([])
   const [svgRefs, setSvgRefs] = useState<RefObject<SVGSVGElement>[]>([])
@@ -220,22 +226,33 @@ export default function GithubContributions() {
       .style("font-family", fontFamily)
       .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
 
+    setError(false)
     setLoading(false)
+    console.log("hello")
   }
 
   async function fetchData() {
-    setLoading(true)
+    try {
+      console.log("fetch")
+      setLoading(true)
 
-    const username = usernameRef.current?.value || ""
-    const payload = await fetchAllContributions(username)
+      const username = usernameRef.current?.value || ""
+      const payload = await fetchAllContributions(username)
 
-    const newRefs = new Array(payload.length).fill(undefined).map((_, i) => svgRefs[i] || createRef<SVGSVGElement>())
+      const newRefs = new Array(payload.length).fill(undefined).map((_, i) => svgRefs[i] || createRef<SVGSVGElement>())
 
-    setCollections(payload)
-    setSvgRefs(newRefs)
+      setCollections(payload)
+      setSvgRefs(newRefs)
+      console.log("end fetch")
+    } catch (error) {
+      console.log("error")
+      setError(true)
+      setLoading(false)
+    }
   }
 
   function render() {
+    console.log(collections)
     collections.forEach((item, i) => {
       if (svgRefs[i] && svgRefs[i].current) {
         drawChart(item, svgRefs[i])
@@ -248,18 +265,17 @@ export default function GithubContributions() {
   }, [])
 
   useEffect(() => {
+    console.log("render")
     render()
   }, [svgRefs, resolvedTheme])
 
   return (
     <div className="flex flex-col md:items-center">
       <div className="flex flex-col items-center">
-        <h2 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+        <h1 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
           Github Contributions
-        </h2>
-        <p className="mt-4 max-w-3xl mx-auto text-center text-xl text-gray-500">
-          visualize, analyze and contrast your commits
-        </p>
+        </h1>
+        <p className="mt-4 text-xl text-gray-500 font-medium">visualize, analyze and contrast your commits</p>
         <form
           className="mt-8 mb-12 relative rounded-md shadow-sm w-full md:w-96"
           onSubmit={(event) => {
@@ -297,22 +313,34 @@ export default function GithubContributions() {
           </button>
         </form>
       </div>
-      {collections.map((item, i) => {
-        const numberOfContributions = item.data.user.contributionsCollection.contributionCalendar.totalContributions
-        const year = item.data.user.contributionsCollection.year
-        return (
-          <Fragment key={i}>
-            <div className="mb-8 overflow-x-scroll">
-              <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-900">
-                {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
-                {year !== undefined ? year : "the last year"}
-              </p>
-              <svg ref={svgRefs[i]}></svg>
-            </div>
-            {i === 0 && <div className="mb-8 max-w-screen-md w-full bg-gray-200 bg-opacity-75 h-px" />}
-          </Fragment>
-        )
-      })}
+      {error && (
+        <div className="flex flex-col items-center">
+          {/* <h2 className="mt-2 text-2xl font-extrabold tracking-tight">Uh oh! I think you’re lost</h2> */}
+          <p className="mt-2 text-black text-lg text-gray-500">
+            Uh oh! It looks like the user you&apos;re looking for doesn&#39;t exist.
+          </p>
+        </div>
+      )}
+
+      <div className={classNames(error ? "opacity-0" : "opacity-100")}>
+        {collections.map((item, i) => {
+          const numberOfContributions = item.data.user.contributionsCollection.contributionCalendar.totalContributions
+          const year = item.data.user.contributionsCollection.year
+
+          return (
+            <Fragment key={i}>
+              <div className="mb-8 overflow-x-scroll">
+                <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-900">
+                  {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
+                  {year !== undefined ? year : "the last year"}
+                </p>
+                <svg ref={svgRefs[i]}></svg>
+              </div>
+              {i === 0 && <div className="mb-8 max-w-screen-md w-full bg-gray-200 bg-opacity-75 h-px" />}
+            </Fragment>
+          )
+        })}
+      </div>
     </div>
   )
 }
