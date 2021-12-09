@@ -35,20 +35,17 @@ export default function NavigationBar(): JSX.Element {
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="text-gray-900 text-md font-normal">
             <span className="mr-2">🤯</span>
-            Alexandru Turcanu
+            Alexandru
           </a>
         </Link>
 
         <div className="flex items-center space-x-3">
-          <Link href="/guestbook">
-            <a className="navbar-link">Guestbook</a>
+          <Link href="/experiments/github-contributions">
+            <a className="navbar-link">Contributions</a>
           </Link>
           <Link href="/secrets">
             <a className="navbar-link">Secrets</a>
           </Link>
-        </div>
-
-        <div className="flex items-center space-x-3">
           {/* <a
             className="navbar-link"
             target="_blank"
