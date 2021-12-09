@@ -31,6 +31,32 @@ interface IContributionsCollection {
   }
 }
 
+interface IUserInsights {
+  longestStreak: number
+  currentStreak: number
+  totalContributions: number
+  firstContributionDate: string
+}
+interface IUserInformation {
+  collections: IContributionsCollection[]
+  insights: IUserInsights
+}
+
+function normalizeUtc(date: Date): Date {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+}
+
+function formatDate(date: Date): string {
+  const getOrdinalNum = (n: number) =>
+    n + (n > 0 ? ["th", "st", "nd", "rd"][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : "")
+
+  const day = getOrdinalNum(date.getDate())
+  const month = date.toLocaleDateString("en-us", { month: "long" })
+  const year = date.toLocaleDateString("en-us", { year: "numeric" })
+
+  return `${month} ${day} ${year}`
+}
+
 async function fetchYearlyContributions(username: string, year: number): Promise<IContributionsCollection> {
   const body = {
     query: `query {
@@ -62,7 +88,7 @@ async function fetchYearlyContributions(username: string, year: number): Promise
   return data
 }
 
-async function fetchAllContributions(username: string): Promise<IContributionsCollection[]> {
+async function fetchAllContributions(username: string): Promise<IUserInformation> {
   const body = {
     query: `query {
         user(login: "${username}") {
@@ -97,12 +123,42 @@ async function fetchAllContributions(username: string): Promise<IContributionsCo
   }
 
   const years = currentCollection.data.user.contributionsCollection.contributionYears
+
+  let longestStreak = 0
+  let currentStreak = -1
+  let potentialStreak = 0
+  let totalContributions = 0
+  let firstContributionDate = ""
+  let prevContribution = 0
+  const today = normalizeUtc(new Date()).toISOString().split("T")[0]
   for (let year of years) {
     const collection = fetchYearlyContributions(username, year)
-    collections.push(await collection)
+    const resolvedCollection = await collection
+    collections.push(resolvedCollection)
+
+    const contributionCalendar = resolvedCollection.data.user.contributionsCollection.contributionCalendar
+    const contributions = contributionCalendar.weeks
+    totalContributions += contributionCalendar.totalContributions
+    for (let contribution of [...contributions].reverse()) {
+      for (let day of contribution.contributionDays) {
+        if (day.contributionCount === 0) {
+          longestStreak = Math.max(potentialStreak, longestStreak)
+          if (currentStreak === -1 && day.date < today) {
+            currentStreak = Math.max(potentialStreak, currentStreak)
+          }
+
+          potentialStreak = 0
+        } else {
+          potentialStreak += 1
+          firstContributionDate = day.date
+        }
+
+        prevContribution = day.contributionCount
+      }
+    }
   }
 
-  return collections
+  return { collections, insights: { longestStreak, currentStreak, totalContributions, firstContributionDate } }
 }
 
 export default function GithubContributions() {
@@ -111,7 +167,13 @@ export default function GithubContributions() {
   const [error, setError] = useState(false)
   const usernameRef = useRef<HTMLInputElement>(null)
   const [collections, setCollections] = useState<IContributionsCollection[]>([])
+  const [insights, setInsights] = useState<IUserInsights>()
   const [svgRefs, setSvgRefs] = useState<RefObject<SVGSVGElement>[]>([])
+
+  const insightCardStyling =
+    "bg-white dark:bg-gray-800 border border-gray-200 shadow-lg hover:shadow-2xl p-6 flex flex-col items-center overflow-hidden !transform !transition !duration-300 !ease-out rounded-lg hover:scale-[1.03]"
+  const insightTitleStyling = "text-3xl font-bold"
+  const insightSubtitleStyling = "mt-1 text-md leading-6 font-medium text-gray-500"
 
   function drawChart(payload: IContributionsCollection, svgRef: RefObject<SVGSVGElement>) {
     const contributions = payload.data.user.contributionsCollection.contributionCalendar.weeks
@@ -145,8 +207,7 @@ export default function GithubContributions() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     const months = contributions.reduce((months, item) => {
       item.contributionDays.forEach((contribution) => {
-        const utcDate = new Date(contribution.date)
-        const date = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000)
+        const date = normalizeUtc(new Date(contribution.date))
 
         const month = date.toLocaleDateString("en-us", { month: "short" })
         if (!months.includes(month)) {
@@ -228,31 +289,29 @@ export default function GithubContributions() {
 
     setError(false)
     setLoading(false)
-    console.log("hello")
   }
 
   async function fetchData() {
     try {
-      console.log("fetch")
       setLoading(true)
 
       const username = usernameRef.current?.value || ""
       const payload = await fetchAllContributions(username)
 
-      const newRefs = new Array(payload.length).fill(undefined).map((_, i) => svgRefs[i] || createRef<SVGSVGElement>())
+      const newRefs = new Array(payload.collections.length)
+        .fill(undefined)
+        .map((_, i) => svgRefs[i] || createRef<SVGSVGElement>())
 
-      setCollections(payload)
+      setCollections(payload.collections)
+      setInsights(payload.insights)
       setSvgRefs(newRefs)
-      console.log("end fetch")
     } catch (error) {
-      console.log("error")
       setError(true)
       setLoading(false)
     }
   }
 
   function render() {
-    console.log(collections)
     collections.forEach((item, i) => {
       if (svgRefs[i] && svgRefs[i].current) {
         drawChart(item, svgRefs[i])
@@ -265,7 +324,6 @@ export default function GithubContributions() {
   }, [])
 
   useEffect(() => {
-    console.log("render")
     render()
   }, [svgRefs, resolvedTheme])
 
@@ -336,7 +394,31 @@ export default function GithubContributions() {
                 </p>
                 <svg ref={svgRefs[i]}></svg>
               </div>
-              {i === 0 && <div className="mb-8 max-w-screen-md w-full bg-gray-200 bg-opacity-75 h-px" />}
+              {i === 0 && (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-4 mb-8">
+                    <div className={insightCardStyling}>
+                      <div className={insightTitleStyling}>{insights?.currentStreak}</div>
+                      <div className={insightSubtitleStyling}>Current Streak</div>
+                    </div>
+                    <div className={insightCardStyling}>
+                      <div className={insightTitleStyling}>{insights?.longestStreak}</div>
+                      <div className={insightSubtitleStyling}>Longest Streak</div>
+                    </div>
+                    <div className={insightCardStyling}>
+                      <div className={insightTitleStyling}>{insights?.totalContributions}</div>
+                      <div className={insightSubtitleStyling}>Total Contributions</div>
+                    </div>
+                    <div className={insightCardStyling}>
+                      <div className={insightTitleStyling}>
+                        {formatDate(normalizeUtc(new Date(insights?.firstContributionDate ?? new Date())))}
+                      </div>
+                      <div className={insightSubtitleStyling}>First Contribution</div>
+                    </div>
+                  </div>
+                  <div className="mb-8 max-w-screen-md w-full bg-gray-200 bg-opacity-75 h-px" />
+                </>
+              )}
             </Fragment>
           )
         })}

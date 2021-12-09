@@ -30,7 +30,7 @@ export default function NavigationBar(): JSX.Element {
 
   return (
     <header className="sticky top-0 z-30 px-body bg-blur mb-10">
-      <div className="flex items-center justify-between py-5 border-b border-opacity-75 border-gray-200 h-navbar bg-blur">
+      <div className="flex items-center justify-between py-5 border-b border-opacity-75 border-gray-200 h-navbar">
         <Link href="/">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="text-gray-900 text-md font-normal">
