@@ -237,7 +237,7 @@ export default function GithubContributions() {
       .append("g")
       .attr("transform", (d, i) => `translate(${i * 14}, 0)`)
 
-    weekPaths
+    const contributionRects = weekPaths
       .selectAll("rect")
       .data((d) => {
         return d.contributionDays
@@ -256,6 +256,13 @@ export default function GithubContributions() {
       )
       .attr("fill", (d) =>
         resolvedTheme === "dark" ? colorPallete.dark[d.contributionLevel] : colorPallete.light[d.contributionLevel]
+      )
+      .append("title")
+      .text(
+        (d) =>
+          `${d.contributionCount} contribution${d.contributionCount === 1 ? "" : "s"} on ${formatDate(
+            normalizeUtc(new Date(d.date))
+          )}`
       )
 
     // Top Axis
@@ -286,6 +293,38 @@ export default function GithubContributions() {
       .style("font-size", "9px")
       .style("font-family", fontFamily)
       .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
+
+    // Tooltip
+    // const tooltip = svg.append("g").attr("id", "tooltip").style("opacity", 0)
+    // const tooltipText = tooltip
+    //   .append("text")
+    //   .attr("id", "tooltipText")
+    //   .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
+
+    // const mouseover = () => {
+    //   tooltip.style("opacity", 1)
+    // }
+
+    // const mouseleave = () => {
+    //   tooltip.style("opacity", 0)
+    // }
+
+    // const mousemove = (event: any, d: IContributionWeek) => {
+    //   tooltipText.text(
+    //     `${d.contributionCount} contribution${d.contributionCount === 1 ? "" : "s"} on ${formatDate(
+    //       normalizeUtc(new Date(d.date))
+    //     )}`
+    //   )
+
+    //   // const x = event.pageX
+    //   // const y = event.pageY
+    //   // console.log(`x: ${event.pageX}`)
+    //   // console.log(`y: ${event.pageY}`)
+    //   // console.log("\n")
+    //   const [x, y] = d3.pointer(event)
+    //   tooltip.attr("transform", `translate(${event.pageX}, ${y})`)
+    // }
+    // contributionRects.on("mousemove", mousemove).on("mouseleave", mouseleave).on("mouseover", mouseover)
 
     setError(false)
     setLoading(false)
@@ -403,7 +442,7 @@ export default function GithubContributions() {
                   {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
                   {year !== undefined ? year : "the last year"}
                 </p>
-                <svg ref={svgRefs[i]}></svg>
+                <svg ref={svgRefs[i]} className="overflow-visible" />
               </div>
               {i === 0 && (
                 <>
