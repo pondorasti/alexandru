@@ -27,7 +27,7 @@ export const getStaticProps = async () => {
 }
 
 export default function Secret({ secrets }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
-  const headerStyling = "uppercase text-left text-xs font-semibold tracking-wider p-3 text-gray-500"
+  const headerStyling = "uppercase text-left text-xs font-semibold tracking-wider p-3 text-gray-500 whitespace-nowrap"
   const rowStyling = "p-3 text-gray-900 whitespace-nowrap"
   const linkStyling = "text-blue-600 hover:text-blue-700 hover:underline"
 
