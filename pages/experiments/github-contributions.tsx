@@ -314,38 +314,6 @@ export default function GithubContributions() {
       .style("font-family", fontFamily)
       .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
 
-    // Tooltip
-    // const tooltip = svg.append("g").attr("id", "tooltip").style("opacity", 0)
-    // const tooltipText = tooltip
-    //   .append("text")
-    //   .attr("id", "tooltipText")
-    //   .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
-
-    // const mouseover = () => {
-    //   tooltip.style("opacity", 1)
-    // }
-
-    // const mouseleave = () => {
-    //   tooltip.style("opacity", 0)
-    // }
-
-    // const mousemove = (event: any, d: IContributionWeek) => {
-    //   tooltipText.text(
-    //     `${d.contributionCount} contribution${d.contributionCount === 1 ? "" : "s"} on ${formatDate(
-    //       normalizeUtc(new Date(d.date))
-    //     )}`
-    //   )
-
-    //   // const x = event.pageX
-    //   // const y = event.pageY
-    //   // console.log(`x: ${event.pageX}`)
-    //   // console.log(`y: ${event.pageY}`)
-    //   // console.log("\n")
-    //   const [x, y] = d3.pointer(event)
-    //   tooltip.attr("transform", `translate(${event.pageX}, ${y})`)
-    // }
-    // contributionRects.on("mousemove", mousemove).on("mouseleave", mouseleave).on("mouseover", mouseover)
-
     setError(false)
     setLoading(false)
   }
@@ -392,8 +360,9 @@ export default function GithubContributions() {
       usernameInput.value = String(search)
       fetchData(String(search))
     } else {
-      usernameInput.value = ""
-      fetchData("")
+      usernameInput.value = "pondorasti"
+      fetchData("pondorasti")
+      router.push("?search=pondorasti", undefined, { shallow: true })
     }
   }, [search])
 
@@ -424,7 +393,6 @@ export default function GithubContributions() {
             className="focus:ring-blue-300 focus:border-blue-300 dark:focus:ring-blue-900 dark:focus:border-blue-900 dark:bg-gray-800 dark:bg-opacity-40 block text-xl border border-gray-300 rounded-lg w-full md:w-96 p-4 pr-14"
             type="text"
             placeholder="username"
-            defaultValue="pondorasti"
             ref={usernameRef}
           />
           <button className="absolute inset-y-0 right-0 px-3 flex items-center" onClick={() => handleInput()}>
