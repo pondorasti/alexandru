@@ -5,6 +5,7 @@ import * as Fathom from "fathom-client"
 import "tailwindcss/tailwind.css"
 import { ThemeProvider } from "next-themes"
 import NavigationBar from "@components/NavigationBar"
+import Inspect from "inspx"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // Fathom
@@ -29,11 +30,13 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 
   return (
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
-      <NavigationBar />
-      <div className="px-body">
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <Component {...pageProps} />
-      </div>
+      <Inspect>
+        <NavigationBar />
+        <div className="px-body">
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Component {...pageProps} />
+        </div>
+      </Inspect>
     </ThemeProvider>
   )
 }
