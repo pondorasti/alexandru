@@ -129,7 +129,6 @@ async function fetchAllContributions(username: string): Promise<IUserInformation
   let potentialStreak = 0
   let totalContributions = 0
   let firstContributionDate = ""
-  let prevContribution = 0
   const today = normalizeUtc(new Date()).toISOString().split("T")[0]
   for (let year of years) {
     const collection = fetchYearlyContributions(username, year)
@@ -152,8 +151,6 @@ async function fetchAllContributions(username: string): Promise<IUserInformation
           potentialStreak += 1
           firstContributionDate = day.date
         }
-
-        prevContribution = day.contributionCount
       }
     }
   }
@@ -199,11 +196,25 @@ export default function GithubContributions() {
         THIRD_QUARTILE: "#30A14E",
         FOURTH_QUARTILE: "#216d39",
       },
+      halloweenDark: {
+        NONE: "#1F2937", //"#161B22"
+        FIRST_QUARTILE: "#631c03",
+        SECOND_QUARTILE: "#bd561d",
+        THIRD_QUARTILE: "#fa7a18",
+        FOURTH_QUARTILE: "#fddf68",
+      },
+      halloweenLight: {
+        NONE: "#ebedf0",
+        FIRST_QUARTILE: "#ffee4a",
+        SECOND_QUARTILE: "#ffc501",
+        THIRD_QUARTILE: "#fe9600",
+        FOURTH_QUARTILE: "#03001c",
+      },
     }
     const rectOutline = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(27, 31, 35, 0.06)"
     const fontFamily =
       "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'"
-
+    const today = normalizeUtc(new Date()).toISOString().split("T")[0].substring(5)
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     const months = contributions.reduce((months, item) => {
       item.contributionDays.forEach((contribution) => {
@@ -254,9 +265,16 @@ export default function GithubContributions() {
         "style",
         `shape-rendering: geometricPrecision; outline: 1px solid ${rectOutline}; outline-offset: -1px; border-radius: 2px`
       )
-      .attr("fill", (d) =>
-        resolvedTheme === "dark" ? colorPallete.dark[d.contributionLevel] : colorPallete.light[d.contributionLevel]
-      )
+      .attr("fill", (d) => {
+        if (today === "10-31") {
+          return resolvedTheme === "dark"
+            ? colorPallete.halloweenDark[d.contributionLevel]
+            : colorPallete.halloweenLight[d.contributionLevel]
+        }
+        return resolvedTheme === "dark"
+          ? colorPallete.dark[d.contributionLevel]
+          : colorPallete.light[d.contributionLevel]
+      })
       .append("title")
       .text(
         (d) =>
