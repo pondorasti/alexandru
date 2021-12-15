@@ -1,5 +1,6 @@
 import { useState, useEffect, RefObject, createRef, useRef, Fragment } from "react"
 import * as d3 from "d3"
+import { useRouter } from "next/router"
 import { useTheme } from "next-themes"
 import { SearchIcon } from "@heroicons/react/solid"
 import classNames from "@utils/classNames"
@@ -160,6 +161,7 @@ async function fetchAllContributions(username: string): Promise<IUserInformation
 
 export default function GithubContributions() {
   const { resolvedTheme } = useTheme()
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const usernameRef = useRef<HTMLInputElement>(null)
@@ -348,11 +350,10 @@ export default function GithubContributions() {
     setLoading(false)
   }
 
-  async function fetchData() {
+  async function fetchData(username: string) {
     try {
       setLoading(true)
 
-      const username = usernameRef.current?.value || ""
       const payload = await fetchAllContributions(username)
 
       const newRefs = new Array(payload.collections.length)
@@ -376,13 +377,34 @@ export default function GithubContributions() {
     })
   }
 
+  const { search } = router.query
   useEffect(() => {
-    fetchData()
-  }, [])
+    if (!router.isReady) {
+      return // exit early if it's rendering on the server
+    }
+
+    const usernameInput = usernameRef.current
+    if (!usernameInput) {
+      return // exit early if usernameRef is null
+    }
+
+    if (search !== undefined) {
+      usernameInput.value = String(search)
+      fetchData(String(search))
+    } else {
+      usernameInput.value = ""
+      fetchData("")
+    }
+  }, [search])
 
   useEffect(() => {
     render()
   }, [svgRefs, resolvedTheme])
+
+  function handleInput() {
+    const username = usernameRef.current?.value || ""
+    router.push("?search=" + username, undefined, { shallow: true })
+  }
 
   return (
     <div className="flex flex-col md:items-center">
@@ -395,7 +417,7 @@ export default function GithubContributions() {
           className="mt-8 mb-12 relative rounded-md shadow-sm w-full md:w-96"
           onSubmit={(event) => {
             event.preventDefault()
-            fetchData()
+            handleInput()
           }}
         >
           <input
@@ -405,7 +427,7 @@ export default function GithubContributions() {
             defaultValue="pondorasti"
             ref={usernameRef}
           />
-          <button className="absolute inset-y-0 right-0 px-3 flex items-center" onClick={() => fetchData()}>
+          <button className="absolute inset-y-0 right-0 px-3 flex items-center" onClick={() => handleInput()}>
             {!loading ? (
               <SearchIcon className="h-8 w-8 text-gray-400" aria-hidden="true" />
             ) : (
