@@ -2,6 +2,7 @@ import { useState, useEffect, RefObject, createRef, useRef, Fragment } from "rea
 import * as d3 from "d3"
 import { useRouter } from "next/router"
 import { useTheme } from "next-themes"
+import { useHotkeys } from "react-hotkeys-hook"
 import { SearchIcon } from "@heroicons/react/solid"
 import classNames from "@utils/classNames"
 
@@ -369,6 +370,11 @@ export default function GithubContributions() {
   useEffect(() => {
     render()
   }, [svgRefs, resolvedTheme])
+
+  useHotkeys("⌘+k, ctrl+k, /", (event) => {
+    event.preventDefault()
+    usernameRef.current?.focus()
+  })
 
   function handleInput() {
     const username = usernameRef.current?.value || ""
