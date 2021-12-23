@@ -382,7 +382,7 @@ export default function GithubContributions() {
   }
 
   return (
-    <div className="flex flex-col md:items-center">
+    <main>
       <div className="flex flex-col items-center">
         <h1 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
           Github Contributions
@@ -487,6 +487,6 @@ export default function GithubContributions() {
           )
         })}
       </div>
-    </div>
+    </main>
   )
 }
