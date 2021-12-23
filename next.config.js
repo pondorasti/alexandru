@@ -30,19 +30,19 @@ module.exports = {
         destination: "/secrets/90s-portfolio/index.html",
       },
       {
-        source: "/",
+        source: "/secrets/og-personal-website",
         destination: "/secrets/og-personal-website/index.html",
       },
       {
-        source: "/apps",
+        source: "/secrets/og-personal-website/apps",
         destination: "/secrets/og-personal-website/apps/index.html",
       },
       {
-        source: "/awards",
+        source: "/secrets/og-personal-website/awards",
         destination: "/secrets/og-personal-website/awards/index.html",
       },
       {
-        source: "/experience",
+        source: "/secrets/og-personal-website/experience",
         destination: "/secrets/og-personal-website/experience/index.html",
       },
       {
