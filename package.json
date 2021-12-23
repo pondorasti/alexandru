@@ -13,7 +13,7 @@
     "@heroicons/react": "^1.0.5",
     "@notionhq/client": "^0.4.4",
     "@tailwindcss/forms": "^0.4.0",
-    "@tailwindcss/line-clamp": "^0.2.1",
+    "@tailwindcss/line-clamp": "^0.3.0",
     "@tailwindcss/typography": "^0.4.1",
     "d3": "^7.2.1",
     "fathom-client": "^3.0.0",
