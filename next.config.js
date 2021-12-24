@@ -1,4 +1,7 @@
 module.exports = {
+  images: {
+    domains: ["api.microlink.io"],
+  },
   rewrites: async () => {
     return [
       {

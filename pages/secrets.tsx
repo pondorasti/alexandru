@@ -1,4 +1,6 @@
 import { InferGetStaticPropsType } from "next"
+import Image from "next/image"
+import * as Tooltip from "@radix-ui/react-tooltip"
 import notion from "@utils/notionClient"
 
 export const getStaticProps = async () => {
@@ -45,12 +47,32 @@ export default function Secret({ secrets }: InferGetStaticPropsType<typeof getSt
             </tr>
           </thead>
           <tbody>
+            <tr className="border-b border-gray-200">
+              <th className={headerStyling}>2020</th>
+            </tr>
             {secrets.map((website, index) => (
               <tr key={website.name} className={index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50"}>
                 <td className={rowStyling}>
-                  <a className={linkStyling} href={website.link} target="_blank" rel="noreferrer">
-                    {website.name}
-                  </a>
+                  <Tooltip.Root delayDuration={0}>
+                    <Tooltip.Trigger asChild>
+                      <a className={linkStyling} href={website.link} target="_blank" rel="noreferrer">
+                        {website.name}
+                      </a>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content
+                      side="top"
+                      sideOffset={16}
+                      className="radix-state-close:animate-slide-down radix-state-open:border-5 radix-side-top:animate-slide-up bg-white dark:bg-gray-800 p-2 h-40 w-64 rounded-lg border-gray-200"
+                    >
+                      <Image
+                        src={`https://api.microlink.io?url=${website.link}&screenshot=true&meta=false&embed=screenshot.url`}
+                        alt={website.name}
+                        className="rounded-md"
+                        width={240}
+                        height={144}
+                      />
+                    </Tooltip.Content>
+                  </Tooltip.Root>
                 </td>
                 <td className={rowStyling}>{website.description}</td>
                 <td className={rowStyling}>{website.creationDate}</td>
