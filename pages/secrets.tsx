@@ -7,14 +7,14 @@ import secrets from "../data/secrets"
 export default function Secret(): JSX.Element {
   const headerStyling = "uppercase text-left text-xs font-semibold tracking-wider p-3 text-gray-500 whitespace-nowrap"
   const rowStyling = "p-3 text-gray-900 whitespace-nowrap"
-  const linkStyling = "text-blue-600 hover:text-blue-700 hover:underline"
+  const linkStyling = "text-blue-600 hover:text-blue-700"
   const legendStyling = "absolute h-12 w-16 -left-16 hidden md:flex justify-center items-center"
 
   return (
     <main>
       <h3 className="title1">Secrets</h3>
       <p className="subtitle">A collection of projects which I have worked on.</p>
-      <div className="shadow-lg overflow-x-auto border border-gray-200 rounded-lg">
+      <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-gray-200 rounded-lg">
         <table className="table-auto w-full">
           <thead className="border-b border-gray-200">
             <tr>
@@ -25,20 +25,28 @@ export default function Secret(): JSX.Element {
           <tbody>
             {secrets.map((website, index) => (
               <Fragment key={website.name}>
-                <div className="absolute">
+                <tr className="absolute">
                   {website.year ? (
-                    <div className={classNames(headerStyling, legendStyling, "text-center")}>{website.year}</div>
+                    <td className={classNames(headerStyling, legendStyling, "text-center")}>{website.year}</td>
                   ) : (
-                    <div className={legendStyling}>
+                    <td className={legendStyling}>
                       <div className="h-full w-px bg-gray-200 bg-opacity-50" />
-                    </div>
+                    </td>
                   )}
-                </div>
+                </tr>
                 <tr className={index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50"}>
                   <td className={rowStyling}>
                     <Tooltip.Root delayDuration={0}>
                       <Tooltip.Trigger asChild>
-                        <a className={linkStyling} href={website.link} target="_blank" rel="noreferrer">
+                        <a
+                          className={classNames(
+                            linkStyling,
+                            "relative after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-blue-700 after:rounded-full after:!transition-[width] after:!ease-out after:!duration-200"
+                          )}
+                          href={website.link}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
                           {website.name}
                         </a>
                       </Tooltip.Trigger>

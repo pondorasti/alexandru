@@ -58,9 +58,9 @@ module.exports = {
         },
       },
       animation: {
-        "scale-in": "scale-in 0.2s ease-in-out",
-        "slide-down": "slide-down 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-        "slide-up": "slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+        "scale-in": "scale-in 0.2s ease-out",
+        // "scale-in": "scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slide-up": "slide-up 0.2s ease-out",
       },
     },
   },
