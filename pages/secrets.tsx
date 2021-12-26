@@ -5,21 +5,21 @@ import classNames from "@utils/classNames"
 import secrets from "../data/secrets"
 
 export default function Secret(): JSX.Element {
-  const headerStyling = "uppercase text-left text-xs font-semibold tracking-wider p-3 text-gray-500 whitespace-nowrap"
+  const headerStyling = "uppercase text-left text-xs font-semibold tracking-wider text-gray-500 whitespace-nowrap"
   const rowStyling = "p-3 text-gray-900 whitespace-nowrap"
   const linkStyling = "text-blue-600 hover:text-blue-700"
-  const legendStyling = "absolute h-12 w-16 -left-16 hidden md:flex justify-center items-center"
+  const legendStyling = "absolute p-3 pl-0 h-12 w-11 -left-11 flex justify-center items-center"
 
   return (
     <main>
       <h3 className="title1">Secrets</h3>
       <p className="subtitle">A collection of projects which I have worked on.</p>
-      <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-gray-200 rounded-lg">
+      <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-gray-200 rounded-lg ml-12 md:ml-0">
         <table className="table-auto w-full">
           <thead className="border-b border-gray-200">
             <tr>
-              <th className={headerStyling}>Website</th>
-              <th className={headerStyling}>Description</th>
+              <th className={classNames(headerStyling, "p-3")}>Website</th>
+              <th className={classNames(headerStyling, "p-3")}>Description</th>
             </tr>
           </thead>
           <tbody>
@@ -29,7 +29,7 @@ export default function Secret(): JSX.Element {
                   {website.year ? (
                     <td className={classNames(headerStyling, legendStyling, "text-center")}>{website.year}</td>
                   ) : (
-                    <td className={legendStyling}>
+                    <td className={classNames(legendStyling, "p-0 pr-3")}>
                       <div className="h-full w-px bg-gray-200 bg-opacity-50" />
                     </td>
                   )}
