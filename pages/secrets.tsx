@@ -56,11 +56,15 @@ export default function Secret(): JSX.Element {
                         className="radix-state-close:animate-slide-down radix-state-open:border-5 radix-side-top:animate-slide-up bg-white dark:bg-gray-800 p-2 h-40 w-64 rounded-lg border-gray-200"
                       >
                         <Image
-                          src={`https://api.microlink.io?url=${website.link}&screenshot=true&meta=false&embed=screenshot.url`}
+                          src={
+                            website.linkPreview ||
+                            `https://api.microlink.io?url=${website.link}&screenshot=true&meta=false&embed=screenshot.url`
+                          }
                           alt={website.name}
-                          className="rounded-md"
+                          className="rounded-md overflow-hidden p-2"
                           width={240}
                           height={144}
+                          objectFit="cover"
                         />
                       </Tooltip.Content>
                     </Tooltip.Root>
