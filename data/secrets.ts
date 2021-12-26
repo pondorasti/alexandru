@@ -4,6 +4,7 @@ interface ISecret {
   month: string
   year?: number
   link: string
+  linkPreview?: string
 }
 
 const secrets: ISecret[] = [
@@ -13,6 +14,7 @@ const secrets: ISecret[] = [
     month: "Nov 2021",
     year: 2021,
     link: "https://microphone.wtf/",
+    linkPreview: "/images/secrets/microphone.webp",
   },
   {
     name: "makeschool.fail",
@@ -56,24 +58,28 @@ const secrets: ISecret[] = [
     description: "Swift Student Challenge Submission for WWDC2020",
     month: "Jun 2020",
     link: "https://github.com/Pondorasti/SimonDraws",
+    linkPreview: "/images/secrets/SimonDraws.webp",
   },
   {
     name: "the-rise-of-micro-computers",
     description: "Fun design challenge!",
     month: "Sep 2020",
     link: "https://alexandru.so/secrets/the-rise-of-micro-computers",
+    linkPreview: "/images/secrets/the-rise-of-micro-computers.webp",
   },
   {
     name: "StonkScorer",
     description: "FTC Scorer - Skystone (iOS)",
     month: "Feb 2020",
     link: "https://github.com/Pondorasti/StonkScorer",
+    linkPreview: "/images/secrets/StonkScorer.webp",
   },
   {
     name: "90s-portfolio",
     description: "Portfolio inspired by Raspberry Pi's CLI",
     month: "Sep 2020",
     link: "https://alexandru.so/secrets/90s-portfolio",
+    linkPreview: "/images/secrets/90s-portfolio.webp",
   },
   {
     name: "og-personal-website",
@@ -81,12 +87,13 @@ const secrets: ISecret[] = [
     month: "Sep 2019",
     year: 2019,
     link: "https://alexandru.so/secrets/og-personal-website",
+    linkPreview: "/images/secrets/og-personal-website.png",
   },
   {
     name: "Envision",
-    description: "My first proper personal website",
+    description: "Habit Tracker (iOS)",
     month: "Jul 2019",
-    link: "https://alexandru.so/secrets/og-personal-website",
+    link: "https://www.producthunt.com/posts/envision-2",
   },
   {
     name: "national-day",
@@ -94,6 +101,7 @@ const secrets: ISecret[] = [
     month: "Sep 2017",
     year: 2017,
     link: "https://alexandru.so/secrets/national-day",
+    linkPreview: "/images/secrets/national-day.png",
   },
 ]
 
