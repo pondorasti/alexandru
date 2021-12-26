@@ -32,9 +32,11 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
       <Inspect>
         <NavigationBar />
-        <div className="px-body">
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Component {...pageProps} />
+        <div className="max-w-screen-md mx-auto">
+          <div className="px-body">
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <Component {...pageProps} />
+          </div>
         </div>
       </Inspect>
     </ThemeProvider>

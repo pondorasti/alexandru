@@ -451,7 +451,7 @@ export default function GithubContributions() {
 
           return (
             <Fragment key={i}>
-              <div className="mb-8 overflow-x-scroll">
+              <div className="mb-8 overflow-x-scroll md:-mx-[22px]">
                 <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-900">
                   {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
                   {year !== undefined ? year : "the last year"}
