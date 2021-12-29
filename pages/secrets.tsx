@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import LinkPreview from "@components/LinkPreview"
 import classNames from "@lib/classNames"
-import secrets from "../data/secrets"
+import secrets from "@data/secrets"
 
 export default function Secret(): JSX.Element {
   const headerStyling = "uppercase text-left text-xs font-semibold tracking-wider text-gray-500 whitespace-nowrap"
