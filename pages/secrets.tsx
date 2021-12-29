@@ -1,8 +1,6 @@
 import { Fragment } from "react"
-import Image from "next/image"
 import LinkPreview from "@components/LinkPreview"
-import * as Tooltip from "@radix-ui/react-tooltip"
-import classNames from "@utils/classNames"
+import classNames from "@lib/classNames"
 import secrets from "../data/secrets"
 
 export default function Secret(): JSX.Element {
