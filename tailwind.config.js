@@ -80,7 +80,7 @@ module.exports = {
           "@apply bg-opacity-50 bg-gray-50 dark:bg-opacity-50 backdrop-filter backdrop-blur": {},
         },
         ".px-body": {
-          "@apply px-4 sm:px-6 xl:px-8": {},
+          "@apply px-4 sm:px-6": {},
         },
         ".title1": {
           "@apply text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mb-3": {},
