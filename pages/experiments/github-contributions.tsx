@@ -5,6 +5,7 @@ import { useTheme } from "next-themes"
 import { useHotkeys } from "react-hotkeys-hook"
 import { SearchIcon } from "@heroicons/react/solid"
 import classNames from "@utils/classNames"
+import supabase from "@utils/supabaseClient"
 
 const api = "https://api.github.com/graphql"
 const ghToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN ?? ""
@@ -31,6 +32,12 @@ interface IContributionsCollection {
       }
     }
   }
+}
+
+interface IUserCache {
+  username: string
+  year: number
+  contributions: IContributionsCollection
 }
 
 interface IUserInsights {
@@ -111,6 +118,8 @@ async function fetchAllContributions(username: string): Promise<IUserInformation
         }
       }`,
   }
+
+  // Fetch contributions in the last year
   const response = await fetch(api, {
     method: "POST",
     body: JSON.stringify(body),
@@ -124,6 +133,12 @@ async function fetchAllContributions(username: string): Promise<IUserInformation
     throw new Error("User not found.")
   }
 
+  // Fetch cached contributions history
+  const { data, error } = await supabase.from("github-contributions").select().match({ username })
+  if (data === null || error) throw new Error(error?.message)
+  console.log(data)
+
+  // Fetch missing contributions years
   const years = currentCollection.data.user.contributionsCollection.contributionYears
 
   let longestStreak = 0
@@ -133,10 +148,23 @@ async function fetchAllContributions(username: string): Promise<IUserInformation
   let firstContributionDate = ""
   const today = normalizeUtc(new Date()).toISOString().split("T")[0]
   for (let year of years) {
-    const collection = fetchYearlyContributions(username, year)
-    const resolvedCollection = await collection
+    // Resolve collection from cache or by fetching it
+    let resolvedCollection: IContributionsCollection
+    const cachedYear: IUserCache = data.find((element: IUserCache) => element.year === year)
+    if (cachedYear === undefined) {
+      const collection = fetchYearlyContributions(username, year)
+      resolvedCollection = await collection
+
+      // Cache result
+      await supabase
+        .from("github-contributions")
+        .upsert({ username, year, contributions: resolvedCollection }, { returning: "minimal" })
+    } else {
+      resolvedCollection = cachedYear.contributions
+    }
     collections.push(resolvedCollection)
 
+    // Gather stats
     const contributionCalendar = resolvedCollection.data.user.contributionsCollection.contributionCalendar
     const contributions = contributionCalendar.weeks
     totalContributions += contributionCalendar.totalContributions
@@ -346,36 +374,44 @@ export default function GithubContributions() {
     })
   }
 
+  // Try to fetch new data based on router changes
   const { search } = router.query
   useEffect(() => {
     if (!router.isReady) {
+      console.log("not ready")
       return // exit early if it's rendering on the server
     }
 
     const usernameInput = usernameRef.current
     if (!usernameInput) {
+      console.log("no ref")
       return // exit early if usernameRef is null
     }
 
     if (search !== undefined) {
+      console.log(search)
       usernameInput.value = String(search)
       fetchData(String(search))
     } else {
-      usernameInput.value = "pondorasti"
-      fetchData("pondorasti")
+      // usernameInput.value = "pondorasti"
+      // fetchData("pondorasti")
+      console.log("hello 2")
       router.push("?search=pondorasti", undefined, { shallow: true })
     }
   }, [search])
 
+  // Render graph everytime the refs or color scheme change
   useEffect(() => {
     render()
   }, [svgRefs, resolvedTheme])
 
+  // Focus input form based on hotkeys
   useHotkeys("⌘+k, ctrl+k, /", (event) => {
     event.preventDefault()
     usernameRef.current?.focus()
   })
 
+  // Update router based on input
   function handleInput() {
     const username = usernameRef.current?.value || ""
     router.push("?search=" + username, undefined, { shallow: true })
