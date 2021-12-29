@@ -136,7 +136,6 @@ async function fetchAllContributions(username: string): Promise<IUserInformation
   // Fetch cached contributions history
   const { data, error } = await supabase.from("github-contributions").select().match({ username })
   if (data === null || error) throw new Error(error?.message)
-  console.log(data)
 
   // Fetch missing contributions years
   const years = currentCollection.data.user.contributionsCollection.contributionYears
@@ -377,25 +376,17 @@ export default function GithubContributions() {
   // Try to fetch new data based on router changes
   const { search } = router.query
   useEffect(() => {
-    if (!router.isReady) {
-      console.log("not ready")
-      return // exit early if it's rendering on the server
-    }
-
     const usernameInput = usernameRef.current
+
+    // exit early if usernameRef is null
     if (!usernameInput) {
-      console.log("no ref")
-      return // exit early if usernameRef is null
+      return
     }
 
     if (search !== undefined) {
-      console.log(search)
       usernameInput.value = String(search)
       fetchData(String(search))
     } else {
-      // usernameInput.value = "pondorasti"
-      // fetchData("pondorasti")
-      console.log("hello 2")
       router.push("?search=pondorasti", undefined, { shallow: true })
     }
   }, [search])
