@@ -1,7 +1,7 @@
 import Image from "next/image"
 import * as Tooltip from "@radix-ui/react-tooltip"
 import { useTheme } from "next-themes"
-import classNames from "@utils/classNames"
+import classNames from "@lib/classNames"
 
 interface ILinkPreview {
   name: string

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import supabase from "@utils/supabaseClient"
-import { normalizeUtc } from "@utils/date"
-import type { IContributionsCollection, IUserInformation, IUserCache } from "@utils/types"
+import supabase from "@lib/supabaseClient"
+import { normalizeUtc } from "@lib/date"
+import type { IContributionsCollection, IUserInformation, IUserCache } from "@lib/types"
 
 const api = "https://api.github.com/graphql"
 const ghToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN ?? ""

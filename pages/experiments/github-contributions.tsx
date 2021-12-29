@@ -4,9 +4,9 @@ import { useRouter } from "next/router"
 import { useTheme } from "next-themes"
 import { useHotkeys } from "react-hotkeys-hook"
 import { SearchIcon } from "@heroicons/react/solid"
-import classNames from "@utils/classNames"
-import { normalizeUtc, formatDate } from "@utils/date"
-import type { IContributionsCollection, IUserInformation, IUserInsights } from "@utils/types"
+import classNames from "@lib/classNames"
+import { normalizeUtc, formatDate } from "@lib/date"
+import type { IContributionsCollection, IUserInformation, IUserInsights } from "@lib/types"
 
 export default function GithubContributions() {
   const { resolvedTheme } = useTheme()
