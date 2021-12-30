@@ -7,7 +7,7 @@ const api = "https://api.github.com/graphql"
 const ghToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN ?? ""
 const ghHeaders = { Authorization: `bearer ${ghToken}` }
 
-async function fetchYearlyContributions(username: string, year: number): Promise<IContributionsCollection> {
+async function fetchYearlyContributions(username: string | string[], year: number): Promise<IContributionsCollection> {
   const body = {
     query: `query {
         user(login: "${username}") {
@@ -41,7 +41,7 @@ async function fetchYearlyContributions(username: string, year: number): Promise
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse<IUserInformation>) => {
-  const username = "pondorasti"
+  const { username } = req.query
   const body = {
     query: `query {
         user(login: "${username}") {

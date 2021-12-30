@@ -171,7 +171,7 @@ export default function GithubContributions() {
     try {
       setLoading(true)
 
-      const res = await fetch("/api/github-contributions")
+      const res = await fetch(`/api/github-contributions?username=${username}`)
       const payload = (await res.json()) as IUserInformation
 
       const newRefs = new Array(payload.collections.length)
