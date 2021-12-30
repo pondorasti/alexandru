@@ -200,6 +200,11 @@ export default function GithubContributions() {
   useEffect(() => {
     const usernameInput = usernameRef.current
 
+    // exit early if it's rendering on the server
+    if (!router.isReady) {
+      return
+    }
+
     // exit early if usernameRef is null
     if (!usernameInput) {
       return
