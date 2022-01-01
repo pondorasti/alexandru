@@ -1,5 +1,5 @@
 export function normalizeUtc(date: Date): Date {
-  return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+  return new Date(date.getTime() + date.getTimezoneOffset() * 60000)
 }
 
 export function formatDate(date: Date): string {

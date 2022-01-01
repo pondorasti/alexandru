@@ -98,10 +98,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<IUserInformation
       const collection = fetchYearlyContributions(username, year)
       resolvedCollection = await collection
 
-      // Cache result
-      await supabase
-        .from("github-contributions")
-        .upsert({ username, year, contributions: resolvedCollection }, { returning: "minimal" })
+      // Cache result except current year (in order to avoid caching and freezing current year data)
+      if (resolvedCollection.data.user.contributionsCollection.year !== new Date().getFullYear()) {
+        await supabase
+          .from("github-contributions")
+          .upsert({ username, year, contributions: resolvedCollection }, { returning: "minimal" })
+      }
     } else {
       resolvedCollection = cachedYear.contributions
     }
