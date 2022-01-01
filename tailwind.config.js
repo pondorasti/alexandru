@@ -65,7 +65,7 @@ module.exports = {
     require("nightwind"),
     require("@tailwindcss/line-clamp"),
     require("tailwindcss-radix")(),
-    plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities, addComponents }) {
       addUtilities({
         ".h-navbar": {
           height: "69px",
@@ -73,26 +73,25 @@ module.exports = {
         ".top-navbar": {
           top: "69px",
         },
-        ".navbar-link": {
-          "@apply text-sm font-medium text-black opacity-70 hover:opacity-100": {},
-        },
         ".bg-blur": {
           "@apply bg-opacity-50 bg-gray-50 dark:bg-opacity-50 backdrop-filter backdrop-blur": {},
         },
         ".px-body": {
           "@apply px-4 sm:px-6": {},
         },
+        // TODO: make component
         ".title1": {
           "@apply text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mb-3": {},
         },
         ".subtitle": {
           "@apply text-gray-500 mb-5": {},
         },
-        kbd: {
-          "@apply inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400":
-            {},
-        },
-      })
+      }),
+        addComponents({
+          ".divider-y": {
+            "@apply h-full w-px bg-gray-200 bg-opacity-50": {},
+          },
+        })
     }),
   ],
 }
