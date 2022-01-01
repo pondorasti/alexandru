@@ -67,12 +67,6 @@ module.exports = {
     require("tailwindcss-radix")(),
     plugin(function ({ addUtilities, addComponents }) {
       addUtilities({
-        ".h-navbar": {
-          height: "69px",
-        },
-        ".top-navbar": {
-          top: "69px",
-        },
         ".bg-blur": {
           "@apply bg-opacity-50 bg-gray-50 dark:bg-opacity-50 backdrop-filter backdrop-blur": {},
         },
@@ -90,6 +84,9 @@ module.exports = {
         addComponents({
           ".divider-y": {
             "@apply h-full w-px bg-gray-200 bg-opacity-50": {},
+          },
+          ".divider-x": {
+            "@apply h-px w-full bg-gray-200 bg-opacity-50": {},
           },
         })
     }),

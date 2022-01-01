@@ -35,7 +35,7 @@ export default function NavigationBar(): JSX.Element {
   return (
     <header className="sticky top-0 z-30 bg-blur mb-10">
       <div className="max-w-screen-md mx-auto px-body">
-        <div className="flex items-center justify-between py-5 border-b border-opacity-75 border-gray-200 h-navbar">
+        <div className="flex items-center justify-between py-5">
           <Link href="/">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a className="text-gray-900 text-md font-normal">
@@ -90,6 +90,7 @@ export default function NavigationBar(): JSX.Element {
             />
           </div>
         </div>
+        <div className="divider-x" />
       </div>
     </header>
   )
