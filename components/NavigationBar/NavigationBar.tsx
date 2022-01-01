@@ -39,8 +39,8 @@ export default function NavigationBar(): JSX.Element {
           <Link href="/">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a className="text-gray-900 text-md font-normal">
-              <span className="mr-2">🤯</span>
-              alexandru.eth
+              🤯
+              <span className="hidden sm:inline-block sm:ml-2">alexandru.eth</span>
             </a>
           </Link>
 
