@@ -99,6 +99,7 @@ export default function GithubContributions() {
       .append("g")
       .attr("transform", (d, i) => `translate(${i * 14}, 0)`)
 
+    const firstWeek = contributions[0].contributionDays
     const contributionRects = weekPaths
       .selectAll("rect")
       .data((d) => {
@@ -107,7 +108,14 @@ export default function GithubContributions() {
       .enter()
       .append("rect")
       .attr("x", 0)
-      .attr("y", (d, i) => i * 13)
+      .attr("y", (d, i) => {
+        const dayOfFirstWeek = firstWeek.find((value) => value.date === d.date)
+        if (dayOfFirstWeek && firstWeek.length !== 7) {
+          const offset = new Date(firstWeek[0].date).getUTCDay()
+          return (i + offset) * 13
+        }
+        return i * 13
+      })
       .attr("width", 10)
       .attr("height", 10)
       .attr("rx", 2)
@@ -241,7 +249,9 @@ export default function GithubContributions() {
         <h1 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
           Github Contributions
         </h1>
-        <p className="mt-4 text-xl text-gray-500 font-medium">visualize, analyze and contrast your commits</p>
+        <p className="mt-4 text-xl text-center text-gray-500 font-medium">
+          visualize, analyze and contrast your commits
+        </p>
         <form
           className="mt-8 mb-12 relative rounded-md shadow-sm w-full md:w-96"
           onSubmit={(event) => {
