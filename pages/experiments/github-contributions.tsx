@@ -344,7 +344,7 @@ export default function GithubContributions() {
                       <div className={insightSubtitleStyling}>First Contribution</div>
                     </div>
                   </div>
-                  <div className="mb-8 max-w-screen-md w-full bg-gray-200 bg-opacity-75 h-px" />
+                  <div className="mb-8 divider-x" />
                 </>
               )}
             </Fragment>
