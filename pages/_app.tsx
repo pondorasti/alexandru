@@ -8,7 +8,7 @@ import NavigationBar from "@components/NavigationBar"
 import Inspect from "inspx"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  // Fathom
+  // Fathom Analytics
   // Source: https://vercel.com/guides/deploying-nextjs-using-fathom-analytics-with-vercel
   const router = useRouter()
   useEffect(() => {
