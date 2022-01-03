@@ -9,6 +9,13 @@ interface ISecret {
 
 const secrets: ISecret[] = [
   {
+    name: "tailwindcss-snippets",
+    description: "A collection of animation snippets made with TailwindCSS",
+    month: "January",
+    year: 2022,
+    href: "https://snippets.alexandru.so/",
+  },
+  {
     name: "microphone.wtf",
     description: "Experimental microphone audio visualizer",
     month: "November",
