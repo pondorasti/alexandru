@@ -40,7 +40,7 @@ export default function LinkPreview({ name, href, alt, preview }: ILinkPreview) 
       <Tooltip.Content
         side="top"
         sideOffset={16}
-        className="border border-gray-200 bg-white dark:bg-gray-800 p-2 h-40 w-64 rounded-lg border-gray-200 radix-side-top:animate-slide-in animate-slide-out"
+        className="border bg-white dark:bg-gray-800 p-2 h-40 w-64 rounded-lg border-gray-200 radix-side-top:animate-slide-in animate-slide-out"
       >
         <Image
           src={
