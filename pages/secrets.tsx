@@ -11,9 +11,9 @@ export default function Secret(): JSX.Element {
   return (
     <main>
       <Description title="Secrets" description="A collection of projects which I have worked on." />
-      <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-gray-200 rounded-lg ml-12 md:ml-0">
+      <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-white/15 rounded-lg ml-12 md:ml-0">
         <table className="table-auto w-full">
-          <thead className="border-b border-gray-200">
+          <thead className="bg-gray-50 bg-opacity-50 backdrop-blur">
             <tr>
               <th className={classNames(headerStyling, "p-3")}>Website</th>
               <th className={classNames(headerStyling, "p-3")}>Description</th>
@@ -29,7 +29,13 @@ export default function Secret(): JSX.Element {
                     <div className={classNames("divider-y", index + 1 === secrets.length ? "opacity-0" : "")} />
                   </td>
                 </tr>
-                <tr className={index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50"}>
+                <tr
+                  className={classNames(
+                    index === 0 ? "border-t border-white/15" : "",
+                    index % 2 === 0 ? "bg-white dark:bg-gray-800/50" : "bg-gray-50",
+                    "bg-opacity-50 backdrop-blur"
+                  )}
+                >
                   <td className={rowStyling}>
                     <LinkPreview name={website.name} href={website.href} preview={website.preview} alt={website.name} />
                   </td>
