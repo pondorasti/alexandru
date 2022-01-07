@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import Description from "@components/Description"
 import LinkPreview from "@components/LinkPreview"
 import classNames from "@lib/classNames"
 import secrets from "@data/secrets"
@@ -9,8 +10,7 @@ export default function Secret(): JSX.Element {
 
   return (
     <main>
-      <h3 className="title1">Secrets</h3>
-      <p className="subtitle">A collection of projects which I have worked on.</p>
+      <Description title="Secrets" description="A collection of projects which I have worked on." />
       <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-gray-200 rounded-lg ml-12 md:ml-0">
         <table className="table-auto w-full">
           <thead className="border-b border-gray-200">
