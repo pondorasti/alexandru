@@ -13,7 +13,7 @@ export default function Secret(): JSX.Element {
       <Description title="Secrets" description="A collection of projects which I have worked on." />
       <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-white/15 rounded-lg ml-12 md:ml-0">
         <table className="table-auto w-full">
-          <thead className="bg-gray-50 bg-opacity-50 backdrop-blur">
+          <thead className="bg-gray-50 bg-opacity-50">
             <tr>
               <th className={classNames(headerStyling, "p-3")}>Website</th>
               <th className={classNames(headerStyling, "p-3")}>Description</th>
@@ -32,8 +32,8 @@ export default function Secret(): JSX.Element {
                 <tr
                   className={classNames(
                     index === 0 ? "border-t border-white/15" : "",
-                    index % 2 === 0 ? "bg-white dark:bg-gray-800/50" : "bg-gray-50",
-                    "bg-opacity-50 backdrop-blur"
+                    index % 2 === 0 ? "bg-gray-100" : "bg-gray-50",
+                    "bg-opacity-50"
                   )}
                 >
                   <td className={rowStyling}>
