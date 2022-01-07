@@ -11,7 +11,17 @@ module.exports = {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        gray: colors.slate,
+        gray: {
+          // ...colors.slate,
+          ...colors.neutral,
+          700: "#333333",
+          700: "#191919",
+          800: "#0F0F0F",
+          900: "#020005",
+        },
+      },
+      opacity: {
+        15: ".15",
       },
       keyframes: {
         "slide-in": {
@@ -38,18 +48,21 @@ module.exports = {
     plugin(function ({ addUtilities, addComponents }) {
       addUtilities({
         ".bg-blur": {
-          "@apply bg-opacity-50 bg-gray-50 dark:bg-opacity-50 backdrop-filter backdrop-blur": {},
+          "@apply bg-gray-50 bg-opacity-20 backdrop-blur": {},
         },
         ".px-body": {
           "@apply px-4 sm:px-6": {},
         },
+        ".divider": {
+          "@apply bg-white/10": {},
+        },
       }),
         addComponents({
           ".divider-y": {
-            "@apply h-full w-px bg-gray-200 bg-opacity-50": {},
+            "@apply h-full w-px divider": {},
           },
           ".divider-x": {
-            "@apply h-px w-full bg-gray-200 bg-opacity-50": {},
+            "@apply h-px w-full divider": {},
           },
         })
     }),
