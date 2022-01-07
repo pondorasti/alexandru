@@ -15,17 +15,17 @@ module.exports = {
       },
       keyframes: {
         "slide-in": {
-          "0%": { opacity: 0, transform: "translateY(10px)" },
+          "0%": { opacity: 0, transform: "translateY(16px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
         },
         "slide-out": {
           "0%": { opacity: 1, transform: "translateY(0px)" },
-          "100%": { opacity: 0, transform: "translateY(10px)" },
+          "100%": { opacity: 0, transform: "translateY(16px)" },
         },
       },
       animation: {
         "slide-in": "slide-in 0.2s ease-out",
-        "slide-out": "slide-out 0.2s ease-out",
+        "slide-out": "slide-out 0.2s ease",
       },
     },
   },
