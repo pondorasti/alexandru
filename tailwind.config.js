@@ -43,13 +43,6 @@ module.exports = {
         ".px-body": {
           "@apply px-4 sm:px-6": {},
         },
-        // TODO: make component
-        ".title1": {
-          "@apply text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mb-3": {},
-        },
-        ".subtitle": {
-          "@apply text-gray-500 mb-5": {},
-        },
       }),
         addComponents({
           ".divider-y": {
