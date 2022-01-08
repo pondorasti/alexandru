@@ -1,3 +1,4 @@
+// Github Contributions
 export interface IContributionWeek {
   color: string
   contributionCount: number
