@@ -5,6 +5,7 @@ import * as Fathom from "fathom-client"
 import "tailwindcss/tailwind.css"
 import { ThemeProvider } from "next-themes"
 import NavigationBar from "@components/NavigationBar"
+import LinkPreview from "@components/LinkPreview"
 import Inspect from "inspx"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
@@ -32,12 +33,29 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
       <Inspect>
         <NavigationBar />
+        <div className="max-w-screen-lg mx-auto">
+          <span className="rounded-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 opacity-50 fixed -z-50 w-full aspect-square max-w-screen-lg -inset-y-[85%] md:-inset-y-[calc(1024px*0.80)] filter blur-3xl"></span>
+        </div>
         <div className="max-w-screen-md mx-auto">
           <div className="px-body">
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Component {...pageProps} />
           </div>
         </div>
+        <footer>
+          <hr />
+          <div className="my-16 text-center text-gray-500 text-xs sm:text-sm font-light">
+            Crafted with care by{" "}
+            <span className="text-gray-600 hover:text-gray-700 font-normal">
+              <LinkPreview
+                name="Alexandru Turcanu"
+                href="https://twitter.com/Pondorasti"
+                preview="/twitter-preview.png"
+                alt="Alexandru Turcanu's Twitter"
+              />
+            </span>
+          </div>
+        </footer>
       </Inspect>
     </ThemeProvider>
   )
