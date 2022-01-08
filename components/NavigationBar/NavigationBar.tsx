@@ -22,6 +22,7 @@ export default function NavigationBar(): JSX.Element {
 
   const linkStyle = "text-sm font-medium text-black opacity-70 hover:opacity-100"
   const iconStyle = "h-5 w-5"
+  const transitionStyle = "!transition-colors !duration-300"
 
   // When mounted on client, show theme switcher
   useEffect(() => setMounted(true), [])
@@ -52,7 +53,7 @@ export default function NavigationBar(): JSX.Element {
       <header
         className={classNames(
           "sticky top-0 z-30 mb-10",
-          "!transition-colors !duration-500",
+          transitionStyle,
           showBlur ? "bg-gray-50 bg-opacity-20 backdrop-blur" : "bg-gray-50 bg-opacity-0 backdrop-blur-none"
         )}
       >
@@ -112,7 +113,7 @@ export default function NavigationBar(): JSX.Element {
               />
             </div>
           </div>
-          {/* <div className="divider-x" /> */}
+          <div className={classNames("divider-x", transitionStyle, showBlur ? "opacity-100" : "opacity-0")} />
         </div>
       </header>
       <div className="max-w-screen-lg mx-auto">
