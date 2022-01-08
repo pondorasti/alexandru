@@ -1,9 +1,10 @@
 import rehypeHighlight from "rehype-highlight"
+import remarkFrontmatter from "remark-frontmatter"
 import nextMDX from "@next/mdx"
 
 const withMDX = nextMDX({
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [remarkFrontmatter],
     rehypePlugins: [rehypeHighlight],
   },
 })
