@@ -45,7 +45,7 @@ module.exports = {
     require("nightwind"),
     require("@tailwindcss/line-clamp"),
     require("tailwindcss-radix")(),
-    plugin(function ({ addUtilities, addComponents }) {
+    plugin(function ({ addUtilities }) {
       addUtilities({
         ".bg-blur": {
           "@apply bg-gray-50 bg-opacity-20 backdrop-blur": {},
@@ -53,18 +53,30 @@ module.exports = {
         ".px-body": {
           "@apply px-4 sm:px-6": {},
         },
-        ".divider": {
-          "@apply bg-white/10": {},
+        ".border-b-divider": {
+          "@apply border-b border-black border-opacity-10": {},
         },
-      }),
-        addComponents({
-          ".divider-y": {
-            "@apply h-full w-px divider": {},
-          },
-          ".divider-x": {
-            "@apply h-px w-full divider": {},
-          },
-        })
+        ".border-divider": {
+          "@apply border border-black border-opacity-10": {},
+        },
+      })
+    }),
+    plugin(function ({ addComponents }) {
+      addComponents({
+        ".divider-y": {
+          "@apply h-full w-px bg-black bg-opacity-10": {},
+        },
+        ".divider-x": {
+          "@apply h-px w-full bg-black bg-opacity-10": {},
+        },
+      })
+    }),
+    plugin(function ({ addBase }) {
+      addBase({
+        hr: {
+          "@apply my-16 mx-auto divider-x opacity-10 w-12": {},
+        },
+      })
     }),
   ],
 }
