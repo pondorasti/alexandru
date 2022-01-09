@@ -11,9 +11,8 @@ interface IJournal {
   metas: IMeta[]
 }
 
+// Inspiration: https://emilkowal.ski/ui/tabs
 export default function Journal({ slugs, metas }: IJournal): JSX.Element {
-  // const [tabBoundingBox, setTabBoundingBox] = useState<DOMRect | null>(null)
-  // const [parentBoundingBox, setParentBoundingBox] = useState<DOMRect | null>(null)
   const [highlightedTab, setHighlightedTab] = useState<HTMLElement | null>(null)
   const [isHoveredFromNull, setIsHoveredFromNull] = useState(true)
   const [transform, setTransform] = useState("translate(0, 0")
@@ -21,12 +20,11 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
   const parentRef = useRef<HTMLDivElement>(null)
   const highlightRef = useRef<HTMLDivElement>(null)
 
+  const cardStyle = "flex flex-col p-4 my-4 relative"
+
   function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     const node = event.target as HTMLElement
     const parent = parentRef.current!
-
-    // setTabBoundingBox()
-    // setParentBoundingBox()
 
     setIsHoveredFromNull(!highlightedTab)
     setHighlightedTab(node)
@@ -34,34 +32,44 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
     const tabBoundingBox = node.getBoundingClientRect()
     const parentBoundingBox = parent.getBoundingClientRect()
     const highlightOffset = tabBoundingBox.top - parentBoundingBox.top
-    console.log(highlightOffset)
-    setTransform(`translate(0, ${highlightOffset}px)`)
+
+    // exit early if event triggered by children
+    if (node.className === cardStyle) {
+      setTransform(`translate(0, ${highlightOffset}px)`)
+    }
   }
 
   return (
-    <main>
+    <>
       <Description title="Journal" description="A collection of random thoughts" />
       <div ref={parentRef} className="relative" onMouseLeave={() => setHighlightedTab(null)}>
         <div
           ref={highlightRef}
           className={classNames(
-            "w-full absolute h-[88px] rounded-xl bg-black bg-opacity-[0.07]",
-            !!highlightedTab ? "opacity-100" : "opacity-0",
-            "!transition-all !duration-300"
+            "w-full absolute h-[88px]",
+            "!duration-200",
+            isHoveredFromNull ? "!transition-none" : "!transition-transform "
           )}
           style={{ transform }}
-        />
+        >
+          <div
+            className={classNames(
+              "highlight h-full w-full rounded-xl",
+              !!highlightedTab ? "opacity-100" : "opacity-0",
+              "!transition-opacity !duration-200"
+            )}
+          />
+        </div>
         {metas.map((meta, index) => (
           <Link key={slugs[index]} href={`/journal/${slugs[index]}`} passHref>
             <a className="flex flex-col p-4 my-4 relative" onMouseOver={handleMouseOver}>
-              {meta.title}
-              {/* <h2 className="text-xl font-semibold">{meta.title}</h2> */}
-              {/* <p className="mt-2 text-sm text-gray-400">{meta.description}</p> */}
+              <h2 className="text-xl font-semibold">{meta.title}</h2>
+              <p className="mt-2 text-sm text-gray-400">{meta.description}</p>
             </a>
           </Link>
         ))}
       </div>
-    </main>
+    </>
   )
 }
 
