@@ -1,8 +1,9 @@
 import { GetStaticPropsContext } from "next"
 import dynamic from "next/dynamic"
-import fs, { promises as pfs } from "fs"
+import fs from "fs"
 import * as matter from "gray-matter"
 import { JournalLayout } from "@components/Journal"
+import { IMeta } from "@lib/types"
 
 const entriesList = {
   "gmail-automatic-forwarder": dynamic(() => import("@data/journal/gmail-automatic-forwarder.mdx")),
@@ -11,11 +12,6 @@ const entriesList = {
 
 type Entries = typeof entriesList
 type Slug = keyof Entries
-interface IMeta {
-  title: string
-  description: string
-  publishedAt: string
-}
 interface IJournalEntry {
   slug: Slug
   meta: IMeta
@@ -35,13 +31,11 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 
 export async function getStaticPaths() {
   const fileNames = fs.readdirSync("./data/journal")
-  const paths = fileNames.map((fileName) => {
-    return {
-      params: {
-        slug: fileName.replace(/\.mdx$/, ""),
-      },
-    }
-  })
+  const paths = fileNames.map((fileName) => ({
+    params: {
+      slug: fileName.replace(/\.mdx$/, ""),
+    },
+  }))
 
   return {
     paths,
