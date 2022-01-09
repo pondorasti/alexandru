@@ -50,7 +50,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
               <LinkPreview
                 name="Alexandru Turcanu"
                 href="https://twitter.com/Pondorasti"
-                preview="/twitter-preview.png"
+                preview="/images/twitter-preview.png"
                 alt="Alexandru Turcanu's Twitter"
               />
             </span>

@@ -39,3 +39,10 @@ export interface IUserInformation {
   collections: IContributionsCollection[]
   insights: IUserInsights
 }
+
+// Journal
+export interface IMeta {
+  title: string
+  description: string
+  publishedAt: string
+}
