@@ -4,6 +4,8 @@ import fs from "fs"
 import * as matter from "gray-matter"
 import { JournalLayout } from "@components/Journal"
 import { IMeta } from "@lib/types"
+import LinkPreview from "@components/LinkPreview"
+import Description from "@components/Description"
 
 const entriesList = {
   "gmail-automatic-forwarder": dynamic(() => import("@data/journal/gmail-automatic-forwarder.mdx")),
@@ -14,28 +16,46 @@ type Entries = typeof entriesList
 type Slug = keyof Entries
 interface IJournalEntry {
   slug: Slug
-  meta: IMeta
+  meta: IMeta<Slug>
 }
 
-export default function JournalEntry({ slug, meta }: IJournalEntry): JSX.Element {
-  const Entry = entriesList[slug]
-  return <Entry components={{ wrapper: ({ components, ...rest }) => <JournalLayout {...rest} /> }} />
+export default function JournalEntry({ meta }: IJournalEntry): JSX.Element {
+  const Entry = entriesList[meta.slug]
+
+  return (
+    <>
+      <Description title={meta.title} description={meta.description} />
+      <Entry
+        components={{
+          wrapper: ({ components, ...rest }) => <JournalLayout {...rest} />,
+          a: (props) => <LinkPreview {...props} name={props.children as string} href={props.href || ""} alt="" />,
+        }}
+      />
+    </>
+  )
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const slug = params?.slug as Slug
-  const meta = matter.read(`./data/journal/${slug}.mdx`).data as IMeta
+  const meta = matter.read(`./data/journal/${slug}.mdx`).data as IMeta<Slug>
 
-  return { props: { slug, meta } }
+  return { props: { meta } }
 }
 
 export async function getStaticPaths() {
   const fileNames = fs.readdirSync("./data/journal")
-  const paths = fileNames.map((fileName) => ({
-    params: {
-      slug: fileName.replace(/\.mdx$/, ""),
-    },
-  }))
+  const paths = await Promise.all(
+    fileNames.map(async (fileName) => {
+      const meta = (await matter.read(`./data/journal/${fileName}`).data) as IMeta<Slug>
+      return {
+        params: {
+          slug: meta.slug,
+        },
+      }
+    })
+  )
+
+  console.log(paths)
 
   return {
     paths,

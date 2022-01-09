@@ -9,11 +9,11 @@ import { formatDate } from "@lib/date"
 
 interface IJournal {
   slugs: string[]
-  metas: IMeta[]
+  metas: IMeta<string>[]
 }
 
 // Inspiration: https://emilkowal.ski/ui/tabs
-export default function Journal({ slugs, metas }: IJournal): JSX.Element {
+export default function Journal({ metas }: IJournal): JSX.Element {
   const [highlightedTab, setHighlightedTab] = useState<HTMLElement | null>(null)
   const [isHoveredFromNull, setIsHoveredFromNull] = useState(true)
   const [transform, setTransform] = useState("translate(0, 0")
@@ -24,7 +24,7 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
   const cardStyle =
     "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl !transition-colors !duration-300"
   const asideStyle =
-    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 pr-11 font-serif text-center text-sm text-gray-300"
+    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 font-serif text-center text-sm text-gray-300"
 
   function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     const node = event.target as HTMLElement
@@ -49,7 +49,7 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
 
       <div className="ml-12 md:ml-0">
         {/* Book Binding */}
-        <div className="fixed border-l-2 border-divider border-dotted h-full -ml-4 top-0" />
+        <div className="fixed border-l-2 border-divider border-dotted h-full -ml-4 md:-ml-6 top-0" />
 
         {/* Highlighter */}
         <div ref={parentRef} className="relative" onMouseLeave={() => setHighlightedTab(null)}>
@@ -73,7 +73,7 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
 
           {/* Entries */}
           {metas.map((meta, index) => (
-            <Link key={slugs[index]} href={`/journal/${slugs[index]}`} passHref>
+            <Link key={meta.slug} href={`/journal/${meta.slug}`} passHref>
               <a className={cardStyle} onMouseOver={handleMouseOver}>
                 <aside className={asideStyle} onMouseOver={handleMouseOver}>
                   {formatDate(new Date(meta.publishedAt), false)}
@@ -91,10 +91,9 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
 
 export async function getStaticProps() {
   const fileNames = fs.readdirSync("./data/journal")
-  const slugs = fileNames.map((fileName) => fileName.replace(/\.mdx$/, ""))
-  const metas = await Promise.all(
-    fileNames.map(async (fileName) => matter.read(`./data/journal/${fileName}`).data as IMeta)
-  )
+  const metas = (
+    await Promise.all(fileNames.map((fileName) => matter.read(`./data/journal/${fileName}`).data as IMeta<string>))
+  ).sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
 
-  return { props: { slugs, metas } }
+  return { props: { metas } }
 }

@@ -41,7 +41,8 @@ export interface IUserInformation {
 }
 
 // Journal
-export interface IMeta {
+export interface IMeta<Slug> {
+  slug: Slug
   title: string
   description: string
   publishedAt: string
