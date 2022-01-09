@@ -1,8 +1,10 @@
+import { useState, useRef } from "react"
 import Link from "next/link"
 import fs from "fs"
 import * as matter from "gray-matter"
 import Description from "@components/Description"
 import { IMeta } from "@lib/types"
+import classNames from "@lib/classNames"
 
 interface IJournal {
   slugs: string[]
@@ -10,17 +12,55 @@ interface IJournal {
 }
 
 export default function Journal({ slugs, metas }: IJournal): JSX.Element {
+  // const [tabBoundingBox, setTabBoundingBox] = useState<DOMRect | null>(null)
+  // const [parentBoundingBox, setParentBoundingBox] = useState<DOMRect | null>(null)
+  const [highlightedTab, setHighlightedTab] = useState<HTMLElement | null>(null)
+  const [isHoveredFromNull, setIsHoveredFromNull] = useState(true)
+  const [transform, setTransform] = useState("translate(0, 0")
+
+  const parentRef = useRef<HTMLDivElement>(null)
+  const highlightRef = useRef<HTMLDivElement>(null)
+
+  function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    const node = event.target as HTMLElement
+    const parent = parentRef.current!
+
+    // setTabBoundingBox()
+    // setParentBoundingBox()
+
+    setIsHoveredFromNull(!highlightedTab)
+    setHighlightedTab(node)
+
+    const tabBoundingBox = node.getBoundingClientRect()
+    const parentBoundingBox = parent.getBoundingClientRect()
+    const highlightOffset = tabBoundingBox.top - parentBoundingBox.top
+    console.log(highlightOffset)
+    setTransform(`translate(0, ${highlightOffset}px)`)
+  }
+
   return (
     <main>
       <Description title="Journal" description="A collection of random thoughts" />
-      {metas.map((meta, index) => (
-        <Link key={slugs[index]} href={`journal/${slugs[index]}`} passHref>
-          <a className="flex flex-col p-4 my-4 bg-gray-200 rounded-xl bg-opacity-0 hover:bg-opacity-100">
-            <h2 className="text-xl font-semibold">{meta.title}</h2>
-            <p className="mt-2 text-sm text-gray-400">{meta.description}</p>
-          </a>
-        </Link>
-      ))}
+      <div ref={parentRef} className="relative" onMouseLeave={() => setHighlightedTab(null)}>
+        <div
+          ref={highlightRef}
+          className={classNames(
+            "w-full absolute h-[88px] rounded-xl bg-black bg-opacity-[0.07]",
+            !!highlightedTab ? "opacity-100" : "opacity-0",
+            "!transition-all !duration-300"
+          )}
+          style={{ transform }}
+        />
+        {metas.map((meta, index) => (
+          <Link key={slugs[index]} href={`/journal/${slugs[index]}`} passHref>
+            <a className="flex flex-col p-4 my-4 relative" onMouseOver={handleMouseOver}>
+              {meta.title}
+              {/* <h2 className="text-xl font-semibold">{meta.title}</h2> */}
+              {/* <p className="mt-2 text-sm text-gray-400">{meta.description}</p> */}
+            </a>
+          </Link>
+        ))}
+      </div>
     </main>
   )
 }
