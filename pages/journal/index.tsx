@@ -21,9 +21,10 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
   const parentRef = useRef<HTMLDivElement>(null)
   const highlightRef = useRef<HTMLDivElement>(null)
 
-  const cardStyle = "flex flex-col px-4 py-6 relative"
+  const cardStyle =
+    "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl !transition-colors !duration-300"
   const asideStyle =
-    "absolute [writing-mode:vertical-rl] h-[104px] top-0 -left-12 pr-11 font-serif text-center text-sm text-gray-300"
+    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 pr-11 font-serif text-center text-sm text-gray-300"
 
   function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     const node = event.target as HTMLElement
@@ -55,7 +56,7 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
           <div
             ref={highlightRef}
             className={classNames(
-              "w-full absolute h-[104px]",
+              "hidden sm:block w-full absolute h-[104px]",
               "!duration-200",
               isHoveredFromNull ? "!transition-none" : "!transition-transform "
             )}
@@ -65,7 +66,7 @@ export default function Journal({ slugs, metas }: IJournal): JSX.Element {
               className={classNames(
                 "highlight h-full w-full rounded-xl",
                 !!highlightedTab ? "opacity-100" : "opacity-0",
-                "!transition-opacity !duration-200"
+                "!transition-opacity !duration-300"
               )}
             />
           </div>
