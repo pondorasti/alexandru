@@ -22,7 +22,7 @@ export default function NavigationBar(): JSX.Element {
 
   const linkStyle = "text-sm font-medium text-black opacity-70 hover:opacity-100"
   const iconStyle = "h-5 w-5"
-  const transitionStyle = "!transition-colors !duration-300"
+  const transitionStyle = "!duration-300"
 
   // When mounted on client, show theme switcher
   useEffect(() => setMounted(true), [])
@@ -51,8 +51,8 @@ export default function NavigationBar(): JSX.Element {
   return (
     <header
       className={classNames(
-        "sticky top-0 z-30 mb-10",
-        "bg-gray-50",
+        "sticky top-0 z-30 mb-10 bg-gray-50",
+        "!transition-[background-color]",
         showBlur ? "bg-opacity-20 backdrop-blur" : "bg-opacity-0 backdrop-blur-none",
         transitionStyle
       )}
@@ -117,7 +117,13 @@ export default function NavigationBar(): JSX.Element {
             size={20}
           />
         </nav>
-        <div className={classNames("divider-x", transitionStyle, showBlur ? "opacity-100" : "opacity-0")} />
+        <div
+          className={classNames(
+            "divider-x !transition-opacity",
+            transitionStyle,
+            showBlur ? "opacity-100" : "opacity-0"
+          )}
+        />
       </div>
     </header>
   )
