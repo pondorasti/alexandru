@@ -32,17 +32,15 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
       <Inspect>
-        <NavigationBar />
         <div className="max-w-screen-lg mx-auto">
           <span className="rounded-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 opacity-50 fixed -z-50 w-full aspect-square max-w-screen-lg -inset-y-[85%] md:-inset-y-[calc(1024px*0.80)] filter blur-3xl"></span>
         </div>
-        <div className="max-w-screen-md mx-auto">
-          <div className="px-body">
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <Component {...pageProps} />
-          </div>
-        </div>
-        <footer>
+        <NavigationBar />
+        <main className="body">
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Component {...pageProps} />
+        </main>
+        <footer className="body">
           <hr />
           <div className="my-16 text-center text-gray-500 text-xs sm:text-sm font-light">
             Crafted with care by{" "}
