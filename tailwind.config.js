@@ -13,8 +13,8 @@ module.exports = {
       colors: {
         gray: {
           // ...colors.slate,
-          ...colors.zinc,
-          600: "#333333",
+          ...colors.neutral,
+          // 600: "#333333",
           700: "#191919",
           800: "#171717",
           900: "#0F0F0F",
@@ -52,16 +52,13 @@ module.exports = {
           "@apply bg-gray-50 bg-opacity-20 backdrop-blur": {},
         },
         ".body": {
-          "@apply max-w-screen-sm mx-auto px-4 md:px-0": {},
-        },
-        ".border-b-divider": {
-          "@apply border-b border-black border-opacity-10": {},
+          "@apply max-w-screen-sm mx-4 sm:mx-auto": {},
         },
         ".border-divider": {
-          "@apply border border-black border-opacity-10": {},
+          "@apply border-black border-opacity-10": {},
         },
         ".highlight": {
-          "@apply bg-black bg-opacity-[0.07]": {},
+          "@apply bg-black bg-opacity-[0.03] dark:bg-opacity-[0.05]": {},
         },
       })
     }),

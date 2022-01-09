@@ -2,7 +2,7 @@ import Head from "next/head"
 
 export default function Layout({ children }: { children: JSX.Element }) {
   return (
-    <article className="prose dark: prose-invert">
+    <article className="prose prose-neutral dark:prose-invert">
       <Head>
         <link
           rel="stylesheet"
