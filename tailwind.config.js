@@ -51,8 +51,8 @@ module.exports = {
         ".bg-blur": {
           "@apply bg-gray-50 bg-opacity-20 backdrop-blur": {},
         },
-        ".px-body": {
-          "@apply px-4 sm:px-6": {},
+        ".body": {
+          "@apply max-w-screen-sm mx-auto px-4 md:px-0": {},
         },
         ".border-b-divider": {
           "@apply border-b border-black border-opacity-10": {},

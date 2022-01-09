@@ -9,7 +9,7 @@ export default function Secret(): JSX.Element {
   const rowStyling = "p-3 text-gray-900 whitespace-nowrap"
 
   return (
-    <main>
+    <>
       <Description title="Secrets" description="A collection of projects which I have worked on." />
       <div className="shadow-lg overflow-x-auto overflow-y-hidden border-divider rounded-lg ml-12 md:ml-0">
         <table className="table-auto w-full">
@@ -40,6 +40,6 @@ export default function Secret(): JSX.Element {
           </tbody>
         </table>
       </div>
-    </main>
+    </>
   )
 }
