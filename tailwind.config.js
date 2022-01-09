@@ -60,6 +60,9 @@ module.exports = {
         ".border-divider": {
           "@apply border border-black border-opacity-10": {},
         },
+        ".highlight": {
+          "@apply bg-black bg-opacity-[0.07]": {},
+        },
       })
     }),
     plugin(function ({ addComponents }) {
