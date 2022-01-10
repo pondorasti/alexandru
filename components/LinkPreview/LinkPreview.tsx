@@ -22,6 +22,8 @@ export default function LinkPreview({ name, href, alt, preview }: ILinkPreview) 
   const toBase64 = (str: string) =>
     typeof window === "undefined" ? Buffer.from(str).toString("base64") : window.btoa(str)
 
+  const sanitizedHref = href.replace(/:/g, "%3A").replace(/\//g, "%2F").replace(/#/g, "%23")
+
   return (
     <Tooltip.Root delayDuration={0}>
       <Tooltip.Trigger asChild>
@@ -45,7 +47,7 @@ export default function LinkPreview({ name, href, alt, preview }: ILinkPreview) 
         <Image
           src={
             preview ||
-            `https://api.microlink.io?url=${href}&screenshot=true&meta=false&colorScheme=${
+            `https://api.microlink.io?url=${sanitizedHref}&screenshot=true&meta=false&colorScheme=${
               resolvedTheme === "dark" ? "dark" : "light"
             }&embed=screenshot.url`
           }
