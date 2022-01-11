@@ -9,7 +9,7 @@ import classNames from "@lib/classNames"
 // Source: https://github.com/vercel/next.js/issues/4515#issuecomment-810635574
 const DynamicDarkModeSwitch = dynamic(
   () => {
-    const promise = import("react-toggle-dark-mode").then((module) => module.DarkModeSwitch)
+    const promise = import("react-toggle-dark-mode").then(module => module.DarkModeSwitch)
     return promise
   },
   { ssr: false, loading: () => <DarkModeSwitch checked={false} onChange={() => undefined} /> }

@@ -28,7 +28,7 @@ export default function JournalEntry({ meta }: IJournalEntry): JSX.Element {
       <Entry
         components={{
           wrapper: ({ components, ...rest }) => <JournalLayout {...rest} />,
-          a: (props) => <LinkPreview name={props.children as string} href={props.href || ""} alt="" />,
+          a: props => <LinkPreview name={props.children as string} href={props.href || ""} alt="" />,
         }}
       />
     </>
@@ -45,7 +45,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 export async function getStaticPaths() {
   const fileNames = fs.readdirSync("./data/journal")
   const paths = await Promise.all(
-    fileNames.map((fileName) => {
+    fileNames.map(fileName => {
       const meta = matter.read(`./data/journal/${fileName}`).data as IMeta<Slug>
       return {
         params: {

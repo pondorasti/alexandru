@@ -69,7 +69,7 @@ export default function GithubContributions() {
     const today = normalizeUtc(new Date()).toISOString().split("T")[0].substring(5)
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     const months = contributions.reduce((months, item) => {
-      item.contributionDays.forEach((contribution) => {
+      item.contributionDays.forEach(contribution => {
         const date = normalizeUtc(new Date(contribution.date))
 
         const month = date.toLocaleDateString("en-us", { month: "short" })
@@ -103,14 +103,14 @@ export default function GithubContributions() {
     const firstWeek = contributions[0].contributionDays
     const contributionRects = weekPaths
       .selectAll("rect")
-      .data((d) => {
+      .data(d => {
         return d.contributionDays
       })
       .enter()
       .append("rect")
       .attr("x", 0)
       .attr("y", (d, i) => {
-        const dayOfFirstWeek = firstWeek.find((value) => value.date === d.date)
+        const dayOfFirstWeek = firstWeek.find(value => value.date === d.date)
         if (dayOfFirstWeek && firstWeek.length !== 7) {
           const offset = new Date(firstWeek[0].date).getUTCDay()
           return (i + offset) * 13
@@ -125,7 +125,7 @@ export default function GithubContributions() {
         "style",
         `shape-rendering: geometricPrecision; outline: 1px solid ${rectOutline}; outline-offset: -1px; border-radius: 2px`
       )
-      .attr("fill", (d) => {
+      .attr("fill", d => {
         if (today === "10-31") {
           return resolvedTheme === "dark"
             ? colorPallete.halloweenDark[d.contributionLevel]
@@ -137,7 +137,7 @@ export default function GithubContributions() {
       })
       .append("title")
       .text(
-        (d) =>
+        d =>
           `${d.contributionCount} contribution${d.contributionCount === 1 ? "" : "s"} on ${formatDate(
             normalizeUtc(new Date(d.date))
           )}`
@@ -150,9 +150,9 @@ export default function GithubContributions() {
       .data(months)
       .enter()
       .append("text")
-      .text((d) => d)
+      .text(d => d)
       .attr("x", (d, i) => leftMargin + (chartWidth / months.length) * i)
-      .attr("y", (d) => 7)
+      .attr("y", d => 7)
       .style("font-size", "9px")
       .style("font-family", fontFamily)
       .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
@@ -164,8 +164,8 @@ export default function GithubContributions() {
       .data(days)
       .enter()
       .append("text")
-      .text((d) => d)
-      .attr("x", (d) => 0)
+      .text(d => d)
+      .attr("x", d => 0)
       .attr("y", (d, i) => topMargin + 9 + (chartHeight / days.length) * i)
       .attr("style", (d, i) => `display: ${i % 2 === 1 ? "block" : "none"}`)
       .style("font-size", "9px")
@@ -233,7 +233,7 @@ export default function GithubContributions() {
   }, [svgRefs, resolvedTheme])
 
   // Focus input form based on hotkeys
-  useHotkeys("⌘+k, ctrl+k, /", (event) => {
+  useHotkeys("⌘+k, ctrl+k, /", event => {
     event.preventDefault()
     usernameRef.current?.focus()
   })
@@ -254,7 +254,7 @@ export default function GithubContributions() {
         />
         <form
           className="mb-12 relative rounded-md shadow-sm w-full md:w-96"
-          onSubmit={(event) => {
+          onSubmit={event => {
             event.preventDefault()
             handleInput()
           }}

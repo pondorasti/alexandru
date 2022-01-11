@@ -72,7 +72,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
           </div>
 
           {/* Entries */}
-          {metas.map((meta) => (
+          {metas.map(meta => (
             <Link key={meta.slug} href={`/journal/${meta.slug}`} passHref>
               <a className={cardStyle} onMouseOver={handleMouseOver}>
                 <aside className={asideStyle} onMouseOver={handleMouseOver}>
@@ -92,7 +92,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
 export async function getStaticProps() {
   const fileNames = fs.readdirSync("./data/journal")
   const metas = (
-    await Promise.all(fileNames.map((fileName) => matter.read(`./data/journal/${fileName}`).data as IMeta<string>))
+    await Promise.all(fileNames.map(fileName => matter.read(`./data/journal/${fileName}`).data as IMeta<string>))
   ).sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
 
   return { props: { metas } }
