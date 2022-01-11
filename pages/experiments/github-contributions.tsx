@@ -7,6 +7,7 @@ import { SearchIcon } from "@heroicons/react/solid"
 import classNames from "@lib/classNames"
 import { normalizeUtc, formatDate } from "@lib/date"
 import type { IContributionsCollection, IUserInformation, IUserInsights } from "@lib/types"
+import Description from "@components/Description"
 
 export default function GithubContributions() {
   const { resolvedTheme } = useTheme()
@@ -20,8 +21,8 @@ export default function GithubContributions() {
 
   const insightCardStyling =
     "bg-white dark:bg-gray-800 border border-gray-200 shadow-lg hover:shadow-2xl p-6 flex flex-col items-center overflow-hidden !transform !transition !duration-300 !ease-out rounded-lg hover:scale-[1.03]"
-  const insightTitleStyling = "text-3xl font-bold"
-  const insightSubtitleStyling = "mt-1 text-md leading-6 font-medium text-gray-500"
+  const insightTitleStyling = "text-2xl font-semibold"
+  const insightSubtitleStyling = "mt-1 leading-6 text-gray-500"
 
   function drawChart(payload: IContributionsCollection, svgRef: RefObject<SVGSVGElement>) {
     const contributions = payload.data.user.contributionsCollection.contributionCalendar.weeks
@@ -34,7 +35,7 @@ export default function GithubContributions() {
     // Source: https://github.com/github/feedback/discussions/7078
     const colorPallete = {
       dark: {
-        NONE: "#1F2937", //"#161B22"
+        NONE: "#171717", //"#161B22"
         FIRST_QUARTILE: "#0E4429",
         SECOND_QUARTILE: "#006D32",
         THIRD_QUARTILE: "#26A641",
@@ -48,7 +49,7 @@ export default function GithubContributions() {
         FOURTH_QUARTILE: "#216d39",
       },
       halloweenDark: {
-        NONE: "#1F2937", //"#161B22"
+        NONE: "#171717", //"#161B22"
         FIRST_QUARTILE: "#631c03",
         SECOND_QUARTILE: "#bd561d",
         THIRD_QUARTILE: "#fa7a18",
@@ -246,14 +247,13 @@ export default function GithubContributions() {
   return (
     <>
       <div className="flex flex-col items-center">
-        <h1 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          Github Contributions
-        </h1>
-        <p className="mt-4 text-xl text-center text-gray-500 font-medium">
-          visualize, analyze and contrast your commits
-        </p>
+        <Description
+          title="Github Contributions"
+          description="visualize, analyze and contrast your commits"
+          hideBreak
+        />
         <form
-          className="mt-8 mb-12 relative rounded-md shadow-sm w-full md:w-96"
+          className="mb-12 relative rounded-md shadow-sm w-full md:w-96"
           onSubmit={(event) => {
             event.preventDefault()
             handleInput()
@@ -315,7 +315,7 @@ export default function GithubContributions() {
 
           return (
             <Fragment key={i}>
-              <div className="mb-8 overflow-x-scroll md:-mx-[22px]">
+              <div className="mb-8 overflow-x-scroll md:overflow-visible md:-ml-[62px]">
                 <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-900">
                   {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
                   {year !== undefined ? year : "the last year"}
