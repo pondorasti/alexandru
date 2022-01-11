@@ -20,7 +20,7 @@ export default function NavigationBar(): JSX.Element {
   const { resolvedTheme, setTheme } = useTheme()
   const [showBlur, setShowBlur] = useState(false)
 
-  const linkStyle = "text-sm font-medium text-black opacity-70 hover:opacity-100"
+  const linkStyle = "text-sm font-medium text-black dark:text-white opacity-70 hover:opacity-100"
   const iconStyle = "h-5 w-5"
   const transitionStyle = "!duration-300"
 
@@ -51,9 +51,11 @@ export default function NavigationBar(): JSX.Element {
   return (
     <header
       className={classNames(
-        "sticky top-0 z-30 mb-10 bg-gray-50",
+        "sticky top-0 z-30 mb-10 bg-gray-50 dark:bg-gray-900",
         "!transition-[background-color]",
-        showBlur ? "bg-opacity-20 backdrop-blur" : "bg-opacity-0 backdrop-blur-none",
+        showBlur
+          ? "bg-opacity-20 dark:bg-opacity-20 backdrop-blur"
+          : "bg-opacity-0 dark:bg-opacity-0 backdrop-blur-none",
         transitionStyle
       )}
     >
@@ -61,7 +63,7 @@ export default function NavigationBar(): JSX.Element {
         <nav className="flex items-center justify-between space-x-3 py-5">
           <Link href="/">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a className="text-gray-900 text-md font-normal">
+            <a className="text-gray-900 dark:text-gray-50 text-md font-normal">
               🤯
               <span className="hidden md:inline-block sm:ml-2">alexandru.eth</span>
             </a>

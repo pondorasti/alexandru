@@ -24,7 +24,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
   const cardStyle =
     "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl !transition-colors !duration-300"
   const asideStyle =
-    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 font-serif text-center text-sm text-gray-300"
+    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 font-serif text-center text-sm text-gray-400 dark:text-gray-600"
 
   function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     const node = event.target as HTMLElement
@@ -72,14 +72,14 @@ export default function Journal({ metas }: IJournal): JSX.Element {
           </div>
 
           {/* Entries */}
-          {metas.map((meta, index) => (
+          {metas.map((meta) => (
             <Link key={meta.slug} href={`/journal/${meta.slug}`} passHref>
               <a className={cardStyle} onMouseOver={handleMouseOver}>
                 <aside className={asideStyle} onMouseOver={handleMouseOver}>
                   {formatDate(new Date(meta.publishedAt), false)}
                 </aside>
                 <h2 className="text-xl font-semibold">{meta.title}</h2>
-                <p className="mt-2 text-sm text-gray-400">{meta.description}</p>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-500">{meta.description}</p>
               </a>
             </Link>
           ))}

@@ -20,7 +20,7 @@ export default function GithubContributions() {
   const [svgRefs, setSvgRefs] = useState<RefObject<SVGSVGElement>[]>([])
 
   const insightCardStyling =
-    "bg-white dark:bg-gray-800 border border-gray-200 shadow-lg hover:shadow-2xl p-6 flex flex-col items-center overflow-hidden !transform !transition !duration-300 !ease-out rounded-lg hover:scale-[1.03]"
+    "bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-75 border border-divider shadow-lg dark:shadow-none hover:shadow-2xl p-6 flex flex-col items-center overflow-hidden !transform !transition !duration-300 !ease-out rounded-lg hover:scale-[1.03]"
   const insightTitleStyling = "text-2xl font-semibold"
   const insightSubtitleStyling = "mt-1 leading-6 text-gray-500"
 
@@ -35,28 +35,28 @@ export default function GithubContributions() {
     // Source: https://github.com/github/feedback/discussions/7078
     const colorPallete = {
       dark: {
-        NONE: "#171717", //"#161B22"
+        NONE: "#171717BF", //"#161B22"
         FIRST_QUARTILE: "#0E4429",
         SECOND_QUARTILE: "#006D32",
         THIRD_QUARTILE: "#26A641",
         FOURTH_QUARTILE: "#39D353",
       },
       light: {
-        NONE: "#EBEDF0",
+        NONE: "#EBEDF0BF",
         FIRST_QUARTILE: "#9BE9A8",
         SECOND_QUARTILE: "#30C463",
         THIRD_QUARTILE: "#30A14E",
         FOURTH_QUARTILE: "#216d39",
       },
       halloweenDark: {
-        NONE: "#171717", //"#161B22"
+        NONE: "#171717BF", //"#161B22"
         FIRST_QUARTILE: "#631c03",
         SECOND_QUARTILE: "#bd561d",
         THIRD_QUARTILE: "#fa7a18",
         FOURTH_QUARTILE: "#fddf68",
       },
       halloweenLight: {
-        NONE: "#ebedf0",
+        NONE: "#ebedf080",
         FIRST_QUARTILE: "#ffee4a",
         SECOND_QUARTILE: "#ffc501",
         THIRD_QUARTILE: "#fe9600",
@@ -260,18 +260,18 @@ export default function GithubContributions() {
           }}
         >
           <input
-            className="focus:ring-blue-300 focus:border-blue-300 dark:focus:ring-blue-900 dark:focus:border-blue-900 dark:bg-gray-800 dark:bg-opacity-40 block text-xl border border-gray-300 rounded-lg w-full md:w-96 p-4 pr-14"
+            className="focus:ring-blue-300 focus:border-blue-300 dark:focus:ring-blue-900 dark:focus:border-blue-900 dark:bg-gray-800 dark:bg-opacity-40 block text-xl border border-divider rounded-lg w-full md:w-96 p-4 pr-14"
             type="text"
             placeholder="username"
             ref={usernameRef}
           />
           <button className="absolute inset-y-0 right-0 px-3 flex items-center" onClick={() => handleInput()}>
             {!loading ? (
-              <SearchIcon className="h-8 w-8 text-gray-400" aria-hidden="true" />
+              <SearchIcon className="h-8 w-8 text-gray-400 dark:text-gray-500" aria-hidden="true" />
             ) : (
               <div className="h-8 w-8 flex">
                 <svg
-                  className="animate-spin h-6 w-6 text-black m-auto"
+                  className="animate-spin h-6 w-6 text-black dark:text-white m-auto"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -296,7 +296,7 @@ export default function GithubContributions() {
           loading || !error ? "" : "translate-y-4"
         )}
       >
-        <p className="mt-2 text-black text-lg text-gray-500">
+        <p className="mt-2 text-md text-gray-400 dark:text-gray-500">
           Uh oh! It looks like the user you&apos;re looking for doesn&#39;t exist.
         </p>
       </div>
@@ -316,7 +316,7 @@ export default function GithubContributions() {
           return (
             <Fragment key={i}>
               <div className="mb-8 overflow-x-scroll md:overflow-visible md:-ml-[62px]">
-                <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-900">
+                <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-700 dark:text-gray-300">
                   {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
                   {year !== undefined ? year : "the last year"}
                 </p>

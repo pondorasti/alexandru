@@ -42,9 +42,9 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         </main>
         <footer className="body">
           <hr />
-          <div className="my-16 text-center text-gray-500 text-xs sm:text-sm font-light">
+          <div className="my-16 text-center text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-light">
             Crafted with care by{" "}
-            <span className="text-gray-600 hover:text-gray-700 font-normal">
+            <span className="font-normal">
               <LinkPreview
                 name="Alexandru Turcanu"
                 href="https://twitter.com/Pondorasti"
