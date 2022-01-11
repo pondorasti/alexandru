@@ -22,7 +22,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
   const highlightRef = useRef<HTMLDivElement>(null)
 
   const cardStyle =
-    "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl !transition-colors !duration-300"
+    "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl transition-colors duration-300"
   const asideStyle =
     "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 font-serif text-center text-sm text-gray-400 dark:text-gray-600"
 
@@ -57,8 +57,8 @@ export default function Journal({ metas }: IJournal): JSX.Element {
             ref={highlightRef}
             className={classNames(
               "hidden sm:block w-full absolute h-[104px]",
-              "!duration-200",
-              isHoveredFromNull ? "!transition-none" : "!transition-transform "
+              "duration-200",
+              isHoveredFromNull ? "transition-none" : "transition-transform "
             )}
             style={{ transform }}
           >
@@ -66,7 +66,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
               className={classNames(
                 "highlight h-full w-full rounded-xl",
                 !!highlightedTab ? "opacity-100" : "opacity-0",
-                "!transition-opacity !duration-300"
+                "transition-opacity duration-300"
               )}
             />
           </div>

@@ -20,7 +20,7 @@ export default function GithubContributions() {
   const [svgRefs, setSvgRefs] = useState<RefObject<SVGSVGElement>[]>([])
 
   const insightCardStyling =
-    "bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-75 border border-divider shadow-lg dark:shadow-none hover:shadow-2xl p-6 flex flex-col items-center overflow-hidden !transform !transition !duration-300 !ease-out rounded-lg hover:scale-[1.03]"
+    "bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-75 border border-divider shadow-lg dark:shadow-none hover:shadow-2xl p-6 flex flex-col items-center overflow-hidden transform transition duration-300 ease-out rounded-lg hover:scale-[1.03]"
   const insightTitleStyling = "text-2xl font-semibold"
   const insightSubtitleStyling = "mt-1 leading-6 text-gray-500"
 

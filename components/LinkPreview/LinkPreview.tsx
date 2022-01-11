@@ -15,7 +15,7 @@ export default function LinkPreview({ name, href, alt, preview }: ILinkPreview) 
 
   const shimmer = (w: number, h: number, theme?: string) => `
     <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <rect id="r" width="${w}" height="${h}" fill="${theme === "dark" ? "#0f172a" : "#e2e8f0"}" />
+      <rect id="r" width="${w}" height="${h}" fill="${theme === "dark" ? "#171717" : "#e2e8f0"}" />
       <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
     </svg>`
 
@@ -29,8 +29,8 @@ export default function LinkPreview({ name, href, alt, preview }: ILinkPreview) 
       <Tooltip.Trigger asChild>
         <a
           className={classNames(
-            "text-blue-600 hover:text-blue-700",
-            "relative after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-blue-700 after:rounded-full after:!transition-[width] after:!ease hover:after:!ease-out after:!duration-200"
+            "text-blue-600 hover:text-blue-700 dark:text-blue-300",
+            "relative after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-blue-700 after:rounded-full after:transition-[width] after:ease hover:after:ease-out after:duration-200"
           )}
           href={href}
           target="_blank"
@@ -42,7 +42,7 @@ export default function LinkPreview({ name, href, alt, preview }: ILinkPreview) 
       <Tooltip.Content
         side="top"
         sideOffset={16}
-        className="border bg-white dark:bg-gray-800 p-2 h-40 w-64 rounded-lg border-gray-200 animate-slide-in radix-state-closed:animate-slide-out"
+        className="border border-divider bg-white dark:bg-gray-900 p-2 h-40 w-64 rounded-lg animate-slide-in radix-state-closed:animate-slide-out"
       >
         <Image
           src={
