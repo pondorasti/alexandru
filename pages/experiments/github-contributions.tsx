@@ -246,7 +246,7 @@ export default function GithubContributions() {
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className={classNames("flex flex-col items-center", loading ? "cursor-wait" : "")}>
         <Description
           title="Github Contributions"
           description="visualize, analyze and contrast your commits"
@@ -260,7 +260,11 @@ export default function GithubContributions() {
           }}
         >
           <input
-            className="focus:ring-blue-300 focus:border-blue-300 dark:focus:ring-blue-900 dark:focus:border-blue-900 bg-white dark:bg-gray-800 glass block text-xl border border-divider rounded-lg w-full md:w-96 p-4 pr-14"
+            className={classNames(
+              "bg-white dark:bg-gray-800 glass block text-xl border border-divider rounded-lg w-full md:w-96 p-4 pr-14",
+              "focus:ring-blue-300 focus:border-blue-300 dark:focus:ring-blue-900 dark:focus:border-blue-900",
+              loading ? "cursor-wait" : "cursor-auto"
+            )}
             type="text"
             placeholder="username"
             ref={usernameRef}
