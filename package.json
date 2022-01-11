@@ -12,12 +12,21 @@
   "eslintConfig": {
     "extends": [
       "next/core-web-vitals",
+      "plugin:@typescript-eslint/recommended",
       "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "@typescript-eslint"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
       "project": "./tsconfig.json"
     },
+    "ignorePatterns": [
+      "next.config.mjs",
+      "postcss.config.js",
+      "tailwind.config.js"
+    ],
     "rules": {
       "react-hooks/exhaustive-deps": "off",
       "import/no-anonymous-default-export": "off"
@@ -59,6 +68,7 @@
     "@types/d3": "^7.1.0",
     "@types/react": "^17.0.38",
     "@types/tailwindcss": "^3.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
     "autoprefixer": "^10.4.2",
     "eslint": "8.6.0",
