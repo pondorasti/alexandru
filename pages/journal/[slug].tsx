@@ -27,7 +27,7 @@ export default function JournalEntry({ meta }: IJournalEntry): JSX.Element {
       <Description title={meta.title} description={meta.description} />
       <Entry
         components={{
-          wrapper: ({ components, ...rest }) => <JournalLayout {...rest} />,
+          wrapper: ({ ...rest }) => <JournalLayout {...rest} />,
           a: props => <LinkPreview name={props.children as string} href={props.href || ""} alt="" />,
         }}
       />

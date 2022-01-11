@@ -90,7 +90,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<IUserInformation
   let totalContributions = 0
   let firstContributionDate = ""
   const today = normalizeUtc(new Date()).toISOString().split("T")[0]
-  for (let year of years) {
+  for (const year of years) {
     // Resolve collection from cache or by fetching it
     let resolvedCollection: IContributionsCollection
     const cachedYear: IUserCache = data.find((element: IUserCache) => element.year === year)
@@ -113,8 +113,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<IUserInformation
     const contributionCalendar = resolvedCollection.data.user.contributionsCollection.contributionCalendar
     const contributions = contributionCalendar.weeks
     totalContributions += contributionCalendar.totalContributions
-    for (let contribution of [...contributions].reverse()) {
-      for (let day of [...contribution.contributionDays].reverse()) {
+    for (const contribution of [...contributions].reverse()) {
+      for (const day of [...contribution.contributionDays].reverse()) {
         if (day.contributionCount === 0) {
           longestStreak = Math.max(potentialStreak, longestStreak)
           if (currentStreak === -1 && day.date < today) {
