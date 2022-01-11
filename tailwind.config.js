@@ -11,14 +11,19 @@ module.exports = {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        systemRed: "#ff5f57",
+        systemYellow: "#febb2e",
+        systemGreen: "#5FC454",
         gray: {
-          // ...colors.slate,
           ...colors.neutral,
-          // 600: "#333333",
-          700: "#191919",
+
+          // 400: "#737373",
+          // 500: "#525252",
+          // 600: "#404040",
+          700: "#262626",
+          // 700: "#191919",
           800: "#171717",
           900: "#0F0F0F",
-          // 900: "#020005",
         },
       },
       opacity: {
@@ -43,32 +48,31 @@ module.exports = {
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
-    require("nightwind"),
     require("@tailwindcss/line-clamp"),
     require("tailwindcss-radix")(),
     plugin(function ({ addUtilities }) {
       addUtilities({
         ".bg-blur": {
-          "@apply bg-gray-50 bg-opacity-20 backdrop-blur": {},
+          "@apply bg-gray-50 bg-opacity-20 dark:bg-gray-900 dark:bg-opacity-20 backdrop-blur": {},
         },
         ".body": {
           "@apply max-w-screen-sm mx-4 sm:mx-auto": {},
         },
         ".border-divider": {
-          "@apply border-black border-opacity-10": {},
+          "@apply border-black border-opacity-10 dark:border-white dark:border-opacity-10": {},
         },
         ".highlight": {
-          "@apply bg-black bg-opacity-[0.03] dark:bg-opacity-[0.05]": {},
+          "@apply bg-black bg-opacity-[0.03] dark:bg-white dark:bg-opacity-[0.05]": {},
         },
       })
     }),
     plugin(function ({ addComponents }) {
       addComponents({
         ".divider-y": {
-          "@apply h-full w-px bg-black bg-opacity-10": {},
+          "@apply h-full w-px bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10": {},
         },
         ".divider-x": {
-          "@apply h-px w-full bg-black bg-opacity-10": {},
+          "@apply h-px w-full bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10": {},
         },
       })
     }),
