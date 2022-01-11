@@ -6,6 +6,10 @@ module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx}", "./utils/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class", // or 'media' or 'class'
   theme: {
+    screens: {
+      xs: "475px",
+      ...defaultTheme.screens,
+    },
     extend: {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
@@ -63,6 +67,9 @@ module.exports = {
         },
         ".highlight": {
           "@apply bg-black bg-opacity-[0.03] dark:bg-white dark:bg-opacity-[0.05]": {},
+        },
+        ".glass": {
+          "@apply !bg-opacity-60 dark:!bg-opacity-60": {},
         },
       })
     }),

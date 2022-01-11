@@ -71,9 +71,9 @@ export default function NavigationBar(): JSX.Element {
 
           <div className="flex-grow"></div>
 
-          <Link href="/experiments/github-contributions">
+          <Link href="/experiments">
             <a className={linkStyle}>
-              <span className="sr-only">Contributions</span>
+              <span className="sr-only">Experiments</span>
               <BeakerIcon className={iconStyle} />
             </a>
           </Link>
