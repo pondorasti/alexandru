@@ -28,6 +28,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
 
   function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     const node = event.target as HTMLElement
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const parent = parentRef.current!
 
     setIsHoveredFromNull(!highlightedTab)

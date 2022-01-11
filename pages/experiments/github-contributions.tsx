@@ -101,7 +101,8 @@ export default function GithubContributions() {
       .attr("transform", (d, i) => `translate(${i * 14}, 0)`)
 
     const firstWeek = contributions[0].contributionDays
-    const contributionRects = weekPaths
+    // contributionRects
+    weekPaths
       .selectAll("rect")
       .data(d => {
         return d.contributionDays
@@ -152,7 +153,7 @@ export default function GithubContributions() {
       .append("text")
       .text(d => d)
       .attr("x", (d, i) => leftMargin + (chartWidth / months.length) * i)
-      .attr("y", d => 7)
+      .attr("y", () => 7)
       .style("font-size", "9px")
       .style("font-family", fontFamily)
       .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
@@ -165,7 +166,7 @@ export default function GithubContributions() {
       .enter()
       .append("text")
       .text(d => d)
-      .attr("x", d => 0)
+      .attr("x", () => 0)
       .attr("y", (d, i) => topMargin + 9 + (chartHeight / days.length) * i)
       .attr("style", (d, i) => `display: ${i % 2 === 1 ? "block" : "none"}`)
       .style("font-size", "9px")
