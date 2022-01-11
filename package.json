@@ -9,6 +9,29 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix"
   },
+  "eslintConfig": {
+    "extends": [
+      "next/core-web-vitals",
+      "plugin:prettier/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "react-hooks/exhaustive-deps": "off",
+      "import/no-anonymous-default-export": "off"
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabwidth": 2,
+    "useTabs": false,
+    "semi": false,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
+  },
   "dependencies": {
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
@@ -36,6 +59,7 @@
     "@types/d3": "^7.1.0",
     "@types/react": "^17.0.38",
     "@types/tailwindcss": "^3.0.2",
+    "@typescript-eslint/parser": "^5.9.1",
     "autoprefixer": "^10.4.2",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",
