@@ -19,10 +19,6 @@
     "plugins": [
       "@typescript-eslint"
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    },
     "ignorePatterns": [
       "next.config.mjs",
       "postcss.config.js",
