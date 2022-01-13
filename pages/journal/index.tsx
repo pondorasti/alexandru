@@ -66,7 +66,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
             <div
               className={classNames(
                 "highlight h-full w-full rounded-xl",
-                !!highlightedTab ? "opacity-100" : "opacity-0",
+                highlightedTab ? "opacity-100" : "opacity-0",
                 "transition-opacity duration-300"
               )}
             />
