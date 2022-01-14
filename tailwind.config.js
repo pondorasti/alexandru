@@ -13,7 +13,6 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
-        // Luxurious Roman
       },
       colors: {
         systemRed: "#ff5f57",
@@ -87,7 +86,7 @@ module.exports = {
     plugin(function ({ addBase }) {
       addBase({
         hr: {
-          "@apply my-16 mx-auto w-12 border-divider": {},
+          "@apply my-16 mx-auto w-20 border-divider": {},
         },
       })
     }),

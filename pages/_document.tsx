@@ -12,12 +12,21 @@ export default class Document extends NextDocument {
           <link rel="manifest" href="/favicons/site.webmanifest" />
           <link rel="shortcut icon" href="/favicons/favicon.ico" />
 
-          {/* Inter Font */}
+          {/* Fonts */}
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
             rel="stylesheet"
           />
+          <link href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap" rel="stylesheet" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Luxurious+Roman&family=Noto+Sans&display=swap"
+            rel="stylesheet"
+          />
+          <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet"></link>
 
           <meta
             name="description"

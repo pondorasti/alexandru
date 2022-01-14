@@ -2,6 +2,7 @@ import { useState, useRef } from "react"
 import Link from "next/link"
 import fs from "fs"
 import * as matter from "gray-matter"
+import TransitionPageContent from "@components/TransitionPageContent"
 import Description from "@components/Description"
 import { IMeta } from "@lib/types"
 import classNames from "@lib/classNames"
@@ -48,7 +49,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
     <>
       <Description title="Journal" description="A collection of random thoughts" />
 
-      <div className="ml-12 md:ml-0">
+      <TransitionPageContent className="ml-12 md:ml-0">
         {/* Book Binding */}
         <div className="fixed border-l-2 border-divider border-dotted h-full -ml-4 md:-ml-6 top-0" />
 
@@ -85,7 +86,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
             </Link>
           ))}
         </div>
-      </div>
+      </TransitionPageContent>
     </>
   )
 }
