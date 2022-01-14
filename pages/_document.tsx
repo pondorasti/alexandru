@@ -19,14 +19,6 @@ export default class Document extends NextDocument {
             rel="stylesheet"
           />
           <link href="https://fonts.googleapis.com/css2?family=Luxurious+Roman&display=swap" rel="stylesheet" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Luxurious+Roman&family=Noto+Sans&display=swap"
-            rel="stylesheet"
-          />
-          <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet"></link>
 
           <meta
             name="description"
