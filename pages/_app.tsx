@@ -8,6 +8,7 @@ import { ThemeProvider } from "next-themes"
 import NavigationBar from "@components/NavigationBar"
 import LinkPreview from "@components/LinkPreview"
 import classNames from "@lib/classNames"
+import TransitionPage from "@components/TransitionPage"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // Fathom Analytics
@@ -50,7 +51,9 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <NavigationBar />
         <main className="body">
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Component {...pageProps} />
+          <TransitionPage>
+            <Component {...pageProps} />
+          </TransitionPage>
         </main>
         <footer className="body">
           <hr />
