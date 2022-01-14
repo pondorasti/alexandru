@@ -30,6 +30,8 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     }
   }, [])
 
+  const hideGradient = router.route.includes("journal")
+
   return (
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
       <Inspect>
@@ -39,8 +41,9 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
               "rounded-full bg-gradient-to-r",
               "dark:from-rose-700 dark:via-pink-700 dark:to-purple-700 dark:opacity-60",
               "from-cyan-300 via-sky-300 to-blue-300 opacity-80",
-              "fixed -z-50 w-full aspect-square max-w-screen-lg filter blur-3xl",
-              "bottom-[calc(100%-200px)] dark:bottom-[calc(100%-200px)]"
+              "-z-50 w-full aspect-square max-w-screen-lg filter blur-3xl",
+              "bottom-[calc(100%-200px)] dark:bottom-[calc(100%-200px)]",
+              hideGradient ? "absolute" : "fixed"
             )}
           />
         </div>
