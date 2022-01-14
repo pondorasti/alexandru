@@ -2,11 +2,12 @@ import { useEffect } from "react"
 import { AppProps } from "next/app"
 import { useRouter } from "next/router"
 import * as Fathom from "fathom-client"
+import Inspect from "inspx"
 import "tailwindcss/tailwind.css"
 import { ThemeProvider } from "next-themes"
 import NavigationBar from "@components/NavigationBar"
 import LinkPreview from "@components/LinkPreview"
-import Inspect from "inspx"
+import classNames from "@lib/classNames"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // Fathom Analytics
@@ -33,7 +34,15 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
       <Inspect>
         <div className="max-w-screen-lg mx-auto">
-          <span className="rounded-full bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 opacity-50 fixed -z-50 w-full aspect-square max-w-screen-lg -inset-y-[85%] md:-inset-y-[calc(1024px*0.80)] filter blur-3xl"></span>
+          <span
+            className={classNames(
+              "rounded-full bg-gradient-to-r",
+              "dark:from-rose-700 dark:via-pink-700 dark:to-purple-700 dark:opacity-60",
+              "from-cyan-300 via-sky-300 to-blue-300 opacity-80",
+              "fixed -z-50 w-full aspect-square max-w-screen-lg filter blur-3xl",
+              "bottom-[calc(100%-200px)] dark:bottom-[calc(100%-200px)]"
+            )}
+          />
         </div>
         <NavigationBar />
         <main className="body">
