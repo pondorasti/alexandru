@@ -24,7 +24,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
   const cardStyle =
     "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl transition-colors duration-300"
   const asideStyle =
-    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 font-serif text-center text-sm text-gray-400 dark:text-gray-600"
+    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 font-serif text-center text-sm text-gray-400 dark:text-gray-600 font-['Luxurious_Roman']"
 
   function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     const node = event.target as HTMLElement
