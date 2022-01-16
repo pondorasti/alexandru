@@ -10,8 +10,6 @@ interface IDescription {
 export default function Description({ title, description, hideBreak = false }: IDescription): JSX.Element {
   const transition = "transition-all duration-300"
 
-  console.log("hello")
-
   return (
     <>
       <Transition

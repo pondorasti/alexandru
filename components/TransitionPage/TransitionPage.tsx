@@ -12,7 +12,6 @@ export default function TransitionPage({ children }: ITransitionPage): JSX.Eleme
   useEffect(() => {
     if (children !== displayChildren) {
       setShow(false)
-      console.log("hide")
     }
   }, [children])
 
@@ -28,7 +27,6 @@ export default function TransitionPage({ children }: ITransitionPage): JSX.Eleme
       afterLeave={() => {
         setDisplayChildren(children)
         setShow(true)
-        console.log("show")
       }}
     >
       {displayChildren}
