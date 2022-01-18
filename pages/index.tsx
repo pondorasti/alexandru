@@ -1,3 +1,10 @@
+import Description from "@components/Description"
+
 export default function Home(): JSX.Element {
-  return <h1>A work in progress...</h1>
+  return (
+    <>
+      <Description title="Alexandru Turcanu" description="Full Stack Engineer" />
+      <p>Currently working at [hire me]</p>
+    </>
+  )
 }
