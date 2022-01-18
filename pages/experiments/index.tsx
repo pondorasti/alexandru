@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import TransitionPageContent from "@components/TransitionPageContent"
 import Description from "@components/Description"
 import classNames from "@lib/classNames"
 
@@ -10,7 +9,7 @@ export default function Experiments(): JSX.Element {
   return (
     <>
       <Description title="Experiments" description="A playground to try out new ideas" />
-      <TransitionPageContent>
+      <div>
         <Link href="/experiments/github-contributions?search=pondorasti" passHref>
           <a
             className={classNames(
@@ -59,7 +58,7 @@ export default function Experiments(): JSX.Element {
             </div>
           </a>
         </Link>
-      </TransitionPageContent>
+      </div>
     </>
   )
 }

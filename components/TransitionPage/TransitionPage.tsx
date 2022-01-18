@@ -18,9 +18,9 @@ export default function TransitionPage({ children }: ITransitionPage): JSX.Eleme
   return (
     <Transition
       show={show}
-      // enter="transition duration-300"
-      // enterFrom="opacity-0"
-      // enterTo="opacity-100"
+      enter="transition duration-300"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
       leave="transition duration-300"
       leaveFrom="opacity-100"
       leaveTo="opacity-0"

@@ -4,7 +4,7 @@ import client from "@lib/liveblocksClient"
 export default function CursorMultiplayer(): JSX.Element {
   return (
     <LiveblocksProvider client={client}>
-      <RoomProvider id="test-room" defaultPresence={() => ({ hello: null })}>
+      <RoomProvider id="test-room" defaultPresence={() => ({ cursor: null })}>
         <Cursors />
       </RoomProvider>
     </LiveblocksProvider>
