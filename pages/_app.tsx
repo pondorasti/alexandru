@@ -32,6 +32,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   }, [])
 
   const hideGradient = router.route.includes("journal")
+  const hideFooter = router.route === "/"
 
   return (
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
@@ -49,26 +50,26 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           />
         </div>
         <NavigationBar />
-        <main className="body">
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <TransitionPage>
+        <TransitionPage>
+          <main className="body">
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Component {...pageProps} />
-          </TransitionPage>
-        </main>
-        <footer className="body">
-          <hr />
-          <div className="my-16 text-center text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-light">
-            Crafted with care by{" "}
-            <span className="font-normal">
-              <LinkPreview
-                name="Alexandru Turcanu"
-                href="https://twitter.com/Pondorasti"
-                preview="/images/twitter-preview.png"
-                alt="Alexandru Turcanu's Twitter"
-              />
-            </span>
-          </div>
-        </footer>
+          </main>
+          <footer className={classNames("body", hideFooter ? "hidden" : "")}>
+            <hr />
+            <div className="my-16 text-center text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-light">
+              Crafted with care by{" "}
+              <span className="font-normal">
+                <LinkPreview
+                  name="Alexandru Turcanu"
+                  href="https://twitter.com/Pondorasti"
+                  preview="/images/twitter-preview.png"
+                  alt="Alexandru Turcanu's Twitter"
+                />
+              </span>
+            </div>
+          </footer>
+        </TransitionPage>
       </Inspect>
     </ThemeProvider>
   )

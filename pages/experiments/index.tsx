@@ -6,6 +6,7 @@ import classNames from "@lib/classNames"
 export default function Experiments(): JSX.Element {
   const circleStyle = "h-3 w-3 rounded-full bg-gray-200 dark:bg-gray-700 opacity-0 xs:opacity-100"
   const transition = "transition-all ease-out duration-300"
+
   return (
     <>
       <Description title="Experiments" description="A playground to try out new ideas" />
