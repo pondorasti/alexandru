@@ -3,7 +3,7 @@ import NextDocument, { Html, Head, Main, NextScript } from "next/document"
 export default class Document extends NextDocument {
   render(): JSX.Element {
     return (
-      <Html lang="en" className="nightwind">
+      <Html lang="en" className="nightwind h-full">
         <Head>
           {/* Favicon */}
           <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
