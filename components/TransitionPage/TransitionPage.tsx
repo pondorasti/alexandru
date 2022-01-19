@@ -25,21 +25,21 @@ export default function TransitionPage({ children }: ITransitionPage): JSX.Eleme
   console.log(animateEnter)
 
   return (
-    <Transition
-      show={show}
-      enter={animateEnter ? transition : ""}
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave={transition}
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-      afterLeave={() => {
-        setDisplayChildren(children)
-        setDisplayRoute(router.route)
-        setShow(true)
-      }}
-    >
-      {displayChildren}
-    </Transition>
+    // <Transition
+    //   show={show}
+    //   enter={animateEnter ? transition : transition}
+    //   enterFrom="opacity-0"
+    //   enterTo="opacity-100"
+    //   leave={transition}
+    //   leaveFrom="opacity-100"
+    //   leaveTo="opacity-0"
+    //   afterLeave={() => {
+    //     setDisplayChildren(children)
+    //     setDisplayRoute(router.route)
+    //     setShow(true)
+    //   }}
+    // >
+    <div>{children}</div>
+    // </Transition>
   )
 }
