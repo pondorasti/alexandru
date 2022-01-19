@@ -61,10 +61,11 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
               Crafted with care by{" "}
               <span className="font-normal">
                 <LinkPreview
-                  name="Alexandru Turcanu"
+                  name="Alexandru"
                   href="https://twitter.com/Pondorasti"
                   preview="/images/twitter-preview.png"
                   alt="Alexandru Turcanu's Twitter"
+                  style="neutral"
                 />
               </span>
             </div>

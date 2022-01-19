@@ -8,9 +8,21 @@ interface ILinkPreview {
   href: string
   preview?: string
   alt: string
+  style?: "neutral" | "blue"
 }
 
-export default function LinkPreview({ name, href, alt, preview }: ILinkPreview) {
+// dark:text-gray-100 dark:hover:text-gray-50
+
+const neutralHighlight = classNames(
+  "text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-50",
+  "after:bg-gray-700 after:hover:bg-gray-900 dark:after:bg-gray-200 dark:after:hover:bg-gray-50"
+)
+const blueHighlight = classNames(
+  "text-blue-600 hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-400",
+  "after:bg-blue-600 after:hover:bg-blue-700 dark:after:bg-blue-300 dark:after:hover:bg-blue-400"
+)
+
+export default function LinkPreview({ name, href, alt, preview, style = "blue" }: ILinkPreview) {
   const { resolvedTheme } = useTheme()
 
   const shimmer = (w: number, h: number, theme?: string) => `
@@ -29,8 +41,9 @@ export default function LinkPreview({ name, href, alt, preview }: ILinkPreview) 
       <Tooltip.Trigger asChild>
         <a
           className={classNames(
-            "text-blue-600 hover:text-blue-700 dark:text-blue-300",
-            "relative after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-blue-700 after:rounded-full after:transition-[width] after:ease hover:after:ease-out after:duration-200"
+            style === "neutral" ? neutralHighlight : blueHighlight,
+            "relative after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:rounded-full",
+            "after:transition-[width] after:ease hover:after:ease-out after:duration-200"
           )}
           href={href}
           target="_blank"
