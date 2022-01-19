@@ -42,9 +42,9 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             className={classNames(
               "rounded-full bg-gradient-to-r",
               "dark:from-rose-700 dark:via-pink-700 dark:to-purple-700 dark:opacity-60",
-              "from-cyan-300 via-sky-300 to-blue-300 opacity-80",
+              "from-blue-300 via-cyan-300 to-green-300 opacity-70",
               "-z-50 w-full aspect-square max-w-screen-lg filter blur-3xl",
-              "bottom-[calc(100%-200px)] dark:bottom-[calc(100%-200px)]",
+              "bottom-[calc(100%-200px)] dark:bottom-[calc(100%-180px)]",
               hideGradient ? "absolute" : "fixed"
             )}
           />
