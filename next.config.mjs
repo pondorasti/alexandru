@@ -24,6 +24,10 @@ export default withMDX({
         destination: "/assets/resume.pdf",
       },
       {
+        source: "/shokugeki",
+        destination: "/secrets/shokugeki/index.html",
+      },
+      {
         source: "/secrets/teamo-design",
         destination: "/secrets/teamo-design/index.html",
       },
