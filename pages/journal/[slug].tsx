@@ -8,6 +8,9 @@ import LinkPreview from "@components/LinkPreview"
 import Description from "@components/Description"
 
 const entriesList = {
+  "dns-ad-blocker-with-pi-hole-and-docker": dynamic(
+    () => import("@data/journal/dns-ad-blocker-with-pi-hole-and-docker.mdx")
+  ),
   "dynamic-programming-for-dummies": dynamic(() => import("@data/journal/dynamic-programming-for-dummies.mdx")),
   "gmail-automatic-forwarder": dynamic(() => import("@data/journal/gmail-automatic-forwarder.mdx")),
   "rfid-hacking-101": dynamic(() => import("@data/journal/rfid-hacking-101.mdx")),
