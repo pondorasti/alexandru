@@ -20,7 +20,7 @@ export default function Home(): JSX.Element {
       >
         <p className="text-gray-600 dark:text-gray-400">
           On a journey to create{" "}
-          <span className="inline-block relative group overflow-hidden top-[6px]">
+          <span className="inline-block relative group overflow-hidden top-[6px] cursor-text">
             <span className="invisible">best in class apps</span>
             <span
               className={classNames(
