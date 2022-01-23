@@ -13,7 +13,7 @@ export default class Document extends NextDocument {
           <link rel="shortcut icon" href="/favicons/favicon.ico" />
 
           {/* Fonts */}
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /> */}
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@500&family=Luxurious+Roman&display=swap"
             rel="stylesheet"
