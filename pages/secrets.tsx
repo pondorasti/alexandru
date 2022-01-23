@@ -11,7 +11,7 @@ export default function Secret(): JSX.Element {
 
   return (
     <>
-      <Description title="Secrets" description="A collection of projects which I have worked on." />
+      <Description title="Secrets" description="A collection of projects which I have worked on" />
       <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-divider rounded-lg ml-12 md:ml-0">
         <table className="table-auto w-full">
           <thead className="bg-gray-50 dark:bg-gray-900 glass">
