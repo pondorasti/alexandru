@@ -6,9 +6,9 @@ import Inspect from "inspx"
 import "tailwindcss/tailwind.css"
 import { ThemeProvider } from "next-themes"
 import NavigationBar from "@components/NavigationBar"
-import LinkPreview from "@components/LinkPreview"
 import classNames from "@lib/classNames"
 import TransitionPage from "@components/TransitionPage"
+import Footer from "@components/Footer"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // Fathom Analytics
@@ -32,7 +32,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   }, [])
 
   const hideGradient = router.route.includes("journal")
-  const hideFooter = router.route === "/"
+  const showFooter = router.route !== "/"
 
   return (
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
@@ -55,21 +55,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Component {...pageProps} />
           </main>
-          <footer className={classNames("body", hideFooter ? "hidden" : "")}>
-            <hr />
-            <div className="my-16 text-center text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-light">
-              Crafted with care by{" "}
-              <span className="font-normal">
-                <LinkPreview
-                  name="Alexandru"
-                  href="https://twitter.com/Pondorasti"
-                  preview="/images/twitter-preview.png"
-                  alt="Alexandru Turcanu's Twitter"
-                  style="neutral"
-                />
-              </span>
-            </div>
-          </footer>
+          {showFooter && <Footer />}
         </TransitionPage>
       </Inspect>
     </ThemeProvider>

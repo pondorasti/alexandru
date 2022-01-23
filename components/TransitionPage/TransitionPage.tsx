@@ -3,7 +3,7 @@ import { Transition } from "@headlessui/react"
 import { useRouter } from "next/router"
 
 interface ITransitionPage {
-  children: JSX.Element[]
+  children: React.ReactNode
 }
 
 export default function TransitionPage({ children }: ITransitionPage): JSX.Element {
