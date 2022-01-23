@@ -3,7 +3,12 @@ const plugin = require("tailwindcss/plugin")
 const colors = require("tailwindcss/colors")
 
 module.exports = {
-  content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx}", "./utils/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./utils/**/*.{js,ts,jsx,tsx}",
+    "./data/**/*.mdx",
+  ],
   darkMode: "class", // or 'media' or 'class'
   theme: {
     screens: {
