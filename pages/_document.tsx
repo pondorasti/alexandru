@@ -24,7 +24,8 @@ export default class Document extends NextDocument {
             content="This the personal website of Alexandru Turcanu, also known as Pondorasti."
           />
         </Head>
-        <body className="bg-gray-50 dark:bg-gray-900 selection:bg-teal-300 selection:text-gray-800 dark:selection:bg-fuchsia-600 dark:selection:text-fuchsia-50">
+        {/* dark:selection:bg-fuchsia-600 dark:selection:text-fuchsia-50 */}
+        <body className="bg-gray-50 dark:bg-gray-900 selection:bg-teal-300 selection:text-gray-800 dark:selection:bg-rose-600 dark:selection:text-rose-50">
           <Main />
           <NextScript />
         </body>
