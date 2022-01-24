@@ -71,7 +71,7 @@ export default function Home(): JSX.Element {
           Currently working at{" "}
           <a
             className={classNames(
-              "animate-text-shimmer bg-[linear-gradient(110deg,#fafafa,45%,#171717,55%,#fafafa)] bg-[length:250%_100%]",
+              "animate-text-shimmer bg-[linear-gradient(110deg,#0F0F0F,45%,#f5f5f5,55%,#0F0F0F)] dark:bg-[linear-gradient(110deg,#fafafa,45%,#171717,55%,#fafafa)] bg-[length:250%_100%]",
               "bg-clip-text text-transparent cursor-ne-resize inline-block",
               "hover:scale-105 transition-transform ease-in-out duration-200"
             )}
