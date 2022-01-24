@@ -54,6 +54,7 @@ export default function Experiments(): JSX.Element {
                   src="/images/experiments/github-contributions.svg"
                   alt="github contributions graph"
                   layout="fill"
+                  className="dark-img-invert"
                 />
               </div>
             </div>

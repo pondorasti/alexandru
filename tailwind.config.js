@@ -47,10 +47,15 @@ module.exports = {
           "0%": { opacity: 1, transform: "translateY(0px)" },
           "100%": { opacity: 0, transform: "translateY(16px)" },
         },
+        "text-shimmer": {
+          from: { backgroundPosition: "0 0" },
+          to: { backgroundPosition: "-200% 0" },
+        },
       },
       animation: {
         "slide-in": "slide-in 0.2s ease-out",
         "slide-out": "slide-out 0.2s ease",
+        "text-shimmer": "text-shimmer 2s ease-out infinite alternate",
       },
     },
   },
@@ -75,6 +80,12 @@ module.exports = {
         },
         ".glass": {
           "@apply !bg-opacity-60 dark:!bg-opacity-60": {},
+        },
+        ".img-invert": {
+          "@apply invert-0 hue-rotate-0 dark:invert dark:hue-rotate-180": {},
+        },
+        ".dark-img-invert": {
+          "@apply invert hue-rotate-180 dark:invert-0 dark:hue-rotate-0": {},
         },
       })
     }),
