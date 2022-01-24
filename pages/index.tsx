@@ -54,7 +54,15 @@ export default function Home(): JSX.Element {
             fluid interfaces
           </span>
           , and{" "}
-          <span className="bg-gradient-to-r from-blue-500 to-purple-400 text-transparent bg-clip-text shadow-indigo-500/40">
+          <span
+            className={classNames(
+              "bg-gradient-to-r from-blue-500 to-purple-400 text-transparent bg-clip-text",
+              // "text-transparent",
+              "relative after:content-['perfectionist'] after:absolute after:blur-md after:top-0 after:left-0 after:rounded",
+              "after:bg-gradient-to-r after:from-blue-500 after:to-purple-400 after:saturate-150 after:opacity-20 hover:after:opacity-40 hover:after:blur-lg",
+              "after:transition-all after:ease-in-out after:duration-500"
+            )}
+          >
             perfectionist
           </span>{" "}
           at heart.
@@ -62,7 +70,11 @@ export default function Home(): JSX.Element {
         <p className="text-gray-600 dark:text-gray-400 mt-4">
           Currently working at{" "}
           <a
-            className="text-gray-800 dark:text-gray-100 cursor-ne-resize inline-block hover:scale-105 transition-transform ease-in-out duration-200"
+            className={classNames(
+              "animate-text-shimmer bg-[linear-gradient(110deg,#fafafa,45%,#171717,55%,#fafafa)] bg-[length:250%_100%]",
+              "bg-clip-text text-transparent cursor-ne-resize inline-block",
+              "hover:scale-105 transition-transform ease-in-out duration-200"
+            )}
             href="mailto:alexandru_turcanu@ymail.com"
           >
             [HIRE ME]
