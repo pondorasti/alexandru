@@ -8,7 +8,7 @@ export default function Footer(): JSX.Element {
         Crafted with care by{" "}
         <span className="font-normal">
           <LinkPreview
-            name="Alexandru"
+            name="alexandru.eth"
             href="https://twitter.com/Pondorasti"
             preview="/images/twitter-preview.png"
             alt="Alexandru Turcanu's Twitter"

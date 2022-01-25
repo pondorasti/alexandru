@@ -3,7 +3,7 @@ import dynamic from "next/dynamic"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { DarkModeSwitch } from "react-toggle-dark-mode"
-import { BeakerIcon, LockClosedIcon, PencilIcon } from "@heroicons/react/outline"
+import { HomeIcon, BeakerIcon, LockClosedIcon, PencilIcon } from "@heroicons/react/outline"
 import classNames from "@lib/classNames"
 
 // Source: https://github.com/vercel/next.js/issues/4515#issuecomment-810635574
@@ -62,10 +62,9 @@ export default function NavigationBar(): JSX.Element {
       <div className="body">
         <nav className="flex items-center justify-between space-x-3 py-5">
           <Link href="/">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a className="text-gray-900 dark:text-gray-50 text-md font-normal">
-              🤯
-              <span className="hidden md:inline-block sm:ml-2">alexandru.eth</span>
+            <a className={linkStyle}>
+              <span className="sr-only">Home</span>
+              <HomeIcon className={iconStyle} />
             </a>
           </Link>
 
