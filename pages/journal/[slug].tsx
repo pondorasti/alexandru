@@ -2,10 +2,12 @@ import { GetStaticPropsContext } from "next"
 import dynamic from "next/dynamic"
 import fs from "fs"
 import * as matter from "gray-matter"
+import readingTime from "reading-time"
 import JournalLayout from "@components/JournalLayout"
 import { IMeta } from "@lib/types"
 import LinkPreview from "@components/LinkPreview"
 import Description from "@components/Description"
+import { formatDate, normalizeUtc } from "@lib/date"
 
 const entriesList = {
   "dns-ad-blocker-with-pi-hole-and-docker": dynamic(
@@ -22,15 +24,20 @@ const entriesList = {
 type Entries = typeof entriesList
 type Slug = keyof Entries
 interface IJournalEntry {
-  slug: Slug
   meta: IMeta<Slug>
+  readingTime: number
 }
 
-export default function JournalEntry({ meta }: IJournalEntry): JSX.Element {
+export default function JournalEntry({ meta, readingTime }: IJournalEntry): JSX.Element {
   const Entry = entriesList[meta.slug]
 
   return (
     <>
+      <div className="relative">
+        <aside className="absolute [writing-mode:vertical-rl] h-screen top-0 -left-12 md:-left-14 pr-11 text-left text-sm text-gray-400 dark:text-gray-600 font-['Luxurious_Roman']">
+          {formatDate(normalizeUtc(new Date(meta.publishedAt)))} • {readingTime} min read
+        </aside>
+      </div>
       <Description title={meta.title} description={meta.description} />
       <Entry
         components={{
@@ -44,9 +51,11 @@ export default function JournalEntry({ meta }: IJournalEntry): JSX.Element {
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const slug = params?.slug as Slug
-  const meta = matter.read(`./data/journal/${slug}.mdx`).data as IMeta<Slug>
+  const file = matter.read(`./data/journal/${slug}.mdx`)
+  const meta = file.data as IMeta<Slug>
+  const roundedReadingTime = Math.round(readingTime(file.content).minutes)
 
-  return { props: { meta } }
+  return { props: { meta, readingTime: roundedReadingTime } }
 }
 
 export async function getStaticPaths() {

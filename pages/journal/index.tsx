@@ -5,7 +5,7 @@ import * as matter from "gray-matter"
 import Description from "@components/Description"
 import { IMeta } from "@lib/types"
 import classNames from "@lib/classNames"
-import { formatDate } from "@lib/date"
+import { formatDate, normalizeUtc } from "@lib/date"
 
 interface IJournal {
   slugs: string[]
@@ -24,7 +24,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
   const cardStyle =
     "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl transition-colors duration-300"
   const asideStyle =
-    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 font-serif text-center text-sm text-gray-400 dark:text-gray-600 font-['Luxurious_Roman']"
+    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 text-center text-sm text-gray-400 dark:text-gray-600 font-['Luxurious_Roman']"
 
   function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     const node = event.target as HTMLElement
@@ -52,8 +52,8 @@ export default function Journal({ metas }: IJournal): JSX.Element {
         {/* Book Binding */}
         <div className="fixed border-l-2 border-divider border-dotted h-full -ml-4 md:-ml-6 top-0" />
 
-        {/* Highlighter */}
         <div ref={parentRef} className="relative" onMouseLeave={() => setHighlightedTab(null)}>
+          {/* Highlighter */}
           <div
             ref={highlightRef}
             className={classNames(
@@ -71,13 +71,12 @@ export default function Journal({ metas }: IJournal): JSX.Element {
               )}
             />
           </div>
-
           {/* Entries */}
           {metas.map(meta => (
             <Link key={meta.slug} href={`/journal/${meta.slug}`} passHref>
               <a className={cardStyle} onMouseOver={handleMouseOver}>
                 <aside className={asideStyle} onMouseOver={handleMouseOver}>
-                  {formatDate(new Date(meta.publishedAt), false)}
+                  {formatDate(normalizeUtc(new Date(meta.publishedAt)), false)}
                 </aside>
                 <h2 className="text-xl font-semibold">{meta.title}</h2>
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-500">{meta.description}</p>
