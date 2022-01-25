@@ -51,11 +51,17 @@ module.exports = {
           from: { backgroundPosition: "0 0" },
           to: { backgroundPosition: "-200% 0" },
         },
+        tilt: {
+          "0%, 50%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(0.5deg)" },
+          "75%": { transform: "rotate(-0.5deg)" },
+        },
       },
       animation: {
         "slide-in": "slide-in 0.2s ease-out",
         "slide-out": "slide-out 0.2s ease",
         "text-shimmer": "text-shimmer 2s ease-out infinite alternate",
+        tilt: "tilt 10s infinite linear",
       },
     },
   },

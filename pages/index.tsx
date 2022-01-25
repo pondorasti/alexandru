@@ -3,9 +3,6 @@ import { AnimatedDescription } from "@components/Description"
 import classNames from "@lib/classNames"
 
 export default function Home(): JSX.Element {
-  // bg-gradient-to-r from-fuchsia-600 to-pink-600
-  // bg-gradient-to-r from-red-500 to-yellow-500 text-transparent bg-clip-text
-  // const redGradient = "bg-gradient-to-r from-red-500 to-yellow-500 text-transparent bg-clip-text"
   const redGradient = "bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 text-transparent bg-clip-text"
 
   return (
@@ -54,16 +51,18 @@ export default function Home(): JSX.Element {
             fluid interfaces
           </span>
           , and{" "}
-          <span
-            className={classNames(
-              "bg-gradient-to-r from-blue-500 to-purple-400 text-transparent bg-clip-text",
-              // "text-transparent",
-              "relative after:content-['perfectionist'] after:absolute after:blur-md after:top-0 after:left-0 after:rounded",
-              "after:bg-gradient-to-r after:from-blue-500 after:to-purple-400 after:saturate-150 after:opacity-20 hover:after:opacity-40 hover:after:blur-lg",
-              "after:transition-all after:ease-in-out after:duration-500"
-            )}
-          >
-            perfectionist
+          <span className="relative group">
+            <span
+              className={classNames(
+                "absolute -inset-0",
+                "bg-gradient-to-r from-blue-500 to-purple-400",
+                "rounded-lg blur group-hover:blur-md opacity-20 group-hover:opacity-40",
+                "transition-all ease-in-out duration-300 animate-tilt"
+              )}
+            ></span>
+            <span className="relative bg-gradient-to-r from-blue-500 to-purple-400 text-transparent bg-clip-text">
+              perfectionist
+            </span>
           </span>{" "}
           at heart.
         </p>
