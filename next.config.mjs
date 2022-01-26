@@ -28,6 +28,10 @@ export default withMDX({
         destination: "/secrets/shokugeki/index.html",
       },
       {
+        source: "/secrets/teamo",
+        destination: "/secrets/teamo/index.html",
+      },
+      {
         source: "/secrets/teamo-design",
         destination: "/secrets/teamo-design/index.html",
       },

@@ -49,6 +49,13 @@ const secrets: ISecret[] = [
     preview:
       "https://api.microlink.io?url=https%3A%2F%2Fboringstocks.live%2F&screenshot=true&meta=false&waitForTimeout=500&embed=screenshot.url",
   },
+  // {
+  //   name: "teamo",
+  //   description: "Initial prototype of my first startup",
+  //   month: "December",
+  //   href: "https://alexandru.so/secrets/teamo",
+  //   preview: "/images/secrets/teamo-design.webp",
+  // },
   {
     name: "teamo-design",
     description: "Design Assets of my first startup",
