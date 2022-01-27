@@ -11,12 +11,7 @@ import FancyImage from "@components/FancyImage"
 
 [Pi-hole](https://pi-hole.net/) is an all-in-one network solution for blocking ads. By sitting as a middle-man between your router and devices it can accept all traffic as a gateway that decides what domains are allowed.
 
-<FancyImage
-  src="/images/journal/dns-ad-blocker-with-pi-hole-and-docker/dashboard.webp"
-  alt=""
-  height="1261px"
-  width="1468px"
-/>
+<FancyImage src="/images/journal/dns-ad-blocker-with-pi-hole-and-docker/dashboard.webp" width="1468" height="1261" />
 
 ## The 4 pillars of Pi-hole
 
@@ -93,12 +88,7 @@ Beforehand, you will need to have installed on your machine `docker` and `docker
 
 ## Post Install
 
-<FancyImage
-  src="/images/journal/dns-ad-blocker-with-pi-hole-and-docker/login.png"
-  alt=""
-  height="1261px"
-  width="1468px"
-/>
+<FancyImage src="/images/journal/dns-ad-blocker-with-pi-hole-and-docker/login.png" height="1261px" width="1468px" />
 
 In order to access the dashboard navigate to `<FTLCONF_REPLY_ADDR4>/admin`. Now that we’ve got our instance of Pi-hole running, the last step is to forward all traffic to it. Unfortunately, this topic is out of scope for this article. The [official documentation](https://docs.pi-hole.net/main/post-install/) extensively covers how to configure your router to have DHCP clients use Pi-hole as their DNS server.
 
