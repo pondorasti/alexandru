@@ -2,6 +2,7 @@ import Image from "next/image"
 import * as Tooltip from "@radix-ui/react-tooltip"
 import { useTheme } from "next-themes"
 import classNames from "@lib/classNames"
+import shimmer from "@lib/shimmer"
 
 interface ILinkPreview {
   name: string
@@ -32,15 +33,6 @@ export default function LinkPreview({
   showExternalIndicator = true,
 }: ILinkPreview) {
   const { resolvedTheme } = useTheme()
-
-  const shimmer = (w: number, h: number, theme?: string) => `
-    <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <rect id="r" width="${w}" height="${h}" fill="${theme === "dark" ? "#171717" : "#e2e8f0"}" />
-      <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-    </svg>`
-
-  const toBase64 = (str: string) =>
-    typeof window === "undefined" ? Buffer.from(str).toString("base64") : window.btoa(str)
 
   const sanitizedHref = href.replace(/:/g, "%3A").replace(/\//g, "%2F").replace(/#/g, "%23")
 
@@ -78,7 +70,7 @@ export default function LinkPreview({
           width={240}
           height={144}
           placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(240, 144, resolvedTheme))}`}
+          blurDataURL={`data:image/svg+xml;base64,${shimmer(240, 144, resolvedTheme)}`}
           objectFit="cover"
         />
       </Tooltip.Content>
