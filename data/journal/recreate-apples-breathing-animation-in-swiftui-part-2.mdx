@@ -1,5 +1,5 @@
 ---
-slug: "recreate-apples-breathing-animation-in-swiftui"
+slug: "recreate-apples-breathing-animation-in-swiftui-part-2"
 title: "Recreate Apple’s Breathing Animation in SwiftUI - Part 2"
 description: "Explore how to create the blur effect that happens when you start breathing"
 publishedAt: "2020-05-06"
@@ -7,7 +7,12 @@ publishedAt: "2020-05-06"
 
 import Image from "next/image"
 
-<Image src="/images/journal/recreate-apples-breathing-animation-in-swiftui/1.png" alt="" width="1264" height="906" />
+<Image
+  src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/1.png"
+  alt=""
+  width="1264"
+  height="906"
+/>
 
 If you are interested in how we created the flower and breathing animation, you can check out the first part of this tutorial.
 
@@ -22,7 +27,12 @@ If you are a bit confused about what we are doing and why, just hold on for a se
 
 You would think that this is relatively easy — just add a `.background()` modifier to the flower view and call it a day, but…
 
-<Image src="/images/journal/recreate-apples-breathing-animation-in-swiftui/2.png" alt="" width="1324" height="904" />
+<Image
+  src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/2.png"
+  alt=""
+  width="1324"
+  height="904"
+/>
 
 As you can see, this doesn’t quite solve the problem. Because the flower view is composed of multiple circles, the simplest way to create a background for the flower view would be with a whole other flower view that is in sync with the animation.
 
@@ -63,7 +73,12 @@ struct ContentView: View {
 }
 ```
 
-<Image src="/images/journal/recreate-apples-breathing-animation-in-swiftui/3.gif" alt="" width="640" height="396" />
+<Image
+  src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/3.gif"
+  alt=""
+  width="640"
+  height="396"
+/>
 
 ## Blur-Fade Effect
 
@@ -73,7 +88,12 @@ If we look closely, the blur-fade animation has three key points:
 - Opacity change from 1 to 0
 - Lagging behind compared to the original shrinking animation
 
-<Image src="/images/journal/recreate-apples-breathing-animation-in-swiftui/4.gif" alt="" width="640" height="419" />
+<Image
+  src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/4.gif"
+  alt=""
+  width="640"
+  height="419"
+/>
 
 It should come as no surprise to you that we are going to achieve this by adding another `FlowerView` to the `ZStack`.
 
@@ -155,7 +175,12 @@ struct ContentView: View {
 }
 ```
 
-<Image src="/images/journal/recreate-apples-breathing-animation-in-swiftui/5.gif" alt="" width="1280" height="720" />
+<Image
+  src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/5.gif"
+  alt=""
+  width="1280"
+  height="720"
+/>
 
 ## Conclusion
 
