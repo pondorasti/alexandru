@@ -5,13 +5,14 @@ description: "Explore how to create the blur effect that happens when you start 
 publishedAt: "2020-05-06"
 ---
 
-import Image from "next/image"
+import FancyImage from "@components/FancyImage"
 
-<Image
+<FancyImage
   src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/1.png"
   alt=""
-  width="1264"
-  height="906"
+  width="1031"
+  height="669"
+  caption="Blur-fade effect"
 />
 
 If you are interested in how we created the flower and breathing animation, you can check out the first part of this tutorial.
@@ -27,11 +28,12 @@ If you are a bit confused about what we are doing and why, just hold on for a se
 
 You would think that this is relatively easy — just add a `.background()` modifier to the flower view and call it a day, but…
 
-<Image
+<FancyImage
   src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/2.png"
   alt=""
-  width="1324"
-  height="904"
+  width="1087"
+  height="671"
+  caption="Mask using background modifier"
 />
 
 As you can see, this doesn’t quite solve the problem. Because the flower view is composed of multiple circles, the simplest way to create a background for the flower view would be with a whole other flower view that is in sync with the animation.
@@ -73,11 +75,12 @@ struct ContentView: View {
 }
 ```
 
-<Image
+<FancyImage
   src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/3.gif"
   alt=""
   width="640"
   height="396"
+  caption="Side by side example"
 />
 
 ## Blur-Fade Effect
@@ -88,11 +91,12 @@ If we look closely, the blur-fade animation has three key points:
 - Opacity change from 1 to 0
 - Lagging behind compared to the original shrinking animation
 
-<Image
+<FancyImage
   src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/4.gif"
   alt=""
   width="640"
   height="419"
+  caption="BlurFade Effect"
 />
 
 It should come as no surprise to you that we are going to achieve this by adding another `FlowerView` to the `ZStack`.
@@ -175,11 +179,12 @@ struct ContentView: View {
 }
 ```
 
-<Image
+<FancyImage
   src="/images/journal/recreate-apples-breathing-animation-in-swiftui-part-2/5.gif"
   alt=""
   width="1280"
   height="720"
+  caption="Final product"
 />
 
 ## Conclusion

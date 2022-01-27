@@ -5,7 +5,7 @@ description: "Careful brute force"
 publishedAt: "2021-10-08"
 ---
 
-import Image from "next/image"
+import FancyImage from "@components/FancyImage"
 
 ## Intro
 
@@ -23,7 +23,7 @@ In class we are used to learning about all sorts of algorithms like binary searc
 
 There’s no better way to explain DP than using the Fibonacci Sequence. To give you a quick refresher, the sequence is constructed such that each number is the sum of the two preceding ones.
 
-<Image
+<FancyImage
   src="/images/journal/dynamic-programming-for-dummies/1.png"
   alt=""
   height="272px"
@@ -49,7 +49,7 @@ It looks fairly straightforward, right?
 
 Before we move any further, we need to take a step back and analyze the time complexity or as it is called in this case, the recurrence. This can be rather tricky to calculate, therefore approximating the result is perfectly fine.
 
-<Image
+<FancyImage
   src="/images/journal/dynamic-programming-for-dummies/2.png"
   alt=""
   height="413px"
@@ -59,7 +59,7 @@ Before we move any further, we need to take a step back and analyze the time com
 
 Hmm 🤔, looks like the `fib` function has **exponential time**. Let me explain! The problem is that we end up calculating a bunch of the same values multiple times.
 
-<Image
+<FancyImage
   src="/images/journal/dynamic-programming-for-dummies/3.png"
   alt=""
   height="447px"
@@ -90,7 +90,7 @@ Now, calculating the time complexity comes down to multiplying the number of sub
 
 > time complexity = subproblems \* (time complexity / subproblem)
 
-<Image
+<FancyImage
   src="/images/journal/dynamic-programming-for-dummies/4.png"
   alt=""
   height="495px"
