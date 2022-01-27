@@ -9,6 +9,7 @@ interface ILinkPreview {
   preview?: string
   alt: string
   style?: "neutral" | "blue"
+  showExternalIndicator?: boolean
 }
 
 // dark:text-gray-100 dark:hover:text-gray-50
@@ -22,7 +23,14 @@ const blueHighlight = classNames(
   "after:bg-blue-600 after:hover:bg-blue-700 dark:after:bg-blue-300 dark:after:hover:bg-blue-400"
 )
 
-export default function LinkPreview({ name, href, alt, preview, style = "blue" }: ILinkPreview) {
+export default function LinkPreview({
+  name,
+  href,
+  alt,
+  preview,
+  style = "blue",
+  showExternalIndicator = true,
+}: ILinkPreview) {
   const { resolvedTheme } = useTheme()
 
   const shimmer = (w: number, h: number, theme?: string) => `
@@ -42,7 +50,7 @@ export default function LinkPreview({ name, href, alt, preview, style = "blue" }
         <a
           className={classNames(
             style === "neutral" ? neutralHighlight : blueHighlight,
-            "relative after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:rounded-full",
+            "relative whitespace-nowrap after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:rounded-full",
             "after:transition-[width] after:ease hover:after:ease-out after:duration-200"
           )}
           href={href}
@@ -50,6 +58,7 @@ export default function LinkPreview({ name, href, alt, preview, style = "blue" }
           rel="noreferrer"
         >
           {name}
+          {showExternalIndicator && " ↗"}
         </a>
       </Tooltip.Trigger>
       <Tooltip.Content

@@ -13,6 +13,7 @@ export default function Footer(): JSX.Element {
             preview="/images/twitter-preview.png"
             alt="Alexandru Turcanu's Twitter"
             style="neutral"
+            showExternalIndicator={false}
           />
         </span>
       </div>
