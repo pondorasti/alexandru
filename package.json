@@ -44,7 +44,7 @@
     "@liveblocks/client": "^0.13.2",
     "@liveblocks/react": "^0.13.2",
     "@mdx-js/loader": "^2.0.0-rc.2",
-    "@next/mdx": "^12.0.7",
+    "@next/mdx": "^12.0.9",
     "@radix-ui/react-tooltip": "^0.1.6",
     "@supabase/supabase-js": "^1.29.4",
     "@tailwindcss/forms": "^0.4.0",
