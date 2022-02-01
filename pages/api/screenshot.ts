@@ -1,35 +1,39 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import puppeteer from "puppeteer-core"
 import chrome from "chrome-aws-lambda"
-import captureWebsite from "capture-website"
 
 interface IQuery {
   url?: string
-  darkMode?: boolean
+  colorScheme?: "light" | "dark"
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { url, darkMode } = req.query as IQuery
+  const { url, colorScheme } = req.query as IQuery
 
   if (url) {
-    const browser = await puppeteer.launch(
-      process.env.NODE_ENV === "production"
-        ? {
-            args: chrome.args,
-            executablePath: await chrome.executablePath,
-            headless: chrome.headless,
-          }
-        : {}
-    )
-
-    await browser.newPage()
-
-    const screenshot = await captureWebsite.base64(url, {
-      darkMode: darkMode || false,
-      type: "webp",
+    const browser = await chrome.puppeteer.launch({
+      executablePath: await chrome.executablePath,
+      args: chrome.args,
+      headless: chrome.headless,
     })
 
-    const imageBuffer = Buffer.from(screenshot, "base64")
+    const page = await browser.newPage()
+
+    const viewportOptions = {
+      width: 1280,
+      height: 800,
+      deviceScaleFactor: 1,
+    }
+
+    await page.setViewport(viewportOptions)
+    await page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: colorScheme || "light" }])
+    await page.goto(url, { waitUntil: "networkidle2" })
+
+    const imageBuffer = await page.screenshot()
+    // const screenshot = await captureWebsite.base64(url, {
+    //   darkMode: darkMode || false,
+    //   type: "webp",
+    // })
+    // const imageBuffer = Buffer.from(screenshot, "base64")
 
     res.setHeader("Content-Type", "image/webp")
     res.status(200).end(imageBuffer)
