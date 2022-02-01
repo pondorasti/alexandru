@@ -69,7 +69,7 @@ export default function LinkPreview({
         <Image
           src={
             preview ||
-            `https://alexandru.so/api/screenshot/${sanitizedHref}&colorScheme=${
+            `https://alexandru.so/api/screenshot?url=${sanitizedHref}&colorScheme=${
               resolvedTheme === "dark" ? "dark" : "light"
             }`
           }
