@@ -11,7 +11,7 @@ const withMDX = nextMDX({
 
 export default withMDX({
   images: {
-    domains: ["api.microlink.io"],
+    domains: ["alexandru.so"],
   },
 
   // Support MDX files as pages:
