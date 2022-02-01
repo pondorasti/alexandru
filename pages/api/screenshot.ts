@@ -21,20 +21,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const viewportOptions = {
       width: 1280,
       height: 800,
-      deviceScaleFactor: 1,
+      deviceScaleFactor: 2,
     }
 
     await page.setViewport(viewportOptions)
     await page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: colorScheme || "light" }])
     await page.goto(url, { waitUntil: "networkidle2" })
 
-    const imageBuffer = await page.screenshot()
-    // const screenshot = await captureWebsite.base64(url, {
-    //   darkMode: darkMode || false,
-    //   type: "webp",
-    // })
-    // const imageBuffer = Buffer.from(screenshot, "base64")
+    const imageBuffer = await page.screenshot({ type: "webp" })
 
+    await browser.close()
     res.setHeader("Content-Type", "image/webp")
     res.status(200).end(imageBuffer)
   } else {

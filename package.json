@@ -50,7 +50,6 @@
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.3.0",
     "@tailwindcss/typography": "^0.5.0",
-    "capture-website": "^2.2.0",
     "chrome-aws-lambda": "^10.1.0",
     "d3": "^7.2.1",
     "fathom-client": "^3.4.0",
