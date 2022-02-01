@@ -67,7 +67,12 @@ export default function LinkPreview({
         className="border border-divider bg-white dark:bg-gray-900 p-2 h-40 w-64 rounded-lg animate-slide-in radix-state-closed:animate-slide-out"
       >
         <Image
-          src={preview || `https://alexandru.so/api/screenshot/${sanitizedHref}&darkMode=${resolvedTheme === "dark"}`}
+          src={
+            preview ||
+            `https://alexandru.so/api/screenshot/${sanitizedHref}&colorScheme=${
+              resolvedTheme === "dark" ? "dark" : "light"
+            }`
+          }
           alt={alt}
           className="rounded-md overflow-hidden p-2"
           width={240}
