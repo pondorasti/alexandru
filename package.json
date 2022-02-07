@@ -39,7 +39,7 @@
     "arrowParens": "avoid"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.2",
+    "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@liveblocks/client": "^0.13.2",
     "@liveblocks/react": "^0.13.2",
