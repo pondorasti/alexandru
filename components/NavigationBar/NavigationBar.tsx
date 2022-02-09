@@ -54,8 +54,8 @@ export default function NavigationBar(): JSX.Element {
         "sticky top-0 z-30 mb-10 bg-gray-50 dark:bg-gray-900",
         "transition-[background-color]",
         showBlur
-          ? "bg-opacity-20 dark:bg-opacity-20 backdrop-blur"
-          : "bg-opacity-0 dark:bg-opacity-0 backdrop-blur-none",
+          ? "bg-opacity-20 backdrop-blur dark:bg-opacity-20"
+          : "bg-opacity-0 backdrop-blur-none dark:bg-opacity-0",
         transitionStyle
       )}
     >

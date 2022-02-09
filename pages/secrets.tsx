@@ -12,9 +12,9 @@ export default function Secret(): JSX.Element {
   return (
     <>
       <Description title="Secrets" description="A collection of projects which I have worked on" />
-      <div className="shadow-lg overflow-x-auto overflow-y-hidden border border-divider rounded-lg ml-12 md:ml-0">
-        <table className="table-auto w-full">
-          <thead className="bg-gray-50 dark:bg-gray-900 glass">
+      <div className="ml-12 overflow-x-auto overflow-y-hidden rounded-lg border shadow-lg border-divider md:ml-0">
+        <table className="w-full table-auto">
+          <thead className="bg-gray-50 glass dark:bg-gray-900">
             <tr className="border-b border-divider">
               <th className={classNames(headerStyling, "p-3")}>Website</th>
               <th className={classNames(headerStyling, "p-3")}>Description</th>
@@ -24,7 +24,7 @@ export default function Secret(): JSX.Element {
             {secrets.map((website, index) => (
               <Fragment key={website.name}>
                 <tr className="absolute">
-                  <td className="absolute p-0 pr-3 h-12 w-11 -left-11 flex flex-col justify-center items-center">
+                  <td className="absolute -left-11 flex h-12 w-11 flex-col items-center justify-center p-0 pr-3">
                     <aside className={classNames("divider-y", index === 0 ? "opacity-0" : "")} />
                     {website.year && <aside className={classNames(headerStyling, "py-1")}>{website.year}</aside>}
                     <aside className={classNames("divider-y", index + 1 === secrets.length ? "opacity-0" : "")} />

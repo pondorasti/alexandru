@@ -25,7 +25,7 @@ export default class Document extends NextDocument {
           />
         </Head>
         {/* dark:selection:bg-fuchsia-600 dark:selection:text-fuchsia-50 */}
-        <body className="bg-gray-50 dark:bg-gray-900 selection:bg-teal-300 selection:text-gray-800 dark:selection:bg-rose-600 dark:selection:text-rose-50">
+        <body className="bg-gray-50 selection:bg-teal-300 selection:text-gray-800 dark:bg-gray-900 dark:selection:bg-rose-600 dark:selection:text-rose-50">
           <Main />
           <NextScript />
         </body>

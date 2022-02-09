@@ -17,13 +17,13 @@ export default function Home(): JSX.Element {
       >
         <p className="text-gray-600 dark:text-gray-400">
           On a journey to create{" "}
-          <span className="inline-block relative group overflow-hidden top-[6px] cursor-text">
+          <span className="group relative top-[6px] inline-block cursor-text overflow-hidden">
             <span className="invisible">best in class apps</span>
             <span
               className={classNames(
                 redGradient,
                 "absolute top-0 left-0 group-hover:-translate-y-full",
-                "transition-transform ease-in-out duration-500 hover:duration-300"
+                "transition-transform duration-500 ease-in-out hover:duration-300"
               )}
             >
               best in class apps
@@ -32,7 +32,7 @@ export default function Home(): JSX.Element {
               className={classNames(
                 redGradient,
                 "absolute top-0 left-0 translate-y-full group-hover:translate-y-0",
-                "transition-transform ease-in-out duration-500 hover:duration-300"
+                "transition-transform duration-500 ease-in-out hover:duration-300"
               )}
             >
               best in class apps
@@ -41,38 +41,38 @@ export default function Home(): JSX.Element {
           , obsessed with designing{" "}
           <span
             className={classNames(
-              "bg-gradient-to-r from-green-500 to-blue-600 dark:from-blue-400 dark:via-cyan-400 dark:to-green-500 text-transparent bg-clip-text",
+              "bg-gradient-to-r from-green-500 to-blue-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-cyan-400 dark:to-green-500",
               "after:bg-gradient-to-r",
               "relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-[113px]",
               "after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100",
-              "after:transition-transform after:ease-in-out after:duration-300"
+              "after:transition-transform after:duration-300 after:ease-in-out"
             )}
           >
             fluid interfaces
           </span>
           , and{" "}
-          <span className="relative group">
+          <span className="group relative">
             <span
               className={classNames(
                 "absolute -inset-0",
                 "bg-gradient-to-r from-blue-500 to-purple-400",
-                "rounded-lg blur group-hover:blur-md opacity-20 group-hover:opacity-40",
-                "transition-all ease-in-out duration-300 animate-tilt"
+                "rounded-lg opacity-20 blur group-hover:opacity-40 group-hover:blur-md",
+                "animate-tilt transition-all duration-300 ease-in-out"
               )}
             ></span>
-            <span className="relative bg-gradient-to-r from-blue-500 to-purple-400 text-transparent bg-clip-text">
+            <span className="relative bg-gradient-to-r from-blue-500 to-purple-400 bg-clip-text text-transparent">
               perfectionist
             </span>
           </span>{" "}
           at heart.
         </p>
-        <p className="text-gray-600 dark:text-gray-400 mt-4">
+        <p className="mt-4 text-gray-600 dark:text-gray-400">
           Currently working at{" "}
           <a
             className={classNames(
-              "animate-text-shimmer bg-[linear-gradient(110deg,#0F0F0F,45%,#f5f5f5,55%,#0F0F0F)] dark:bg-[linear-gradient(110deg,#fafafa,45%,#171717,55%,#fafafa)] bg-[length:250%_100%]",
-              "bg-clip-text text-transparent cursor-ne-resize inline-block",
-              "hover:scale-105 transition-transform ease-in-out duration-200"
+              "animate-text-shimmer bg-[linear-gradient(110deg,#0F0F0F,45%,#f5f5f5,55%,#0F0F0F)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#fafafa,45%,#171717,55%,#fafafa)]",
+              "inline-block cursor-ne-resize bg-clip-text text-transparent",
+              "transition-transform duration-200 ease-in-out hover:scale-105"
             )}
             href="mailto:alexandru_turcanu@ymail.com"
           >
