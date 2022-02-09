@@ -38,7 +38,7 @@ export default function JournalEntry({ meta, readingTime }: IJournalEntry): JSX.
   return (
     <>
       <div className="relative">
-        <aside className="absolute [writing-mode:vertical-rl] h-screen top-0 -left-12 md:-left-14 pr-11 text-left text-sm text-gray-400 dark:text-gray-600 font-['Luxurious_Roman']">
+        <aside className="absolute top-0 -left-12 h-screen pr-11 text-left font-['Luxurious_Roman'] text-sm text-gray-400 [writing-mode:vertical-rl] dark:text-gray-600 md:-left-14">
           {formatDate(normalizeUtc(new Date(meta.publishedAt)))} • {readingTime} min read
         </aside>
       </div>

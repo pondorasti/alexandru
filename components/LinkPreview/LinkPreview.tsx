@@ -50,8 +50,8 @@ export default function LinkPreview({
         <a
           className={classNames(
             style === "neutral" ? neutralHighlight : blueHighlight,
-            "relative whitespace-nowrap after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:rounded-full",
-            "after:transition-[width] after:ease hover:after:ease-out after:duration-200"
+            "relative whitespace-nowrap after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 after:rounded-full hover:after:w-full",
+            "after:ease after:transition-[width] after:duration-200 hover:after:ease-out"
           )}
           href={href}
           target="_blank"
@@ -64,7 +64,7 @@ export default function LinkPreview({
       <Tooltip.Content
         side="top"
         sideOffset={16}
-        className="border border-divider bg-white dark:bg-gray-900 p-2 h-40 w-64 rounded-lg animate-slide-in radix-state-closed:animate-slide-out"
+        className="h-40 w-64 animate-slide-in rounded-lg border bg-white p-2 border-divider radix-state-closed:animate-slide-out dark:bg-gray-900"
       >
         <Image
           src={
@@ -74,7 +74,7 @@ export default function LinkPreview({
             }`
           }
           alt={alt}
-          className="rounded-md overflow-hidden p-2"
+          className="overflow-hidden rounded-md p-2"
           width={240}
           height={144}
           placeholder="blur"

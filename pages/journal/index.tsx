@@ -50,14 +50,14 @@ export default function Journal({ metas }: IJournal): JSX.Element {
 
       <div className="ml-12 md:ml-0">
         {/* Book Binding */}
-        <div className="fixed border-l-2 border-divider border-dotted h-full -ml-4 md:-ml-6 top-0" />
+        <div className="fixed top-0 -ml-4 h-full border-l-2 border-dotted border-divider md:-ml-6" />
 
         <div ref={parentRef} className="relative" onMouseLeave={() => setHighlightedTab(null)}>
           {/* Highlighter */}
           <div
             ref={highlightRef}
             className={classNames(
-              "hidden sm:block w-full absolute h-[104px]",
+              "absolute hidden h-[104px] w-full sm:block",
               "duration-200",
               isHoveredFromNull ? "transition-none" : "transition-transform "
             )}
@@ -65,7 +65,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
           >
             <div
               className={classNames(
-                "highlight h-full w-full rounded-xl",
+                "h-full w-full rounded-xl highlight",
                 highlightedTab ? "opacity-100" : "opacity-0",
                 "transition-opacity duration-300"
               )}

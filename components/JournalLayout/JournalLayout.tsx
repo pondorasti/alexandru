@@ -2,7 +2,7 @@ import Head from "next/head"
 
 export default function Layout({ children }: { children: JSX.Element }) {
   return (
-    <article className="prose prose-neutral dark:prose-invert prose-img:rounded-xl prose-pre:rounded-lg prose-a:no-underline prose-headings:font-medium prose-headings:font-['IBM_Plex_Sans'] prose-ul:my-5">
+    <article className="prose prose-neutral prose-headings:font-['IBM_Plex_Sans'] prose-headings:font-medium prose-a:no-underline prose-pre:rounded-lg prose-ul:my-5 prose-img:rounded-xl dark:prose-invert">
       <Head>
         <link
           rel="stylesheet"
@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: JSX.Element }) {
       </Head>
 
       {/* Book Binding */}
-      <div className="fixed border-l-2 border-divider border-dotted h-full -ml-6 top-0" />
+      <div className="fixed top-0 -ml-6 h-full border-l-2 border-dotted border-divider" />
 
       {children}
     </article>

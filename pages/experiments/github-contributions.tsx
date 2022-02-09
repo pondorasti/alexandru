@@ -254,7 +254,7 @@ export default function GithubContributions() {
           hideBreak
         />
         <form
-          className="mb-12 relative rounded-md shadow-sm w-full md:w-96"
+          className="relative mb-12 w-full rounded-md shadow-sm md:w-96"
           onSubmit={event => {
             event.preventDefault()
             handleInput()
@@ -262,21 +262,21 @@ export default function GithubContributions() {
         >
           <input
             className={classNames(
-              "bg-white dark:bg-gray-800 glass block text-xl border border-divider rounded-lg w-full md:w-96 p-4 pr-14",
-              "focus:ring-blue-300 focus:border-blue-300 dark:focus:ring-blue-900 dark:focus:border-blue-900",
+              "block w-full rounded-lg border bg-white p-4 pr-14 text-xl border-divider glass dark:bg-gray-800 md:w-96",
+              "focus:border-blue-300 focus:ring-blue-300 dark:focus:border-blue-900 dark:focus:ring-blue-900",
               loading ? "cursor-wait" : "cursor-auto"
             )}
             type="text"
             placeholder="username"
             ref={usernameRef}
           />
-          <button className="absolute inset-y-0 right-0 px-3 flex items-center" onClick={() => handleInput()}>
+          <button className="absolute inset-y-0 right-0 flex items-center px-3" onClick={() => handleInput()}>
             {!loading ? (
               <SearchIcon className="h-8 w-8 text-gray-400 dark:text-gray-500" aria-hidden="true" />
             ) : (
-              <div className="h-8 w-8 flex">
+              <div className="flex h-8 w-8">
                 <svg
-                  className="animate-spin h-6 w-6 text-black dark:text-white m-auto"
+                  className="m-auto h-6 w-6 animate-spin text-black dark:text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -296,12 +296,12 @@ export default function GithubContributions() {
       <div
         className={classNames(
           "flex flex-col items-center",
-          "transition duration-300 ease-out transform",
+          "transform transition duration-300 ease-out",
           loading || !error ? "opacity-0" : "opacity-100",
           loading || !error ? "" : "translate-y-4"
         )}
       >
-        <p className="mt-2 text-md text-gray-400 dark:text-gray-500">
+        <p className="text-md mt-2 text-gray-400 dark:text-gray-500">
           Uh oh! It looks like the user you&apos;re looking for doesn&#39;t exist.
         </p>
       </div>
@@ -309,7 +309,7 @@ export default function GithubContributions() {
       <div
         className={classNames(
           "-mt-9",
-          "transition duration-300 ease-out transform",
+          "transform transition duration-300 ease-out",
           loading || error ? "opacity-0" : "opacity-100",
           loading || error ? "" : "translate-y-4"
         )}
@@ -320,8 +320,8 @@ export default function GithubContributions() {
 
           return (
             <Fragment key={i}>
-              <div className="mb-8 overflow-x-scroll md:overflow-visible md:-ml-[62px]">
-                <p className="pb-2 pl-5 inline-block text-md font-medium text-gray-700 dark:text-gray-300">
+              <div className="mb-8 overflow-x-scroll md:-ml-[62px] md:overflow-visible">
+                <p className="text-md inline-block pb-2 pl-5 font-medium text-gray-700 dark:text-gray-300">
                   {numberOfContributions} contribution{numberOfContributions === 1 ? "" : "s"} in{" "}
                   {year !== undefined ? year : "the last year"}
                 </p>
@@ -329,7 +329,7 @@ export default function GithubContributions() {
               </div>
               {i === 0 && (
                 <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-4 mb-8">
+                  <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:grid-rows-2">
                     <div className={insightCardStyling}>
                       <div className={insightTitleStyling}>{insights?.currentStreak}</div>
                       <div className={insightSubtitleStyling}>Current Streak</div>
@@ -349,7 +349,7 @@ export default function GithubContributions() {
                       <div className={insightSubtitleStyling}>First Contribution</div>
                     </div>
                   </div>
-                  <div className="mb-8 divider-x" />
+                  <div className="divider-x mb-8" />
                 </>
               )}
             </Fragment>

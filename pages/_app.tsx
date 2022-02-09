@@ -37,13 +37,13 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
       <Inspect>
-        <div className="max-w-screen-lg mx-auto">
+        <div className="mx-auto max-w-screen-lg">
           <span
             className={classNames(
               "rounded-full bg-gradient-to-r",
               "dark:from-rose-700 dark:via-pink-700 dark:to-purple-700 dark:opacity-60",
               "from-blue-300 via-cyan-300 to-green-300 opacity-70",
-              "-z-50 w-full aspect-square max-w-screen-lg filter blur-3xl",
+              "-z-50 aspect-square w-full max-w-screen-lg blur-3xl filter",
               "bottom-[calc(100%-200px)] dark:bottom-[calc(100%-180px)]",
               hideGradient ? "absolute" : "fixed"
             )}

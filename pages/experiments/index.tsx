@@ -14,11 +14,11 @@ export default function Experiments(): JSX.Element {
         <Link href="/experiments/github-contributions?search=pondorasti" passHref>
           <a
             className={classNames(
-              "flex flex-col w-full border border-divider rounded-lg overflow-hidden group hover:scale-[1.03]",
+              "group flex w-full flex-col overflow-hidden rounded-lg border border-divider hover:scale-[1.03]",
               transition
             )}
           >
-            <div className="relative bg-gray-100 dark:bg-gray-800 h-12 px-4 w-full flex flex-row items-center space-x-2 text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300">
+            <div className="relative flex h-12 w-full flex-row items-center space-x-2 bg-gray-100 px-4 text-gray-500 group-hover:text-gray-700 dark:bg-gray-800 dark:group-hover:text-gray-300">
               <div className={classNames(circleStyle, "group-hover:bg-systemRed", transition)}></div>
               <div className={classNames(circleStyle, "group-hover:bg-systemYellow", transition)}></div>
               <div className={classNames(circleStyle, "group-hover:bg-systemGreen", transition)}></div>
@@ -26,7 +26,7 @@ export default function Experiments(): JSX.Element {
               <div className="absolute left-0 !ml-0 w-full">
                 <div
                   className={classNames(
-                    "bg-gray-200 dark:bg-gray-700 rounded-md mx-auto w-[calc(100%-16px)] xs:w-72 sm:w-80 py-1 px-4 text-sm text-center whitespace-nowrap",
+                    "mx-auto w-[calc(100%-16px)] whitespace-nowrap rounded-md bg-gray-200 py-1 px-4 text-center text-sm dark:bg-gray-700 xs:w-72 sm:w-80",
                     transition
                   )}
                 >
@@ -43,10 +43,10 @@ export default function Experiments(): JSX.Element {
                 →
               </span>
             </div>
-            <div className={classNames("h-60 xs:h-80 p-8 flex bg-gray-50 dark:bg-gray-900 glass", transition)}>
+            <div className={classNames("flex h-60 bg-gray-50 p-8 glass dark:bg-gray-900 xs:h-80", transition)}>
               <div
                 className={classNames(
-                  "relative w-full h-full max-w-md m-auto grayscale-0 sm:grayscale group-hover:grayscale-0",
+                  "relative m-auto h-full w-full max-w-md grayscale-0 group-hover:grayscale-0 sm:grayscale",
                   transition
                 )}
               >
