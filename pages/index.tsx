@@ -70,13 +70,13 @@ export default function Home(): JSX.Element {
           Currently working at{" "}
           <a
             className={classNames(
-              "animate-text-shimmer bg-[linear-gradient(110deg,#0F0F0F,45%,#f5f5f5,55%,#0F0F0F)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#fafafa,45%,#171717,55%,#fafafa)]",
+              "animate-text-shimmer bg-[linear-gradient(110deg,#F6A6A6,45%,#f5f5f5,55%,#F6A6A6)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#F6A6A6,45%,#171717,55%,#F6A6A6)]",
               "inline-block cursor-ne-resize bg-clip-text text-transparent",
               "transition-transform duration-200 ease-in-out hover:scale-105"
             )}
             href="mailto:alexandru_turcanu@ymail.com"
           >
-            [HIRE ME]
+            Amie
           </a>
         </p>
       </Transition>
