@@ -1,5 +1,5 @@
 # alexandru.so
-A corner on the internet dedicated to Alexandru Turcanu.
+A corner on the internet dedicated to Alexandru Turcanu
 
 ## Tech Stack
 * Framework - [Next.js](https://nextjs.org/)
