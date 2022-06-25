@@ -2,6 +2,8 @@ import Image from "next/image"
 import * as Tooltip from "@radix-ui/react-tooltip"
 import { useTheme } from "next-themes"
 import classNames from "@lib/classNames"
+import { preload } from "swr"
+import { useEffect } from "react"
 
 interface ILinkPreview {
   name: string
@@ -23,6 +25,8 @@ const blueHighlight = classNames(
   "after:bg-blue-600 after:hover:bg-blue-700 dark:after:bg-blue-300 dark:after:hover:bg-blue-400"
 )
 
+const fetcher = (url: string) => fetch(url).then(res => res.blob())
+
 export default function LinkPreview({
   name,
   href,
@@ -43,6 +47,13 @@ export default function LinkPreview({
     typeof window === "undefined" ? Buffer.from(str).toString("base64") : window.btoa(str)
 
   const sanitizedHref = href.replace(/:/g, "%3A").replace(/\//g, "%2F").replace(/#/g, "%23")
+
+  const imageSrc =
+    preview || `/api/screenshot?url=${sanitizedHref}&colorScheme=${resolvedTheme === "dark" ? "dark" : "light"}`
+  useEffect(() => {
+    console.log(imageSrc)
+    preload(imageSrc, fetcher)
+  }, [imageSrc])
 
   return (
     <Tooltip.Root delayDuration={0}>
@@ -67,12 +78,7 @@ export default function LinkPreview({
         className="h-40 w-64 animate-slide-in rounded-lg border bg-white p-2 border-divider radix-state-closed:animate-slide-out dark:bg-gray-900"
       >
         <Image
-          src={
-            preview ||
-            `https://alexandru.so/api/screenshot?url=${sanitizedHref}&colorScheme=${
-              resolvedTheme === "dark" ? "dark" : "light"
-            }`
-          }
+          src={imageSrc}
           alt={alt}
           className="overflow-hidden rounded-md p-2"
           width={240}
@@ -80,6 +86,8 @@ export default function LinkPreview({
           placeholder="blur"
           blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(240, 144, resolvedTheme))}`}
           objectFit="cover"
+          priority
+          unoptimized={!!preview}
         />
       </Tooltip.Content>
     </Tooltip.Root>

@@ -36,6 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     await browser.close()
     res.setHeader("Content-Type", "image/webp")
+    res.setHeader("Cache-Control", "s-maxage=1440000")
     res.status(200).end(imageBuffer)
   } else {
     res.status(404)
