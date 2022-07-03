@@ -49,7 +49,8 @@ export default function LinkPreview({
   const sanitizedHref = href.replace(/:/g, "%3A").replace(/\//g, "%2F").replace(/#/g, "%23")
 
   const imageSrc =
-    preview || `/api/screenshot?url=${sanitizedHref}&colorScheme=${resolvedTheme === "dark" ? "dark" : "light"}`
+    preview ||
+    `/_next/image?url=api/screenshot?url=${sanitizedHref}&colorScheme=${resolvedTheme === "dark" ? "dark" : "light"}`
   useEffect(() => {
     console.log(imageSrc)
     preload(imageSrc, fetcher)
