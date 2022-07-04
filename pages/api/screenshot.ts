@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const viewportOptions = {
       width: 1280,
-      height: 800,
+      height: 764,
       deviceScaleFactor: 1,
     }
 
