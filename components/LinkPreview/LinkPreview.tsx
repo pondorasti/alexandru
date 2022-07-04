@@ -54,7 +54,7 @@ export default function LinkPreview({
   }, [imageSrc])
 
   return (
-    <Tooltip.Root delayDuration={0} open>
+    <Tooltip.Root delayDuration={0}>
       <Tooltip.Trigger asChild>
         <a
           className={classNames(
