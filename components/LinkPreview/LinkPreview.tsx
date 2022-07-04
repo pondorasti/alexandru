@@ -1,4 +1,3 @@
-import Image from "next/image"
 import * as Tooltip from "@radix-ui/react-tooltip"
 import { useTheme } from "next-themes"
 import classNames from "@lib/classNames"
@@ -49,15 +48,13 @@ export default function LinkPreview({
   const sanitizedHref = href.replace(/:/g, "%3A").replace(/\//g, "%2F").replace(/#/g, "%23")
 
   const imageSrc =
-    preview ||
-    `/_next/image?url=api/screenshot?url=${sanitizedHref}&colorScheme=${resolvedTheme === "dark" ? "dark" : "light"}`
+    preview || `/api/screenshot?url=${sanitizedHref}&colorScheme=${resolvedTheme === "dark" ? "dark" : "light"}`
   useEffect(() => {
-    console.log(imageSrc)
     preload(imageSrc, fetcher)
   }, [imageSrc])
 
   return (
-    <Tooltip.Root delayDuration={0}>
+    <Tooltip.Root delayDuration={0} open>
       <Tooltip.Trigger asChild>
         <a
           className={classNames(
@@ -78,17 +75,16 @@ export default function LinkPreview({
         sideOffset={16}
         className="h-40 w-64 animate-slide-in rounded-lg border bg-white p-2 border-divider radix-state-closed:animate-slide-out dark:bg-gray-900"
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={imageSrc}
           alt={alt}
-          className="overflow-hidden rounded-md p-2"
-          width={240}
-          height={144}
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(240, 144, resolvedTheme))}`}
-          objectFit="cover"
-          priority
-          unoptimized={!!preview}
+          className="h-[142px] w-[238px] rounded-md object-cover"
+          // placeholder="blur"
+          // blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(240, 144, resolvedTheme))}`}
+          // objectFit="cover"
+          // priority
+          // unoptimized={!!preview}
         />
       </Tooltip.Content>
     </Tooltip.Root>
