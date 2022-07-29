@@ -1,12 +1,13 @@
 import { Transition } from "@headlessui/react"
 import { AnimatedDescription } from "@components/Description"
 import classNames from "@lib/classNames"
+import TransitionPage from "@components/TransitionPage"
 
 export default function Home(): JSX.Element {
   const redGradient = "bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 text-transparent bg-clip-text"
 
   return (
-    <>
+    <TransitionPage>
       <AnimatedDescription title="Alexandru Ţurcanu" description="Full Stack Engineer" />
       <Transition
         appear
@@ -80,6 +81,6 @@ export default function Home(): JSX.Element {
           </a>
         </p>
       </Transition>
-    </>
+    </TransitionPage>
   )
 }

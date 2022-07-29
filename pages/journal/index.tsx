@@ -6,6 +6,7 @@ import Description from "@components/Description"
 import { IMeta } from "@lib/types"
 import classNames from "@lib/classNames"
 import { formatDate, normalizeUtc } from "@lib/date"
+import TransitionPage from "@components/TransitionPage"
 
 interface IJournal {
   slugs: string[]
@@ -45,7 +46,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
   }
 
   return (
-    <>
+    <TransitionPage>
       <Description title="Journal" description="A collection of random thoughts" />
 
       <div className="ml-12 md:ml-0">
@@ -85,7 +86,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
           ))}
         </div>
       </div>
-    </>
+    </TransitionPage>
   )
 }
 

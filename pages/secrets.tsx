@@ -3,6 +3,7 @@ import Description from "@components/Description"
 import LinkPreview from "@components/LinkPreview"
 import classNames from "@lib/classNames"
 import secrets from "@data/secrets"
+import TransitionPage from "@components/TransitionPage"
 
 export default function Secret(): JSX.Element {
   const headerStyling =
@@ -10,7 +11,7 @@ export default function Secret(): JSX.Element {
   const rowStyling = "p-3 text-gray-700 dark:text-gray-300 whitespace-nowrap"
 
   return (
-    <>
+    <TransitionPage>
       <Description title="Secrets" description="A collection of projects which I have worked on" />
       <div className="ml-12 overflow-x-auto overflow-y-hidden rounded-lg border shadow-lg border-divider md:ml-0">
         <table className="w-full table-auto">
@@ -46,6 +47,6 @@ export default function Secret(): JSX.Element {
           </tbody>
         </table>
       </div>
-    </>
+    </TransitionPage>
   )
 }

@@ -8,6 +8,7 @@ import classNames from "@lib/classNames"
 import { normalizeUtc, formatDate } from "@lib/date"
 import type { IContributionsCollection, IUserInformation, IUserInsights } from "@lib/types"
 import Description from "@components/Description"
+import TransitionPage from "@components/TransitionPage"
 
 export default function GithubContributions() {
   const { resolvedTheme } = useTheme()
@@ -246,7 +247,7 @@ export default function GithubContributions() {
   }
 
   return (
-    <>
+    <TransitionPage>
       <div className={classNames("flex flex-col items-center", loading ? "cursor-wait" : "")}>
         <Description
           title="Github Contributions"
@@ -356,6 +357,6 @@ export default function GithubContributions() {
           )
         })}
       </div>
-    </>
+    </TransitionPage>
   )
 }

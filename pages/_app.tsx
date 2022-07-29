@@ -50,13 +50,11 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           />
         </div>
         <NavigationBar />
-        <TransitionPage>
-          <main className="body">
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <Component {...pageProps} />
-          </main>
-          {showFooter && <Footer />}
-        </TransitionPage>
+        <main className="body">
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <Component {...pageProps} />
+        </main>
+        <>{showFooter && <Footer />}</>
       </Inspect>
     </ThemeProvider>
   )
