@@ -8,6 +8,7 @@ import { IMeta } from "@lib/types"
 import LinkPreview from "@components/LinkPreview"
 import Description from "@components/Description"
 import { formatDate, normalizeUtc } from "@lib/date"
+import TransitionPage from "@components/TransitionPage"
 
 const entriesList = {
   "dns-ad-blocker-with-pi-hole-and-docker": dynamic(
@@ -36,7 +37,7 @@ export default function JournalEntry({ meta, readingTime }: IJournalEntry): JSX.
   const Entry = entriesList[meta.slug]
 
   return (
-    <>
+    <TransitionPage>
       <div className="relative">
         <aside className="absolute top-0 -left-12 h-screen pr-11 text-left font-['Luxurious_Roman'] text-sm text-gray-400 [writing-mode:vertical-rl] dark:text-gray-600 md:-left-14">
           {formatDate(normalizeUtc(new Date(meta.publishedAt)))} • {readingTime} min read
@@ -49,7 +50,7 @@ export default function JournalEntry({ meta, readingTime }: IJournalEntry): JSX.
           a: props => <LinkPreview name={props.children as string} href={props.href || ""} alt="" />,
         }}
       />
-    </>
+    </TransitionPage>
   )
 }
 
