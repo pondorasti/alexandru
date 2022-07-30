@@ -70,7 +70,7 @@
   "devDependencies": {
     "@types/d3": "^7.1.0",
     "@types/react": "^17.0.40",
-    "@types/tailwindcss": "^3.0.9",
+    "@types/tailwindcss": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.14.0",
     "autoprefixer": "^10.4.5",
@@ -82,7 +82,7 @@
     "postcss": "^8.4.6",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.8",
-    "tailwindcss": "^3.0.19",
+    "tailwindcss": "^3.1.7",
     "typescript": "^4.6.2"
   }
 }
