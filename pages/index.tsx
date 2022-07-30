@@ -75,7 +75,9 @@ export default function Home(): JSX.Element {
               "inline-block cursor-ne-resize bg-clip-text text-transparent",
               "transition-transform duration-200 ease-in-out hover:scale-105"
             )}
-            href="mailto:alexandru_turcanu@ymail.com"
+            href="https://amie.so/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Amie
           </a>

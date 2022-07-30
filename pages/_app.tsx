@@ -7,7 +7,6 @@ import "tailwindcss/tailwind.css"
 import { ThemeProvider } from "next-themes"
 import NavigationBar from "@components/NavigationBar"
 import classNames from "@lib/classNames"
-import TransitionPage from "@components/TransitionPage"
 import Footer from "@components/Footer"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
