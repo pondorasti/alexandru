@@ -10,7 +10,7 @@ export default function Experiments(): JSX.Element {
 
   return (
     <TransitionPage>
-      <Description title="Experiments" description="A playground to try out new ideas" />
+      <Description title="Experiments" description="Playground to try out new ideas" />
       <div>
         <Link href="/experiments/github-contributions?search=pondorasti" passHref>
           <a

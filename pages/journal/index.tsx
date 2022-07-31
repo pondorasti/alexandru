@@ -47,7 +47,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
 
   return (
     <TransitionPage>
-      <Description title="Journal" description="A collection of random thoughts" />
+      <Description title="Journal" description="Collection of random thoughts" />
 
       <div className="ml-12 md:ml-0">
         {/* Book Binding */}
