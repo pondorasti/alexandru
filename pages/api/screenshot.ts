@@ -30,7 +30,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     await page.setViewport(viewportOptions)
     await page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: colorScheme || "light" }])
-    await page.goto(url, { waitUntil: "networkidle2" })
+
+    const waitForPageLoad = page.goto(url, { waitUntil: "networkidle2" })
+    const executionTimeout = new Promise(resolve => setTimeout(resolve, 9000))
+    await Promise.race([waitForPageLoad, executionTimeout])
 
     const imageBuffer = await page.screenshot()
 
