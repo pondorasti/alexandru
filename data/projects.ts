@@ -14,12 +14,14 @@ const secrets: IProject[] = [
     month: "February",
     year: 2022,
     href: "https://fig.io/manual",
+    preview: "/images/secrets/man-pages.png",
   },
   {
     name: "tailwindcss-snippets",
     description: "Collection of animation snippets made for TailwindCSS",
     month: "January",
     href: "https://snippets.alexandru.so/",
+    preview: "/images/secrets/tailwindcss-snippets.png",
   },
   {
     name: "microphone.wtf",
@@ -68,7 +70,7 @@ const secrets: IProject[] = [
     month: "December",
     year: 2020,
     href: "https://alexandru.so/secrets/teamo-design",
-    preview: "/images/secrets/teamo-design.webp",
+    preview: "/images/secrets/teamo-design.png",
   },
   // {
   //   name: "sushi",
@@ -88,14 +90,14 @@ const secrets: IProject[] = [
     description: "Fun design challenge!",
     month: "September",
     href: "https://alexandru.so/secrets/the-rise-of-micro-computers",
-    preview: "/images/secrets/the-rise-of-micro-computers.webp",
+    preview: "/images/secrets/the-rise-of-micro-computers.png",
   },
   {
     name: "90s-portfolio",
     description: "Portfolio inspired by Raspberry Pi's CLI",
     month: "September",
     href: "https://alexandru.so/secrets/90s-portfolio",
-    preview: "/images/secrets/90s-portfolio.webp",
+    preview: "/images/secrets/90s-portfolio.png",
   },
   {
     name: "SimonDraws!",
