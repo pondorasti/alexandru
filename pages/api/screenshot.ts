@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Max execution time for serverless function is 10 seconds
     // Therefore, we limit page load for up to 9.5 seconds to avoid timeout
     const elapsedTime = Date.now() - startTime
-    const executionTimeout = new Promise(resolve => setTimeout(resolve, 9000 - elapsedTime))
+    const executionTimeout = new Promise(resolve => setTimeout(resolve, 8000 - elapsedTime))
     console.log({ elapsedTime, remainingTime: 9000 - elapsedTime })
     const waitForPageLoad = page.goto(url, { waitUntil: "networkidle2" })
     await Promise.race([waitForPageLoad, executionTimeout])
