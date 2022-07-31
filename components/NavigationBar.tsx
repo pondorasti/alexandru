@@ -3,7 +3,7 @@ import dynamic from "next/dynamic"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { DarkModeSwitch } from "react-toggle-dark-mode"
-import { HomeIcon, BeakerIcon, LockClosedIcon, PencilIcon } from "@heroicons/react/outline"
+import { HomeIcon, BeakerIcon, LockClosedIcon, PencilIcon, GiftIcon } from "@heroicons/react/outline"
 import classNames from "@lib/classNames"
 
 // Source: https://github.com/vercel/next.js/issues/4515#issuecomment-810635574
@@ -82,10 +82,10 @@ export default function NavigationBar(): JSX.Element {
               <PencilIcon className={iconStyle} />
             </a>
           </Link>
-          <Link href="/secrets">
+          <Link href="/projects">
             <a className={linkStyle}>
-              <span className="sr-only">Secrets</span>
-              <LockClosedIcon className={iconStyle} />
+              <span className="sr-only">Projects</span>
+              <GiftIcon className={iconStyle} />
             </a>
           </Link>
 

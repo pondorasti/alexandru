@@ -1,4 +1,4 @@
-interface ISecret {
+interface IProject {
   name: string
   description: string
   month: string
@@ -7,12 +7,18 @@ interface ISecret {
   preview?: string
 }
 
-const secrets: ISecret[] = [
+const secrets: IProject[] = [
+  {
+    name: "Manual Pages",
+    description: "Dynamically generated docs for 450+ CLIs",
+    month: "February",
+    year: 2022,
+    href: "https://fig.io/manual",
+  },
   {
     name: "tailwindcss-snippets",
     description: "Collection of animation snippets made for TailwindCSS",
     month: "January",
-    year: 2022,
     href: "https://snippets.alexandru.so/",
   },
   {
