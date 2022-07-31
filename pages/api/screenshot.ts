@@ -8,6 +8,7 @@ interface IQuery {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { url, colorScheme } = req.query as IQuery
+  const startTime = Date.now()
 
   if (url) {
     const browser = await chrome.puppeteer.launch(
@@ -32,7 +33,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     await page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: colorScheme || "light" }])
 
     const waitForPageLoad = page.goto(url, { waitUntil: "networkidle2" })
-    const executionTimeout = new Promise(resolve => setTimeout(resolve, 8000))
+    const elapsedTime = Date.now() - startTime
+    const executionTimeout = new Promise(resolve => setTimeout(resolve, 10 * 9000 - elapsedTime))
     await Promise.race([waitForPageLoad, executionTimeout])
 
     const imageBuffer = await page.screenshot()
