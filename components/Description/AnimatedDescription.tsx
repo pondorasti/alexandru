@@ -7,36 +7,26 @@ export default function Description({ title, description, hideBreak = false }: I
   const transition = "transition-all duration-500"
 
   return (
-    <>
-      <Transition
-        appear
-        show
+    <Transition appear>
+      <Transition.Child
         enter={classNames(transition)}
         enterFrom="opacity-0 -translate-y-2"
         enterTo="opacity-100 translate-y-0"
       >
         <h1 className={titleStyle}>{title}</h1>
-      </Transition>
-      <Transition
-        appear
-        show
+      </Transition.Child>
+      <Transition.Child
         enter={classNames(transition, "delay-[300ms]")}
         enterFrom="opacity-0 -translate-y-2"
         enterTo="opacity-100 translate-y-0"
       >
         <p className={descriptionStyle}>{description}</p>
-      </Transition>
+      </Transition.Child>
       {!hideBreak && (
-        <Transition
-          appear
-          show
-          enter={classNames(transition, "delay-[600ms]")}
-          enterFrom="scale-x-0"
-          enterTo="scale-x-100"
-        >
+        <Transition.Child enter={classNames(transition, "delay-[600ms]")} enterFrom="scale-x-0" enterTo="scale-x-100">
           <hr />
-        </Transition>
+        </Transition.Child>
       )}
-    </>
+    </Transition>
   )
 }
