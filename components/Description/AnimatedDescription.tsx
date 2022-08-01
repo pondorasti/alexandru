@@ -1,13 +1,18 @@
 import { Transition } from "@headlessui/react"
 import classNames from "@lib/classNames"
+import { useEffect, useState } from "react"
 import { titleStyle, descriptionStyle } from "./styles"
 import type { IDescription } from "./types"
 
 export default function Description({ title, description, hideBreak = false }: IDescription): JSX.Element {
   const transition = "transition-all duration-500"
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    setShow(true)
+  }, [])
 
   return (
-    <Transition appear>
+    <Transition show={show}>
       <Transition.Child
         enter={classNames(transition)}
         enterFrom="opacity-0 -translate-y-2"
