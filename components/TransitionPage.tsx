@@ -1,25 +1,33 @@
 import { Transition } from "@headlessui/react"
 import React from "react"
 import { NextSeo } from "next-seo"
+import { useRouter } from "next/router"
 
 interface ITransitionPage {
   children: React.ReactNode
+  title: string
+  description: string
 }
 
-export default function TransitionPage({ children }: ITransitionPage): JSX.Element {
+const suffixTitle = "Alexandru Ţurcanu"
+
+export default function TransitionPage({ children, title, description }: ITransitionPage): JSX.Element {
+  const router = useRouter()
+
+  console.log(router.asPath)
   return (
     <>
       <NextSeo
-        title="Simple Usage Example"
-        description="A short description goes here."
+        title={router.asPath !== "/" ? `${title} - ${suffixTitle}` : title}
+        description={description}
+        canonical={`https://alexandru.so${router.asPath}`}
         openGraph={{
           type: "website",
           locale: "en_IE",
-          url: "https://alexandru.so/",
+          url: `https://alexandru.so${router.asPath}`,
           site_name: "Alexandru Turcanu",
         }}
         twitter={{
-          handle: "@handle",
           site: "@pondorasti",
           cardType: "summary_large_image",
         }}

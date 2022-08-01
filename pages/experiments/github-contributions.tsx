@@ -10,6 +10,9 @@ import type { IContributionsCollection, IUserInformation, IUserInsights } from "
 import Description from "@components/Description"
 import TransitionPage from "@components/TransitionPage"
 
+const title = "Github Contributions"
+const description = "visualize, analyze and contrast your commits"
+
 export default function GithubContributions() {
   const { resolvedTheme } = useTheme()
   const router = useRouter()
@@ -247,13 +250,9 @@ export default function GithubContributions() {
   }
 
   return (
-    <TransitionPage>
+    <TransitionPage title={title} description={description}>
       <div className={classNames("flex flex-col items-center", loading ? "cursor-wait" : "")}>
-        <Description
-          title="Github Contributions"
-          description="visualize, analyze and contrast your commits"
-          hideBreak
-        />
+        <Description title={title} description={description} hideBreak />
         <form
           className="relative mb-12 w-full rounded-md shadow-sm md:w-96"
           onSubmit={event => {
