@@ -33,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     await page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: colorScheme || "light" }])
 
     // Max execution time for serverless function is 10 seconds
-    // Therefore, we limit page load for up to 9.5 seconds to avoid timeout
+    // Therefore, we limit page load for up to 8 seconds to avoid timeout
     const elapsedTime = Date.now() - startTime
     const executionTimeout = new Promise(resolve => setTimeout(resolve, 8000 - elapsedTime))
     const waitForPageLoad = page.goto(url, { waitUntil: "networkidle2" })
