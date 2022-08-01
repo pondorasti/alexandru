@@ -7,14 +7,19 @@ interface ITransitionPage {
   children: React.ReactNode
   title: string
   description: string
+  type?: "article" | "website"
 }
 
 const suffixTitle = "Alexandru Ţurcanu"
 
-export default function TransitionPage({ children, title, description }: ITransitionPage): JSX.Element {
+export default function TransitionPage({
+  children,
+  title,
+  description,
+  type = "website",
+}: ITransitionPage): JSX.Element {
   const router = useRouter()
 
-  console.log(router.asPath)
   return (
     <>
       <NextSeo
@@ -22,10 +27,10 @@ export default function TransitionPage({ children, title, description }: ITransi
         description={description}
         canonical={`https://alexandru.so${router.asPath}`}
         openGraph={{
-          type: "website",
+          type,
           locale: "en_IE",
           url: `https://alexandru.so${router.asPath}`,
-          site_name: "Alexandru Turcanu",
+          site_name: "Alexandru Ţurcanu",
         }}
         twitter={{
           site: "@pondorasti",
