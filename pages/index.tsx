@@ -2,10 +2,20 @@ import { Transition } from "@headlessui/react"
 import { AnimatedDescription } from "@components/Description"
 import classNames from "@lib/classNames"
 import TransitionPage from "@components/TransitionPage"
+import { useEffect, useState } from "react"
 
 const redGradient = "bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 text-transparent bg-clip-text"
 
 export default function Home(): JSX.Element {
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShow(true)
+    }, 600)
+
+    return () => clearTimeout(timeout)
+  }, [])
+
   return (
     <TransitionPage
       title="Alexandru Ţurcanu - Full Stack Engineer"
@@ -13,9 +23,8 @@ export default function Home(): JSX.Element {
     >
       <AnimatedDescription title="Alexandru Ţurcanu" description="Full Stack Engineer" />
       <Transition
-        appear
-        show
-        enter="transition-all duration-500 delay-[600ms]"
+        show={show}
+        enter="transition-all duration-500"
         enterFrom="scale-90 opacity-0"
         enterTo="scale-100 opacity-100"
       >
