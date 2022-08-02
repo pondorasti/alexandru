@@ -4,13 +4,16 @@ import Description from "@components/Description"
 import classNames from "@lib/classNames"
 import TransitionPage from "@components/TransitionPage"
 
-export default function Experiments(): JSX.Element {
-  const circleStyle = "h-3 w-3 rounded-full bg-gray-200 dark:bg-gray-700 opacity-0 xs:opacity-100"
-  const transition = "transition-all ease-out duration-300"
+const title = "Experiments"
+const description = "Playground to try out new ideas"
 
+const circleStyle = "h-3 w-3 rounded-full bg-gray-200 dark:bg-gray-700 opacity-0 xs:opacity-100"
+const transition = "transition-all ease-out duration-300"
+
+export default function Experiments(): JSX.Element {
   return (
-    <TransitionPage>
-      <Description title="Experiments" description="Playground to try out new ideas" />
+    <TransitionPage title={title} description={description}>
+      <Description title={title} description={description} />
       <div>
         <Link href="/experiments/github-contributions?search=pondorasti" passHref>
           <a

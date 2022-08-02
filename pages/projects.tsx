@@ -5,14 +5,17 @@ import classNames from "@lib/classNames"
 import secrets from "@data/projects"
 import TransitionPage from "@components/TransitionPage"
 
-export default function Projects(): JSX.Element {
-  const headerStyling =
-    "uppercase text-left text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 whitespace-nowrap"
-  const rowStyling = "p-3 text-gray-700 dark:text-gray-300 whitespace-nowrap"
+const title = "Projects"
+const description = "Joyful selection of my work"
 
+const headerStyling =
+  "uppercase text-left text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 whitespace-nowrap"
+const rowStyling = "p-3 text-gray-700 dark:text-gray-300 whitespace-nowrap"
+
+export default function Projects(): JSX.Element {
   return (
-    <TransitionPage>
-      <Description title="Projects" description="Joyful selection of my work" />
+    <TransitionPage title={title} description={description}>
+      <Description title={title} description={description} />
       <div className="ml-12 overflow-x-auto overflow-y-hidden rounded-lg border shadow-lg border-divider md:ml-0">
         <table className="w-full table-auto">
           <thead className="bg-gray-50 glass dark:bg-gray-900">

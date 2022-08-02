@@ -18,11 +18,6 @@ export default class Document extends NextDocument {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@500&family=Luxurious+Roman&display=swap"
             rel="stylesheet"
           />
-
-          <meta
-            name="description"
-            content="This the personal website of Alexandru Turcanu, also known as Pondorasti."
-          />
         </Head>
         {/* dark:selection:bg-fuchsia-600 dark:selection:text-fuchsia-50 */}
         <body className="bg-gray-50 selection:bg-teal-300 selection:text-gray-800 dark:bg-gray-900 dark:selection:bg-rose-600 dark:selection:text-rose-50">

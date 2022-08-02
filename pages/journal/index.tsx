@@ -8,6 +8,14 @@ import classNames from "@lib/classNames"
 import { formatDate, normalizeUtc } from "@lib/date"
 import TransitionPage from "@components/TransitionPage"
 
+const title = "Journal"
+const description = "Collection of random thoughts"
+
+const cardStyle =
+  "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl transition-colors duration-300"
+const asideStyle =
+  "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 text-center text-sm text-gray-400 dark:text-gray-600 font-['Luxurious_Roman']"
+
 interface IJournal {
   slugs: string[]
   metas: IMeta<string>[]
@@ -21,11 +29,6 @@ export default function Journal({ metas }: IJournal): JSX.Element {
 
   const parentRef = useRef<HTMLDivElement>(null)
   const highlightRef = useRef<HTMLDivElement>(null)
-
-  const cardStyle =
-    "flex flex-col px-4 py-6 relative hover:highlight sm:hover:!bg-transparent rounded-xl transition-colors duration-300"
-  const asideStyle =
-    "absolute [writing-mode:vertical-rl] h-full top-0 -left-12 md:-left-14 pr-11 text-center text-sm text-gray-400 dark:text-gray-600 font-['Luxurious_Roman']"
 
   function handleMouseOver(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     const node = event.target as HTMLElement
@@ -46,8 +49,8 @@ export default function Journal({ metas }: IJournal): JSX.Element {
   }
 
   return (
-    <TransitionPage>
-      <Description title="Journal" description="Collection of random thoughts" />
+    <TransitionPage title={title} description={description}>
+      <Description title={title} description={description} />
 
       <div className="ml-12 md:ml-0">
         {/* Book Binding */}

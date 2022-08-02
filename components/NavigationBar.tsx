@@ -3,7 +3,7 @@ import dynamic from "next/dynamic"
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { DarkModeSwitch } from "react-toggle-dark-mode"
-import { HomeIcon, BeakerIcon, LockClosedIcon, PencilIcon, GiftIcon } from "@heroicons/react/outline"
+import { HomeIcon, BeakerIcon, PencilIcon, GiftIcon } from "@heroicons/react/outline"
 import classNames from "@lib/classNames"
 
 // Source: https://github.com/vercel/next.js/issues/4515#issuecomment-810635574

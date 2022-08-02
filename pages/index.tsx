@@ -3,11 +3,14 @@ import { AnimatedDescription } from "@components/Description"
 import classNames from "@lib/classNames"
 import TransitionPage from "@components/TransitionPage"
 
-export default function Home(): JSX.Element {
-  const redGradient = "bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 text-transparent bg-clip-text"
+const redGradient = "bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 text-transparent bg-clip-text"
 
+export default function Home(): JSX.Element {
   return (
-    <TransitionPage>
+    <TransitionPage
+      title="Alexandru Ţurcanu - Full Stack Engineer"
+      description="On a journey to create best in class best in class apps, obsessed with designing fluid interfaces, and perfectionist at heart."
+    >
       <AnimatedDescription title="Alexandru Ţurcanu" description="Full Stack Engineer" />
       <Transition
         appear
