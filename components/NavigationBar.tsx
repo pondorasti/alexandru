@@ -15,14 +15,14 @@ const DynamicDarkModeSwitch = dynamic(
   { ssr: false, loading: () => <DarkModeSwitch checked={false} onChange={() => undefined} /> }
 )
 
+const linkStyle = "text-sm font-medium text-black dark:text-white opacity-70 hover:opacity-100"
+const iconStyle = "h-5 w-5"
+const transitionStyle = "duration-300"
+
 export default function NavigationBar(): JSX.Element {
   const [, setMounted] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
   const [showBlur, setShowBlur] = useState(false)
-
-  const linkStyle = "text-sm font-medium text-black dark:text-white opacity-70 hover:opacity-100"
-  const iconStyle = "h-5 w-5"
-  const transitionStyle = "duration-300"
 
   // When mounted on client, show theme switcher
   useEffect(() => setMounted(true), [])
