@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject, createRef, useRef, Fragment } from "react"
+import { useEffect, RefObject, createRef, useRef, Fragment, useLayoutEffect } from "react"
 import * as d3 from "d3"
 import { useRouter } from "next/router"
 import { useTheme } from "next-themes"
@@ -9,245 +9,226 @@ import { normalizeUtc, formatDate } from "@lib/date"
 import type { IContributionsCollection, IUserInformation, IUserInsights } from "@lib/types"
 import Description from "@components/Description"
 import TransitionPage from "@components/TransitionPage"
+import useSWR from "swr"
 
 const title = "Github Contributions"
 const description = "visualize, analyze and contrast your commits"
 
-export default function GithubContributions() {
-  const { resolvedTheme } = useTheme()
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const usernameRef = useRef<HTMLInputElement>(null)
-  const [collections, setCollections] = useState<IContributionsCollection[]>([])
-  const [insights, setInsights] = useState<IUserInsights>()
-  const [svgRefs, setSvgRefs] = useState<RefObject<SVGSVGElement>[]>([])
+const insightCardStyling =
+  "bg-white dark:bg-gray-800 glass border border-divider shadow-lg dark:shadow-none hover:shadow-2xl p-6 flex flex-col items-center overflow-hidden transform transition duration-300 ease-out rounded-lg hover:scale-[1.03]"
+const insightTitleStyling = "text-2xl font-semibold"
+const insightSubtitleStyling = "mt-1 leading-6 text-gray-500"
 
-  const insightCardStyling =
-    "bg-white dark:bg-gray-800 glass border border-divider shadow-lg dark:shadow-none hover:shadow-2xl p-6 flex flex-col items-center overflow-hidden transform transition duration-300 ease-out rounded-lg hover:scale-[1.03]"
-  const insightTitleStyling = "text-2xl font-semibold"
-  const insightSubtitleStyling = "mt-1 leading-6 text-gray-500"
+const API = "/api/github-contributions?username="
+const fetcher = (username: string): Promise<IUserInformation> =>
+  fetch(`${API}${username}`).then(res => res.json() as Promise<IUserInformation>)
+const defaultInsights: IUserInsights = {
+  longestStreak: 0,
+  currentStreak: 0,
+  totalContributions: 0,
+  firstContributionDate: "",
+}
 
-  function drawChart(payload: IContributionsCollection, svgRef: RefObject<SVGSVGElement>) {
-    const contributions = payload.data.user.contributionsCollection.contributionCalendar.weeks
+function drawChart(payload: IContributionsCollection, svgRef: RefObject<SVGSVGElement>, theme: string | undefined) {
+  const contributions = payload.data.user.contributionsCollection.contributionCalendar.weeks
 
-    const chartWidth = 740
-    const chartHeight = 88
-    const topMargin = 12
-    const leftMargin = 24
+  const chartWidth = 740
+  const chartHeight = 88
+  const topMargin = 12
+  const leftMargin = 24
 
-    // Source: https://github.com/github/feedback/discussions/7078
-    const colorPallete = {
-      dark: {
-        NONE: "#171717BF", //"#161B22"
-        FIRST_QUARTILE: "#0E4429",
-        SECOND_QUARTILE: "#006D32",
-        THIRD_QUARTILE: "#26A641",
-        FOURTH_QUARTILE: "#39D353",
-      },
-      light: {
-        NONE: "#EBEDF0BF",
-        FIRST_QUARTILE: "#9BE9A8",
-        SECOND_QUARTILE: "#30C463",
-        THIRD_QUARTILE: "#30A14E",
-        FOURTH_QUARTILE: "#216d39",
-      },
-      halloweenDark: {
-        NONE: "#171717BF", //"#161B22"
-        FIRST_QUARTILE: "#631c03",
-        SECOND_QUARTILE: "#bd561d",
-        THIRD_QUARTILE: "#fa7a18",
-        FOURTH_QUARTILE: "#fddf68",
-      },
-      halloweenLight: {
-        NONE: "#ebedf080",
-        FIRST_QUARTILE: "#ffee4a",
-        SECOND_QUARTILE: "#ffc501",
-        THIRD_QUARTILE: "#fe9600",
-        FOURTH_QUARTILE: "#03001c",
-      },
-    }
-    const rectOutline = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(27, 31, 35, 0.06)"
-    const fontFamily =
-      "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'"
-    const today = normalizeUtc(new Date()).toISOString().split("T")[0].substring(5)
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    const months = contributions.reduce((months, item) => {
-      item.contributionDays.forEach(contribution => {
-        const date = normalizeUtc(new Date(contribution.date))
-
-        const month = date.toLocaleDateString("en-us", { month: "short" })
-        if (!months.includes(month)) {
-          months.push(month)
-        }
-      })
-      return months
-    }, new Array<string>())
-
-    const svg = d3
-      .select(svgRef.current)
-      .attr("width", chartWidth + leftMargin)
-      .attr("height", chartHeight + topMargin)
-
-    // clean-up previous render
-    svg.selectAll("*").remove()
-
-    // Chart
-    const chartContainer = svg
-      .append("g")
-      .attr("id", "chartContainer")
-      .attr("transform", `translate(${leftMargin}, ${topMargin})`)
-    const weekPaths = chartContainer
-      .selectAll("g")
-      .data(contributions)
-      .enter()
-      .append("g")
-      .attr("transform", (d, i) => `translate(${i * 14}, 0)`)
-
-    const firstWeek = contributions[0].contributionDays
-    // contributionRects
-    weekPaths
-      .selectAll("rect")
-      .data(d => {
-        return d.contributionDays
-      })
-      .enter()
-      .append("rect")
-      .attr("x", 0)
-      .attr("y", (d, i) => {
-        const dayOfFirstWeek = firstWeek.find(value => value.date === d.date)
-        if (dayOfFirstWeek && firstWeek.length !== 7) {
-          const offset = new Date(firstWeek[0].date).getUTCDay()
-          return (i + offset) * 13
-        }
-        return i * 13
-      })
-      .attr("width", 10)
-      .attr("height", 10)
-      .attr("rx", 2)
-      .attr("ry", 2)
-      .attr(
-        "style",
-        `shape-rendering: geometricPrecision; outline: 1px solid ${rectOutline}; outline-offset: -1px; border-radius: 2px`
-      )
-      .attr("fill", d => {
-        if (today === "10-31") {
-          return resolvedTheme === "dark"
-            ? colorPallete.halloweenDark[d.contributionLevel]
-            : colorPallete.halloweenLight[d.contributionLevel]
-        }
-        return resolvedTheme === "dark"
-          ? colorPallete.dark[d.contributionLevel]
-          : colorPallete.light[d.contributionLevel]
-      })
-      .append("title")
-      .text(
-        d =>
-          `${d.contributionCount} contribution${d.contributionCount === 1 ? "" : "s"} on ${formatDate(
-            normalizeUtc(new Date(d.date))
-          )}`
-      )
-
-    // Top Axis
-    const topAxis = svg.append("g").attr("id", "topAxis")
-    topAxis
-      .selectAll("text")
-      .data(months)
-      .enter()
-      .append("text")
-      .text(d => d)
-      .attr("x", (d, i) => leftMargin + (chartWidth / months.length) * i)
-      .attr("y", () => 7)
-      .style("font-size", "9px")
-      .style("font-family", fontFamily)
-      .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
-
-    // Left Axis
-    const leftAxis = svg.append("g").attr("id", "leftAxis")
-    leftAxis
-      .selectAll("text")
-      .data(days)
-      .enter()
-      .append("text")
-      .text(d => d)
-      .attr("x", () => 0)
-      .attr("y", (d, i) => topMargin + 9 + (chartHeight / days.length) * i)
-      .attr("style", (d, i) => `display: ${i % 2 === 1 ? "block" : "none"}`)
-      .style("font-size", "9px")
-      .style("font-family", fontFamily)
-      .style("fill", resolvedTheme === "dark" ? "#fff" : "#000")
-
-    setError(false)
-    setLoading(false)
+  // Source: https://github.com/github/feedback/discussions/7078
+  const colorPalette = {
+    dark: {
+      NONE: "#171717BF", //"#161B22"
+      FIRST_QUARTILE: "#0E4429",
+      SECOND_QUARTILE: "#006D32",
+      THIRD_QUARTILE: "#26A641",
+      FOURTH_QUARTILE: "#39D353",
+    },
+    light: {
+      NONE: "#EBEDF0BF",
+      FIRST_QUARTILE: "#9BE9A8",
+      SECOND_QUARTILE: "#30C463",
+      THIRD_QUARTILE: "#30A14E",
+      FOURTH_QUARTILE: "#216d39",
+    },
+    halloweenDark: {
+      NONE: "#171717BF", //"#161B22"
+      FIRST_QUARTILE: "#631c03",
+      SECOND_QUARTILE: "#bd561d",
+      THIRD_QUARTILE: "#fa7a18",
+      FOURTH_QUARTILE: "#fddf68",
+    },
+    halloweenLight: {
+      NONE: "#ebedf080",
+      FIRST_QUARTILE: "#ffee4a",
+      SECOND_QUARTILE: "#ffc501",
+      THIRD_QUARTILE: "#fe9600",
+      FOURTH_QUARTILE: "#03001c",
+    },
   }
+  const rectOutline = theme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(27, 31, 35, 0.06)"
+  const fontFamily =
+    "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'"
+  const today = normalizeUtc(new Date()).toISOString().split("T")[0].substring(5)
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  const months = contributions.reduce((months, item) => {
+    item.contributionDays.forEach(contribution => {
+      const date = normalizeUtc(new Date(contribution.date))
 
-  async function fetchData(username: string) {
-    try {
-      setLoading(true)
-
-      const res = await fetch(`/api/github-contributions?username=${username}`)
-      const payload = (await res.json()) as IUserInformation
-
-      const newRefs = new Array(payload.collections.length)
-        .fill(undefined)
-        .map((_, i) => svgRefs[i] || createRef<SVGSVGElement>())
-
-      setCollections(payload.collections)
-      setInsights(payload.insights)
-      setSvgRefs(newRefs)
-    } catch (error) {
-      setError(true)
-      setLoading(false)
-    }
-  }
-
-  function render() {
-    collections.forEach((item, i) => {
-      if (svgRefs[i] && svgRefs[i].current) {
-        drawChart(item, svgRefs[i])
+      const month = date.toLocaleDateString("en-us", { month: "short" })
+      if (!months.includes(month)) {
+        months.push(month)
       }
     })
-  }
+    return months
+  }, new Array<string>())
 
-  // Try to fetch new data based on router changes
+  const svg = d3
+    .select(svgRef.current)
+    .attr("width", chartWidth + leftMargin)
+    .attr("height", chartHeight + topMargin)
+
+  // clean-up previous render
+  svg.selectAll("*").remove()
+
+  // Chart
+  const chartContainer = svg
+    .append("g")
+    .attr("id", "chartContainer")
+    .attr("transform", `translate(${leftMargin}, ${topMargin})`)
+  const weekPaths = chartContainer
+    .selectAll("g")
+    .data(contributions)
+    .enter()
+    .append("g")
+    .attr("transform", (d, i) => `translate(${i * 14}, 0)`)
+
+  const firstWeek = contributions[0].contributionDays
+  // contributionRects
+  weekPaths
+    .selectAll("rect")
+    .data(d => {
+      return d.contributionDays
+    })
+    .enter()
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", (d, i) => {
+      const dayOfFirstWeek = firstWeek.find(value => value.date === d.date)
+      if (dayOfFirstWeek && firstWeek.length !== 7) {
+        const offset = new Date(firstWeek[0].date).getUTCDay()
+        return (i + offset) * 13
+      }
+      return i * 13
+    })
+    .attr("width", 10)
+    .attr("height", 10)
+    .attr("rx", 2)
+    .attr("ry", 2)
+    .attr(
+      "style",
+      `shape-rendering: geometricPrecision; outline: 1px solid ${rectOutline}; outline-offset: -1px; border-radius: 2px`
+    )
+    .attr("fill", d => {
+      if (today === "10-31") {
+        return theme === "dark"
+          ? colorPalette.halloweenDark[d.contributionLevel]
+          : colorPalette.halloweenLight[d.contributionLevel]
+      }
+      return theme === "dark" ? colorPalette.dark[d.contributionLevel] : colorPalette.light[d.contributionLevel]
+    })
+    .append("title")
+    .text(
+      d =>
+        `${d.contributionCount} contribution${d.contributionCount === 1 ? "" : "s"} on ${formatDate(
+          normalizeUtc(new Date(d.date))
+        )}`
+    )
+
+  // Top Axis
+  const topAxis = svg.append("g").attr("id", "topAxis")
+  topAxis
+    .selectAll("text")
+    .data(months)
+    .enter()
+    .append("text")
+    .text(d => d)
+    .attr("x", (d, i) => leftMargin + (chartWidth / months.length) * i)
+    .attr("y", () => 7)
+    .style("font-size", "9px")
+    .style("font-family", fontFamily)
+    .style("fill", theme === "dark" ? "#fff" : "#000")
+
+  // Left Axis
+  const leftAxis = svg.append("g").attr("id", "leftAxis")
+  leftAxis
+    .selectAll("text")
+    .data(days)
+    .enter()
+    .append("text")
+    .text(d => d)
+    .attr("x", () => 0)
+    .attr("y", (d, i) => topMargin + 9 + (chartHeight / days.length) * i)
+    .attr("style", (d, i) => `display: ${i % 2 === 1 ? "block" : "none"}`)
+    .style("font-size", "9px")
+    .style("font-family", fontFamily)
+    .style("fill", theme === "dark" ? "#fff" : "#000")
+}
+
+export default function GithubContributions() {
+  const { resolvedTheme } = useTheme()
+  const usernameRef = useRef<HTMLInputElement>(null)
+  const svgRefs = new Array(100).fill(null).map(() => createRef<SVGSVGElement>())
+  const router = useRouter()
   const { search } = router.query
-  useEffect(() => {
-    const usernameInput = usernameRef.current
 
-    // exit early if it's rendering on the server
-    if (!router.isReady) {
-      return
-    }
-
-    // exit early if usernameRef is null
-    if (!usernameInput) {
-      return
-    }
-
-    if (search !== undefined) {
-      usernameInput.value = String(search)
-      fetchData(String(search))
-    } else {
-      router.push("?search=pondorasti", undefined, { shallow: true })
-    }
-  }, [search])
-
-  // Render graph everytime the refs or color scheme change
-  useEffect(() => {
-    render()
-  }, [svgRefs, resolvedTheme])
-
-  // Focus input form based on hotkeys
-  useHotkeys("⌘+k, ctrl+k, /", event => {
-    event.preventDefault()
-    usernameRef.current?.focus()
-  })
+  const { data, error, isValidating: loading } = useSWR<IUserInformation>(search, fetcher)
+  const insights = data?.insights || defaultInsights
+  const collections = data?.collections || []
 
   // Update router based on input
   function handleInput() {
     const username = usernameRef.current?.value || ""
     router.push("?search=" + username, undefined, { shallow: true })
   }
+
+  // Synchronize input with router
+  useEffect(() => {
+    const usernameInput = usernameRef.current
+
+    // exit early if it's rendering on the server
+    if (!router.isReady) return
+
+    // exit early if usernameRef is null
+    if (!usernameInput) return
+
+    // fallback to default username
+    if (search === undefined) {
+      usernameInput.value = "pondorasti"
+      router.push("?search=pondorasti", undefined, { shallow: true })
+    } else {
+      usernameInput.value = String(search)
+    }
+  }, [search])
+
+  // Render graph every time the refs or color scheme change
+  useLayoutEffect(() => {
+    if (error) return
+
+    collections.forEach((item, i) => {
+      if (svgRefs[i] && svgRefs[i].current) {
+        drawChart(item, svgRefs[i], resolvedTheme)
+      }
+    })
+  }, [svgRefs, resolvedTheme, error])
+
+  // Focus input form based on hotkeys
+  useHotkeys("⌘+k, ctrl+k, /", event => {
+    event.preventDefault()
+    usernameRef.current?.focus()
+  })
 
   return (
     <TransitionPage title={title} description={description}>
@@ -281,12 +262,12 @@ export default function GithubContributions() {
                   fill="none"
                   viewBox="0 0 24 24"
                 >
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path
                     className="opacity-75"
                     fill="currentColor"
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
+                  />
                 </svg>
               </div>
             )}
