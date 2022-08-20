@@ -184,13 +184,19 @@ export default function GithubContributions() {
   const router = useRouter()
   const { search } = router.query
 
-  const { data, error, isValidating: loading } = useSWR<IUserInformation>(search, fetcher)
+  const { data, error } = useSWR<IUserInformation, Error>(search, fetcher)
+  const isLoading = !data && !error
   const insights = data?.insights || defaultInsights
   const collections = data?.collections || []
+  console.log({ data: data?.insights.currentStreak })
 
   // Update router based on input
   function handleInput() {
     const username = usernameRef.current?.value || ""
+
+    // Only push router if it doesn't already have the same username
+    if (search === username) return
+
     router.push("?search=" + username, undefined, { shallow: true })
   }
 
@@ -232,7 +238,7 @@ export default function GithubContributions() {
 
   return (
     <TransitionPage title={title} description={description}>
-      <div className={classNames("flex flex-col items-center", loading ? "cursor-wait" : "")}>
+      <div className={classNames("flex flex-col items-center", isLoading ? "cursor-wait" : "")}>
         <Description title={title} description={description} hideBreak />
         <form
           className="relative mb-12 w-full rounded-md shadow-sm md:w-96"
@@ -245,14 +251,14 @@ export default function GithubContributions() {
             className={classNames(
               "block w-full rounded-lg border bg-white p-4 pr-14 text-xl border-divider glass dark:bg-gray-800 md:w-96",
               "focus:border-blue-300 focus:ring-blue-300 dark:focus:border-blue-900 dark:focus:ring-blue-900",
-              loading ? "cursor-wait" : "cursor-auto"
+              isLoading ? "cursor-wait" : "cursor-auto"
             )}
             type="text"
             placeholder="username"
             ref={usernameRef}
           />
           <button className="absolute inset-y-0 right-0 flex items-center px-3" onClick={() => handleInput()}>
-            {!loading ? (
+            {!isLoading ? (
               <SearchIcon className="h-8 w-8 text-gray-400 dark:text-gray-500" aria-hidden="true" />
             ) : (
               <div className="flex h-8 w-8">
@@ -278,8 +284,8 @@ export default function GithubContributions() {
         className={classNames(
           "flex flex-col items-center",
           "transform transition duration-300 ease-out",
-          loading || !error ? "opacity-0" : "opacity-100",
-          loading || !error ? "" : "translate-y-4"
+          isLoading || !error ? "opacity-0" : "opacity-100",
+          isLoading || !error ? "" : "translate-y-4"
         )}
       >
         <p className="text-md mt-2 text-gray-400 dark:text-gray-500">
@@ -291,8 +297,8 @@ export default function GithubContributions() {
         className={classNames(
           "-mt-9",
           "transform transition duration-300 ease-out",
-          loading || error ? "opacity-0" : "opacity-100",
-          loading || error ? "" : "translate-y-4"
+          isLoading || error ? "opacity-0" : "opacity-100",
+          isLoading || error ? "" : "translate-y-4"
         )}
       >
         {collections.map((item, i) => {
@@ -312,20 +318,20 @@ export default function GithubContributions() {
                 <>
                   <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:grid-rows-2">
                     <div className={insightCardStyling}>
-                      <div className={insightTitleStyling}>{insights?.currentStreak}</div>
+                      <div className={insightTitleStyling}>{insights.currentStreak}</div>
                       <div className={insightSubtitleStyling}>Current Streak</div>
                     </div>
                     <div className={insightCardStyling}>
-                      <div className={insightTitleStyling}>{insights?.longestStreak}</div>
+                      <div className={insightTitleStyling}>{insights.longestStreak}</div>
                       <div className={insightSubtitleStyling}>Longest Streak</div>
                     </div>
                     <div className={insightCardStyling}>
-                      <div className={insightTitleStyling}>{insights?.totalContributions}</div>
+                      <div className={insightTitleStyling}>{insights.totalContributions}</div>
                       <div className={insightSubtitleStyling}>Total Contributions</div>
                     </div>
                     <div className={insightCardStyling}>
                       <div className={insightTitleStyling}>
-                        {formatDate(normalizeUtc(new Date(insights?.firstContributionDate ?? new Date())))}
+                        {formatDate(normalizeUtc(new Date(insights.firstContributionDate)))}
                       </div>
                       <div className={insightSubtitleStyling}>First Contribution</div>
                     </div>
