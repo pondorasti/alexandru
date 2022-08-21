@@ -164,7 +164,7 @@ export default function YearlyChart({ collection }: { collection: IContributions
     if (!svgRef.current) return
 
     drawChart(collection, svgRef, resolvedTheme)
-  }, [svgRef, resolvedTheme])
+  }, [svgRef, collection, resolvedTheme])
 
   return (
     <div className="mb-8 overflow-x-scroll md:-ml-[62px] md:overflow-visible">

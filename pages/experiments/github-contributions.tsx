@@ -17,7 +17,6 @@ export async function getStaticProps() {
 }
 
 export default function GithubContributionsWrapper({ fallback }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log({ fallback })
   return (
     <SWRConfig value={{ fallback }}>
       <GithubContributions />

@@ -1,4 +1,4 @@
-import { useEffect, useRef, Fragment } from "react"
+import { useRef, Fragment, useLayoutEffect } from "react"
 import { useRouter } from "next/router"
 import { useHotkeys } from "react-hotkeys-hook"
 import { SearchIcon } from "@heroicons/react/solid"
@@ -33,7 +33,6 @@ export default function GithubContributions() {
   const isLoading = !data && !error
   const insights = data?.insights || DEFAULT_INSIGHTS
   const collections = data?.collections || []
-  console.log({ data })
 
   // Update router based on input
   function handleInput() {
@@ -46,7 +45,7 @@ export default function GithubContributions() {
   }
 
   // Synchronize input with router
-  useEffect(() => {
+  useLayoutEffect(() => {
     const usernameInput = usernameRef.current
 
     // exit early if it's rendering on the server
