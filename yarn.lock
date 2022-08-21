@@ -4134,10 +4134,10 @@ swr@^2.0.0-beta.6:
   dependencies:
     use-sync-external-store "^1.1.0"
 
-tailwindcss-radix@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/tailwindcss-radix/-/tailwindcss-radix-1.6.0.tgz#c810dbd072ca491e60a5741fde2aa66579c80e47"
-  integrity sha512-5oBgGCVGsITMiUVlc6Euj4kt03l8htLJxVT9AXbkFxcJiXLtQxJriFq/8R+3s63OKit/ynCVdkqvlnW6H7iG1g==
+tailwindcss-radix@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/tailwindcss-radix/-/tailwindcss-radix-2.5.0.tgz#d7cc67560361e4225a5fcee49ae76dc48c5b8f45"
+  integrity sha512-vPIvolTmb0L6DlvIKBJRVGo+gB7ZU2jZbO8EpZw/5gBSTHx6PezRgQhR68kOuteh3F1q2PV3oBQgaIN4FxVmrw==
 
 tailwindcss@*, tailwindcss@^3.1.7:
   version "3.1.7"
