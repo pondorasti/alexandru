@@ -4127,10 +4127,10 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-swr@^2.0.0-beta.4:
-  version "2.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-2.0.0-beta.4.tgz#f26ae208c1e99c1e6656a87ffc28136a6bebaa0b"
-  integrity sha512-+BBVNlduhupycQlNCzyoUXOMi3s75XyP2176JWG9XRR3UG2HVfWIcSeL2/dcCApYTrNseJBpcV6ZwicEQrMLdA==
+swr@^2.0.0-beta.6:
+  version "2.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-2.0.0-beta.6.tgz#f414e54be540620e5276eda81cf7d33fe93f6745"
+  integrity sha512-bZkjKiBVaZiqHpuSzWqOafihWpCd3hD/+Ju+gr8FT9++jwdCt+gGIfgC1caY6jXuKrl9kBWTYTbd1qaXPKxMog==
   dependencies:
     use-sync-external-store "^1.1.0"
 
