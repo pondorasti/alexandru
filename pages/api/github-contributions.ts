@@ -40,8 +40,7 @@ async function fetchYearlyContributions(username: string | string[], year: numbe
   return data
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse<IUserInformation>) => {
-  const { username } = req.query
+export async function getGithubContributions(username: string): Promise<IUserInformation> {
   const body = {
     query: `query {
         user(login: "${username}") {
@@ -130,7 +129,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<IUserInformation
     }
   }
 
-  res
-    .status(200)
-    .json({ collections, insights: { longestStreak, currentStreak, totalContributions, firstContributionDate } })
+  return { collections, insights: { longestStreak, currentStreak, totalContributions, firstContributionDate } }
+}
+
+export default async (req: NextApiRequest, res: NextApiResponse<IUserInformation>) => {
+  const { username } = req.query
+  const data = await getGithubContributions(String(username))
+
+  res.status(200).json(data)
 }
