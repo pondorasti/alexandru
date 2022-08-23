@@ -2,6 +2,11 @@ const defaultTheme = require("tailwindcss/defaultTheme")
 const plugin = require("tailwindcss/plugin")
 const colors = require("tailwindcss/colors")
 
+const growBeforeView = { opacity: 0, transform: "scale(0.90) translateY(-32px)" }
+const growInView = { opacity: 1, transform: "scale(0.95) translateY(-16px)" }
+const growInFocus = { opacity: 1, transform: "scale(1.00)" }
+const growOutView = { opacity: 0, transform: "scale(1.05) translateY(16px)" }
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -33,6 +38,7 @@ module.exports = {
           // 400: "#d4d4d4",
           // 500: "#525252",
           // 600: "#404040",
+          650: "#2d2d2d",
           700: "#262626",
           800: "#171717",
           900: "#0F0F0F",
@@ -59,12 +65,30 @@ module.exports = {
           "25%": { transform: "rotate(0.5deg)" },
           "75%": { transform: "rotate(-0.5deg)" },
         },
+        "grow-end": {
+          "0%": growBeforeView,
+          "50%": growInView,
+          "100%": growInView,
+        },
+        "grow-middle": {
+          "0%": growInView,
+          "50%": growInFocus,
+          "100%": growInFocus,
+        },
+        "grow-start": {
+          "0%": growInFocus,
+          "50%": growOutView,
+          "100%": growOutView,
+        },
       },
       animation: {
         "slide-in": "slide-in 0.2s ease-out",
         "slide-out": "slide-out 0.2s ease",
         "text-shimmer": "text-shimmer 2s ease-out infinite alternate",
         tilt: "tilt 10s infinite linear",
+        "grow-start": "grow-start 2s ease-out infinite 0.2s",
+        "grow-middle": "grow-middle 2s ease-out infinite 0.2s",
+        "grow-end": "grow-end 2s infinite ease 0.2s",
       },
     },
   },
