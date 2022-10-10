@@ -1,4 +1,4 @@
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 
 interface IMockWebsite {
   className?: string
@@ -12,9 +12,9 @@ const backgroundStyle = "flex h-full items-center justify-center bg-gray-400/25 
 
 function Original(): JSX.Element {
   return (
-    <div className={classNames("flex-col", backgroundStyle)}>
+    <div className={clsx("flex-col", backgroundStyle)}>
       <div className="h-24 w-24 rounded-2xl bg-white/10 xs:h-28 xs:w-28 xs:rounded-3xl" />
-      <div className={classNames(titleStyle, "mt-6 xs:mt-8")} />
+      <div className={clsx(titleStyle, "mt-6 xs:mt-8")} />
       <div className={descriptionStyle} />
     </div>
   )
@@ -22,17 +22,17 @@ function Original(): JSX.Element {
 
 function Playful(): JSX.Element {
   return (
-    <div className={classNames(backgroundStyle)}>
-      <div className={classNames("inline-flex h-full flex-col items-center justify-center")}>
+    <div className={clsx(backgroundStyle)}>
+      <div className={clsx("inline-flex h-full flex-col items-center justify-center")}>
         <div className="flex w-full flex-col items-start">
           <div className={titleStyle} />
           <div className={descriptionStyle} />
         </div>
         <div className="mt-8 flex flex-row flex-nowrap space-x-4 xs:mt-12">
-          <div className={classNames(cardStyle, "-rotate-3")} />
-          <div className={classNames(cardStyle, "rotate-3")} />
-          <div className={classNames(cardStyle, "-rotate-3")} />
-          <div className={classNames(cardStyle, "rotate-3")} />
+          <div className={clsx(cardStyle, "-rotate-3")} />
+          <div className={clsx(cardStyle, "rotate-3")} />
+          <div className={clsx(cardStyle, "-rotate-3")} />
+          <div className={clsx(cardStyle, "rotate-3")} />
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@ function Playful(): JSX.Element {
 
 function Simple(): JSX.Element {
   return (
-    <div className={classNames("flex-col", backgroundStyle)}>
+    <div className={clsx("flex-col", backgroundStyle)}>
       <div className={titleStyle} />
       <div className={descriptionStyle} />
       <div className="mt-8 flex flex-row flex-nowrap space-x-4 xs:mt-12">
@@ -69,7 +69,7 @@ export default function MockWebsite({ className, variation }: IMockWebsite): JSX
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         "absolute h-full w-full max-w-md overflow-hidden rounded-lg bg-black ring-1 ring-gray-650",
         className ?? ""
       )}

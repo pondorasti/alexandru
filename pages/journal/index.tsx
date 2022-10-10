@@ -4,7 +4,7 @@ import fs from "fs"
 import * as matter from "gray-matter"
 import Description from "@components/Description"
 import { IMeta } from "@lib/types"
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 import { formatDate, normalizeUtc } from "@lib/date"
 import TransitionPage from "@components/TransitionPage"
 
@@ -60,7 +60,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
           {/* Highlighter */}
           <div
             ref={highlightRef}
-            className={classNames(
+            className={clsx(
               "absolute hidden h-[104px] w-full sm:block",
               "duration-200",
               isHoveredFromNull ? "transition-none" : "transition-transform "
@@ -68,7 +68,7 @@ export default function Journal({ metas }: IJournal): JSX.Element {
             style={{ transform }}
           >
             <div
-              className={classNames(
+              className={clsx(
                 "h-full w-full rounded-xl highlight",
                 highlightedTab ? "opacity-100" : "opacity-0",
                 "transition-opacity duration-300"

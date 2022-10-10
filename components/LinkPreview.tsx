@@ -1,8 +1,8 @@
 import * as Tooltip from "@radix-ui/react-tooltip"
 import { useTheme } from "next-themes"
-import classNames from "@lib/classNames"
 import { preload } from "swr"
 import { useEffect, useState } from "react"
+import clsx from "clsx"
 
 interface ILinkPreview {
   name: string
@@ -13,11 +13,11 @@ interface ILinkPreview {
   showExternalIndicator?: boolean
 }
 
-const neutralHighlight = classNames(
+const neutralHighlight = clsx(
   "text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-50",
   "after:bg-gray-700 after:hover:bg-gray-900 dark:after:bg-gray-200 dark:after:hover:bg-gray-50"
 )
-const blueHighlight = classNames(
+const blueHighlight = clsx(
   "text-blue-600 hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-400",
   "after:bg-blue-600 after:hover:bg-blue-700 dark:after:bg-blue-300 dark:after:hover:bg-blue-400"
 )
@@ -59,7 +59,7 @@ export default function LinkPreview({
     <Tooltip.Root delayDuration={0}>
       <Tooltip.Trigger asChild>
         <a
-          className={classNames(
+          className={clsx(
             style === "neutral" ? neutralHighlight : blueHighlight,
             "relative whitespace-nowrap after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:w-0 after:rounded-full hover:after:w-full",
             "after:ease after:transition-[width] after:duration-200 hover:after:ease-out"

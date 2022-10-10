@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react"
 import { AnimatedDescription } from "@components/Description"
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 import TransitionPage from "@components/TransitionPage"
 import { useEffect, useState } from "react"
 
@@ -33,7 +33,7 @@ export default function Home(): JSX.Element {
           <span className="group relative top-[6px] inline-block cursor-text overflow-hidden">
             <span className="invisible">best in class apps</span>
             <span
-              className={classNames(
+              className={clsx(
                 redGradient,
                 "absolute top-0 left-0 group-hover:-translate-y-full",
                 "transition-transform duration-500 ease-in-out hover:duration-300"
@@ -42,7 +42,7 @@ export default function Home(): JSX.Element {
               best in class apps
             </span>
             <span
-              className={classNames(
+              className={clsx(
                 redGradient,
                 "absolute top-0 left-0 translate-y-full group-hover:translate-y-0",
                 "transition-transform duration-500 ease-in-out hover:duration-300"
@@ -53,7 +53,7 @@ export default function Home(): JSX.Element {
           </span>
           , obsessed with designing{" "}
           <span
-            className={classNames(
+            className={clsx(
               "bg-gradient-to-r from-green-500 to-blue-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-cyan-400 dark:to-green-500",
               "after:bg-gradient-to-r",
               "relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-[113px]",
@@ -66,7 +66,7 @@ export default function Home(): JSX.Element {
           , and{" "}
           <span className="group relative">
             <span
-              className={classNames(
+              className={clsx(
                 "absolute -inset-0",
                 "bg-gradient-to-r from-blue-500 to-purple-400",
                 "rounded-lg opacity-20 blur group-hover:opacity-40 group-hover:blur-md",
@@ -82,7 +82,7 @@ export default function Home(): JSX.Element {
         <p className="mt-4 text-gray-600 dark:text-gray-400">
           Currently working at{" "}
           <a
-            className={classNames(
+            className={clsx(
               "animate-text-shimmer bg-[linear-gradient(110deg,#F6A6A6,45%,#f5f5f5,55%,#F6A6A6)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#F6A6A6,45%,#171717,55%,#F6A6A6)]",
               "inline-block cursor-ne-resize bg-clip-text text-transparent",
               "transition-transform duration-200 ease-in-out hover:scale-105"

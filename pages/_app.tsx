@@ -6,7 +6,7 @@ import Inspect from "inspx"
 import "tailwindcss/tailwind.css"
 import { ThemeProvider } from "next-themes"
 import NavigationBar from "@components/NavigationBar"
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 import Footer from "@components/Footer"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
@@ -38,7 +38,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <Inspect>
         <div className="mx-auto max-w-screen-lg">
           <span
-            className={classNames(
+            className={clsx(
               "rounded-full bg-gradient-to-r",
               "dark:from-rose-700 dark:via-pink-700 dark:to-purple-700 dark:opacity-60",
               "from-blue-300 via-cyan-300 to-green-300 opacity-70",

@@ -1,4 +1,4 @@
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 import Link from "next/link"
 
 export const wrapperStyle = "group flex h-full w-full flex-col overflow-hidden rounded-lg border border-divider"
@@ -22,33 +22,29 @@ export interface IBrowserFrame {
 export default function BrowserFrame({ children, href, title, containerClassName }: IBrowserFrame): JSX.Element {
   return (
     <Link href={href} passHref>
-      <a className={classNames(wrapperStyle, "cursor-ne-resize hover:scale-[1.03]", transition)}>
+      <a className={clsx(wrapperStyle, "cursor-ne-resize hover:scale-[1.03]", transition)}>
         <div
-          className={classNames(
+          className={clsx(
             "relative flex h-12 w-full flex-row items-center space-x-2 px-4",
             "bg-gray-100 text-gray-500 dark:bg-gray-800",
             "group-hover:text-gray-700 dark:group-hover:text-gray-300"
           )}
         >
-          <div className={classNames(circleStyle, "group-hover:bg-systemRed", transition)} />
-          <div className={classNames(circleStyle, "group-hover:bg-systemYellow", transition)} />
-          <div className={classNames(circleStyle, "group-hover:bg-systemGreen", transition)} />
+          <div className={clsx(circleStyle, "group-hover:bg-systemRed", transition)} />
+          <div className={clsx(circleStyle, "group-hover:bg-systemYellow", transition)} />
+          <div className={clsx(circleStyle, "group-hover:bg-systemGreen", transition)} />
 
           <span className="flex-grow" />
 
           <div className="absolute left-0 !ml-0 w-full">
-            <div className={classNames(tabStyle, transition)}>{title}</div>
+            <div className={clsx(tabStyle, transition)}>{title}</div>
           </div>
 
-          <span
-            className={classNames("opacity-0 xs:opacity-100", "translate-x-0 group-hover:translate-x-1", transition)}
-          >
+          <span className={clsx("opacity-0 xs:opacity-100", "translate-x-0 group-hover:translate-x-1", transition)}>
             →
           </span>
         </div>
-        <div className={classNames(frameStyle, "h-60 p-8 xs:h-80", transition, containerClassName ?? "")}>
-          {children}
-        </div>
+        <div className={clsx(frameStyle, "h-60 p-8 xs:h-80", transition, containerClassName ?? "")}>{children}</div>
       </a>
     </Link>
   )

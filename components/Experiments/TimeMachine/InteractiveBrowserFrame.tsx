@@ -1,4 +1,4 @@
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 import Link from "next/link"
 import { MinusIcon, XIcon } from "@heroicons/react/solid"
 import {
@@ -39,21 +39,21 @@ export default function InteractiveBrowserFrame({
         })`,
       }}
     >
-      <div className={classNames(wrapperStyle, transition)}>
+      <div className={clsx(wrapperStyle, transition)}>
         <div
-          className={classNames(
+          className={clsx(
             "relative flex h-12 w-full flex-row items-center space-x-2 px-4",
             "bg-gray-100 text-gray-500 dark:bg-gray-800",
             "group-hover:text-gray-700 dark:group-hover:text-gray-300"
           )}
         >
-          <button className={classNames(circleStyle, "group-hover:bg-systemRed", transition)} onClick={onClose}>
+          <button className={clsx(circleStyle, "group-hover:bg-systemRed", transition)} onClick={onClose}>
             <XIcon className={circleIconStyle} />
           </button>
-          <button className={classNames(circleStyle, "group-hover:bg-systemYellow", transition)} onClick={onMinimize}>
+          <button className={clsx(circleStyle, "group-hover:bg-systemYellow", transition)} onClick={onMinimize}>
             <MinusIcon className={circleIconStyle} />
           </button>
-          <button className={classNames(circleStyle, "group-hover:bg-systemGreen", transition)} onClick={onExpand}>
+          <button className={clsx(circleStyle, "group-hover:bg-systemGreen", transition)} onClick={onExpand}>
             <MinusIcon className={circleIconStyle} />
           </button>
 
@@ -62,11 +62,11 @@ export default function InteractiveBrowserFrame({
           <div className="absolute left-0 !ml-0 w-full">
             <Link href={href} passHref>
               {/* TODO: fix me into an <a /> */}
-              <div className={classNames(tabStyle, "cursor-ne-resize", transition)}>{title}</div>
+              <div className={clsx(tabStyle, "cursor-ne-resize", transition)}>{title}</div>
             </Link>
           </div>
         </div>
-        <div className={classNames(frameStyle, "h-full", transition)}>{children}</div>
+        <div className={clsx(frameStyle, "h-full", transition)}>{children}</div>
       </div>
     </div>
   )

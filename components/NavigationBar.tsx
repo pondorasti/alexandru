@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
 import { DarkModeSwitch } from "react-toggle-dark-mode"
 import { HomeIcon, BeakerIcon, PencilIcon, GiftIcon } from "@heroicons/react/outline"
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 
 // Source: https://github.com/vercel/next.js/issues/4515#issuecomment-810635574
 const DynamicDarkModeSwitch = dynamic(
@@ -50,7 +50,7 @@ export default function NavigationBar(): JSX.Element {
 
   return (
     <header
-      className={classNames(
+      className={clsx(
         "sticky top-0 z-30 mb-10 bg-gray-50 dark:bg-gray-900",
         "transition-[background-color]",
         showBlur
@@ -92,7 +92,7 @@ export default function NavigationBar(): JSX.Element {
           <div className="divider-y h-5" />
 
           <a
-            className={classNames(linkStyle, "cursor-ne-resize")}
+            className={clsx(linkStyle, "cursor-ne-resize")}
             target="_blank"
             rel="noopener noreferrer"
             href="https://twitter.com/Pondorasti/"
@@ -104,7 +104,7 @@ export default function NavigationBar(): JSX.Element {
             </svg>
           </a>
           <a
-            className={classNames(linkStyle, "cursor-ne-resize")}
+            className={clsx(linkStyle, "cursor-ne-resize")}
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/pondorasti/"
@@ -129,11 +129,7 @@ export default function NavigationBar(): JSX.Element {
           />
         </nav>
         <div
-          className={classNames(
-            "divider-x transition-opacity",
-            transitionStyle,
-            showBlur ? "opacity-100" : "opacity-0"
-          )}
+          className={clsx("divider-x transition-opacity", transitionStyle, showBlur ? "opacity-100" : "opacity-0")}
         />
       </div>
     </header>

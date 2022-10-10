@@ -2,7 +2,7 @@ import { useRef, Fragment, useLayoutEffect } from "react"
 import { useRouter } from "next/router"
 import { useHotkeys } from "react-hotkeys-hook"
 import { SearchIcon } from "@heroicons/react/solid"
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 import type { IUserInformation, IUserInsights } from "@lib/types"
 import Description from "@components/Description"
 import TransitionPage from "@components/TransitionPage"
@@ -71,7 +71,7 @@ export default function GithubContributions() {
 
   return (
     <TransitionPage title={title} description={description}>
-      <div className={classNames("flex flex-col items-center", isLoading ? "cursor-wait" : "")}>
+      <div className={clsx("flex flex-col items-center", isLoading ? "cursor-wait" : "")}>
         <Description title={title} description={description} hideBreak />
         <form
           className="relative mb-7 w-full rounded-md shadow-sm md:w-96"
@@ -81,7 +81,7 @@ export default function GithubContributions() {
           }}
         >
           <input
-            className={classNames(
+            className={clsx(
               "block w-full rounded-lg border bg-white p-4 pr-14 text-xl border-divider glass dark:bg-gray-800 md:w-96",
               "focus:border-blue-300 focus:ring-blue-300 dark:focus:border-blue-900 dark:focus:ring-blue-900",
               isLoading ? "cursor-wait" : "cursor-auto"
@@ -114,7 +114,7 @@ export default function GithubContributions() {
         </form>
       </div>
       <div
-        className={classNames(
+        className={clsx(
           "flex flex-col items-center",
           "transform transition duration-300 ease-out",
           isLoading || !error ? "opacity-0" : "opacity-100",
@@ -127,7 +127,7 @@ export default function GithubContributions() {
       </div>
 
       <div
-        className={classNames(
+        className={clsx(
           "pb-0",
           "-translate-y-4 transform transition duration-300 ease-out",
           isLoading || error ? "opacity-0" : "opacity-100",

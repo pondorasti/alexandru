@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import Description from "@components/Description"
 import LinkPreview from "@components/LinkPreview"
-import classNames from "@lib/classNames"
+import clsx from "clsx"
 import secrets from "@data/projects"
 import TransitionPage from "@components/TransitionPage"
 
@@ -20,8 +20,8 @@ export default function Projects(): JSX.Element {
         <table className="w-full table-auto">
           <thead className="bg-gray-50 glass dark:bg-gray-900">
             <tr className="border-b border-divider">
-              <th className={classNames(headerStyling, "p-3")}>Website</th>
-              <th className={classNames(headerStyling, "p-3")}>Description</th>
+              <th className={clsx(headerStyling, "p-3")}>Website</th>
+              <th className={clsx(headerStyling, "p-3")}>Description</th>
             </tr>
           </thead>
           <tbody>
@@ -29,13 +29,13 @@ export default function Projects(): JSX.Element {
               <Fragment key={website.name}>
                 <tr className="absolute">
                   <td className="absolute -left-11 flex h-12 w-11 flex-col items-center justify-center p-0 pr-3">
-                    <aside className={classNames("divider-y", index === 0 ? "opacity-0" : "")} />
-                    {website.year && <aside className={classNames(headerStyling, "py-1")}>{website.year}</aside>}
-                    <aside className={classNames("divider-y", index + 1 === secrets.length ? "opacity-0" : "")} />
+                    <aside className={clsx("divider-y", index === 0 ? "opacity-0" : "")} />
+                    {website.year && <aside className={clsx(headerStyling, "py-1")}>{website.year}</aside>}
+                    <aside className={clsx("divider-y", index + 1 === secrets.length ? "opacity-0" : "")} />
                   </td>
                 </tr>
                 <tr
-                  className={classNames(
+                  className={clsx(
                     index % 2 === 0 ? "bg-gray-200 dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-900",
                     "glass"
                   )}

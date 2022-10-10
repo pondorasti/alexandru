@@ -1,9 +1,9 @@
 import Image from "next/image"
 import Description from "@components/Description"
-import classNames from "@lib/classNames"
 import TransitionPage from "@components/TransitionPage"
 import BrowserFrame, { transition } from "@components/Experiments/BrowserFrame"
 import LiquidBlob from "@components/Experiments/LiquidBlob"
+import clsx from "clsx"
 
 const title = "Experiments"
 const description = "Playground to try out new ideas"
@@ -31,7 +31,7 @@ export default function Experiments(): JSX.Element {
         </BrowserFrame> */}
 
         <BrowserFrame href="/experiments/liquid-blob" title="Liquid Blob">
-          <div className={classNames("m-auto invert-[0.50] group-hover:invert-0", transition)}>
+          <div className={clsx("m-auto invert-[0.50] group-hover:invert-0", transition)}>
             <LiquidBlob animateOnHover />
           </div>
         </BrowserFrame>
