@@ -80,6 +80,14 @@ module.exports = {
           "50%": growOutView,
           "100%": growOutView,
         },
+        "blob-left": {
+          "0%": { transform: "translateX(-64px)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        "blob-right": {
+          "0%": { transform: "translateX(64px)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
       animation: {
         "slide-in": "slide-in 0.2s ease-out",
@@ -89,6 +97,8 @@ module.exports = {
         "grow-start": "grow-start 2s ease-out infinite 0.2s",
         "grow-middle": "grow-middle 2s ease-out infinite 0.2s",
         "grow-end": "grow-end 2s infinite ease 0.2s",
+        "blob-left": "blob-left 2s ease-in-out infinite alternate 3s",
+        "blob-right": "blob-right 2s ease-in-out infinite alternate 3s",
       },
     },
   },
@@ -97,6 +107,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/line-clamp"),
     require("tailwindcss-radix")(),
+    require("tailwindcss-animate"),
     plugin(function ({ addUtilities }) {
       addUtilities({
         ".bg-blur": {

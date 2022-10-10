@@ -16,9 +16,10 @@ export interface IBrowserFrame {
   children: React.ReactNode
   href: string
   title: string
+  containerClassName?: string
 }
 
-export default function BrowserFrame({ children, href, title }: IBrowserFrame): JSX.Element {
+export default function BrowserFrame({ children, href, title, containerClassName }: IBrowserFrame): JSX.Element {
   return (
     <Link href={href} passHref>
       <a className={classNames(wrapperStyle, "cursor-ne-resize hover:scale-[1.03]", transition)}>
@@ -45,7 +46,9 @@ export default function BrowserFrame({ children, href, title }: IBrowserFrame): 
             →
           </span>
         </div>
-        <div className={classNames(frameStyle, "h-60 p-8 xs:h-80", transition)}>{children}</div>
+        <div className={classNames(frameStyle, "h-60 p-8 xs:h-80", transition, containerClassName ?? "")}>
+          {children}
+        </div>
       </a>
     </Link>
   )

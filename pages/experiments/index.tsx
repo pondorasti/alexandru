@@ -3,7 +3,7 @@ import Description from "@components/Description"
 import classNames from "@lib/classNames"
 import TransitionPage from "@components/TransitionPage"
 import BrowserFrame, { transition } from "@components/Experiments/BrowserFrame"
-import MockWebsite from "@components/Experiments/TimeMachine/MockWebsite"
+import LiquidBlob from "@components/Experiments/LiquidBlob"
 
 const title = "Experiments"
 const description = "Playground to try out new ideas"
@@ -30,20 +30,23 @@ export default function Experiments(): JSX.Element {
           </div>
         </BrowserFrame> */}
 
-        <BrowserFrame href="/experiments/github-contributions?search=pondorasti" title="Github Contributions">
-          <div
-            className={classNames(
-              "relative m-auto h-full w-full max-w-md grayscale-0 group-hover:grayscale-0 sm:grayscale",
-              transition
-            )}
-          >
-            <Image
-              src="/images/experiments/github-contributions.svg"
-              alt="github contributions graph"
-              layout="fill"
-              className="dark-img-invert"
-            />
+        <BrowserFrame href="/experiments/liquid-blob" title="Liquid Blob">
+          <div className={classNames("m-auto invert-[0.50] group-hover:invert-0", transition)}>
+            <LiquidBlob animateOnHover />
           </div>
+        </BrowserFrame>
+
+        <BrowserFrame
+          href="/experiments/github-contributions?search=pondorasti"
+          title="Github Contributions"
+          containerClassName="relative m-auto h-full w-full max-w-md grayscale-0 group-hover:grayscale-0 sm:grayscale"
+        >
+          <Image
+            src="/images/experiments/github-contributions.svg"
+            alt="github contributions graph"
+            layout="fill"
+            className="dark-img-invert"
+          />
         </BrowserFrame>
       </div>
     </TransitionPage>
