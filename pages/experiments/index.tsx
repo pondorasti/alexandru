@@ -31,7 +31,7 @@ export default function Experiments(): JSX.Element {
         </BrowserFrame> */}
 
         <BrowserFrame href="/experiments/liquid-blob" title="Liquid Blob">
-          <div className={clsx("m-auto invert-[0.50] group-hover:invert-0", transition)}>
+          <div className={clsx("m-auto invert-0 group-hover:invert-0 sm:invert-[0.50]", transition)}>
             <LiquidBlob animateOnHover />
           </div>
         </BrowserFrame>
@@ -39,7 +39,7 @@ export default function Experiments(): JSX.Element {
         <BrowserFrame
           href="/experiments/github-contributions?search=pondorasti"
           title="Github Contributions"
-          containerClassName="relative m-auto h-full w-full max-w-md grayscale-0 group-hover:grayscale-0 sm:grayscale"
+          containerClassName="relative m-auto h-full w-full max-w-sm sm:max-w-md grayscale-0 group-hover:grayscale-0 sm:grayscale"
         >
           <Image
             src="/images/experiments/github-contributions.svg"

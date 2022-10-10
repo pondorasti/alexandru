@@ -2,6 +2,7 @@ import { transition } from "@components/Experiments/BrowserFrame"
 import clsx from "clsx"
 
 const blobStyle = "h-16 w-16 rounded-full bg-black dark:bg-white transition-all"
+const animateOnHoverStyle = "running group-hover:running sm:paused"
 
 interface ILiquidBlob {
   animateOnHover?: boolean
@@ -10,8 +11,8 @@ interface ILiquidBlob {
 export default function LiquidBlob({ animateOnHover }: ILiquidBlob): JSX.Element {
   return (
     <div className={clsx("flex items-center justify-center space-x-16 [filter:url(#blob)]", transition)}>
-      <div className={clsx(blobStyle, "animate-blob-right", animateOnHover ?? "paused group-hover:running")} />
-      <div className={clsx(blobStyle, "animate-blob-left", animateOnHover ?? "paused group-hover:running")} />
+      <div className={clsx(blobStyle, "animate-blob-right", animateOnHover && animateOnHoverStyle)} />
+      <div className={clsx(blobStyle, "animate-blob-left", animateOnHover && animateOnHoverStyle)} />
       <svg className="invisible absolute inset-0">
         <defs>
           <filter id="blob">
