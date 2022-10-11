@@ -73,7 +73,7 @@
     "@types/d3": "^7.1.0",
     "@types/react": "^17.0.40",
     "@types/tailwindcss": "^3.1.0",
-    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "autoprefixer": "^10.4.5",
     "eslint": "8.20.0",
