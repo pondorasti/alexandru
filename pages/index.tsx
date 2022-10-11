@@ -85,7 +85,7 @@ export default function Home(): JSX.Element {
             className={clsx(
               "animate-text-shimmer bg-[linear-gradient(110deg,#F6A6A6,45%,#f5f5f5,55%,#F6A6A6)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#F6A6A6,45%,#171717,55%,#F6A6A6)]",
               "inline-block cursor-ne-resize bg-clip-text text-transparent",
-              "transition-transform duration-200 ease-in-out hover:scale-105"
+              "transition-transform ease-in-out hover:scale-105"
             )}
             href="https://amie.so/"
             target="_blank"
