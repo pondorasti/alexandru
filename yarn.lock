@@ -56,16 +56,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@liveblocks/client@^0.13.2":
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/@liveblocks/client/-/client-0.13.3.tgz#f26eb1e36ceded2df9731c5d6f06d3299e1a574f"
-  integrity sha512-s6W9ZpahsOVdL4oa2g9DxoRZwX9qoUmwOj9X/uRg5p9rIRnPDRaqJ3h3cJsnL4BkRThTCgYV4pcm9HwtessBkA==
-
-"@liveblocks/react@^0.13.2":
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/@liveblocks/react/-/react-0.13.3.tgz#ca0b9574a4c64256200bffa27e584f8cc3961634"
-  integrity sha512-jOE7icnA+h9ebEN/3MH94el2z78U44qkOq3+qrYIcS+n5i8Cms5e2CxmdcAwnYvYBQmzX7s1lgHOh7SKk9Wxkw==
-
 "@mdx-js/loader@^2.0.0-rc.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-2.1.2.tgz#fe7631bbef1e6546f4289f7adaef60083c22063a"
