@@ -14,14 +14,14 @@ const secrets: IProject[] = [
     month: "February",
     year: 2022,
     href: "https://fig.io/manual",
-    preview: "/images/secrets/man-pages.png",
+    preview: "/images/projects/man-pages.png",
   },
   {
     name: "tailwindcss-snippets",
     description: "Collection of animation snippets made for TailwindCSS",
     month: "January",
     href: "https://snippets.alexandru.so/",
-    preview: "/images/secrets/tailwindcss-snippets.png",
+    preview: "/images/projects/tailwindcss-snippets.png",
   },
   {
     name: "microphone.wtf",
@@ -29,7 +29,7 @@ const secrets: IProject[] = [
     month: "November",
     year: 2021,
     href: "https://microphone.wtf/",
-    preview: "/images/secrets/microphone.webp",
+    preview: "/images/projects/microphone.webp",
   },
   // {
   //   name: "fishcake.io",
@@ -54,15 +54,14 @@ const secrets: IProject[] = [
     description: "Stocks for the average trader",
     month: "March",
     href: "https://boringstocks.live",
-    preview:
-      "https://api.microlink.io?url=https%3A%2F%2Fboringstocks.live%2F&screenshot=true&meta=false&waitForTimeout=500&embed=screenshot.url",
+    preview: "/images/projects/boringstocks.png",
   },
   // {
   //   name: "teamo",
   //   description: "Initial prototype of my first startup",
   //   month: "December",
   //   href: "https://alexandru.so/secrets/teamo",
-  //   preview: "/images/secrets/teamo-design.webp",
+  //   preview: "/images/projects/teamo-design.webp",
   // },
   {
     name: "teamo-design",
@@ -70,14 +69,14 @@ const secrets: IProject[] = [
     month: "December",
     year: 2020,
     href: "https://alexandru.so/secrets/teamo-design",
-    preview: "/images/secrets/teamo-design.png",
+    preview: "/images/projects/teamo-design.png",
   },
   // {
   //   name: "sushi",
   //   description: "Just a Netflix meme...",
   //   month: "November",
   //   href: "https://alexandru.so/secrets/sushi",
-  //   preview: "/images/secrets/sushi.webp",
+  //   preview: "/images/projects/sushi.webp",
   // },
   // {
   //   name: "amie",
@@ -90,28 +89,28 @@ const secrets: IProject[] = [
     description: "Fun design challenge!",
     month: "September",
     href: "https://alexandru.so/secrets/the-rise-of-micro-computers",
-    preview: "/images/secrets/the-rise-of-micro-computers.png",
+    preview: "/images/projects/the-rise-of-micro-computers.png",
   },
   {
     name: "90s-portfolio",
     description: "Portfolio inspired by Raspberry Pi's CLI",
     month: "September",
     href: "https://alexandru.so/secrets/90s-portfolio",
-    preview: "/images/secrets/90s-portfolio.png",
+    preview: "/images/projects/90s-portfolio.png",
   },
   {
     name: "SimonDraws!",
     description: "Swift Student Challenge recipient of WWDC2020",
     month: "June",
     href: "https://github.com/Pondorasti/SimonDraws",
-    preview: "/images/secrets/SimonDraws.webp",
+    preview: "/images/projects/SimonDraws.webp",
   },
   {
     name: "StonkScorer",
     description: "FTC Scorer - Skystone (iOS)",
     month: "February",
     href: "https://github.com/Pondorasti/StonkScorer",
-    preview: "/images/secrets/StonkScorer.webp",
+    preview: "/images/projects/StonkScorer.webp",
   },
   {
     name: "og-personal-website",
@@ -119,7 +118,7 @@ const secrets: IProject[] = [
     month: "September",
     year: 2019,
     href: "https://alexandru.so/secrets/og-personal-website",
-    preview: "/images/secrets/og-personal-website.png",
+    preview: "/images/projects/og-personal-website.png",
   },
   {
     name: "Envision",
@@ -133,7 +132,7 @@ const secrets: IProject[] = [
     month: "May",
     year: 2018,
     href: "https://github.com/Pondorasti/Memoji",
-    preview: "/images/secrets/memoji.webp",
+    preview: "/images/projects/memoji.webp",
   },
   {
     name: "national-day",
@@ -141,7 +140,7 @@ const secrets: IProject[] = [
     month: "September",
     year: 2017,
     href: "https://alexandru.so/secrets/national-day",
-    preview: "/images/secrets/national-day.png",
+    preview: "/images/projects/national-day.png",
   },
 ]
 
