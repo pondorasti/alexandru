@@ -8,6 +8,7 @@ import { ThemeProvider } from "next-themes"
 import NavigationBar from "@components/NavigationBar"
 import clsx from "clsx"
 import Footer from "@components/Footer"
+import { TooltipProvider } from "@radix-ui/react-tooltip"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // Fathom Analytics
@@ -48,12 +49,21 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             )}
           />
         </div>
-        <NavigationBar />
+        <TooltipProvider>
+          <NavigationBar />
+        </TooltipProvider>
         <main className="body">
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <Component {...pageProps} />
+          <TooltipProvider>
+            <Component {...pageProps} />
+          </TooltipProvider>
         </main>
-        <>{showFooter && <Footer />}</>
+        <>
+          {showFooter && (
+            <TooltipProvider>
+              <Footer />
+            </TooltipProvider>
+          )}
+        </>
       </Inspect>
     </ThemeProvider>
   )
