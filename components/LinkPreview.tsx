@@ -1,6 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip"
 import { useTheme } from "next-themes"
-import { preload } from "swr"
 import { useEffect, useState } from "react"
 import clsx from "clsx"
 
@@ -47,13 +46,8 @@ export default function LinkPreview({
     preview || `/api/screenshot?url=${sanitizedHref}&colorScheme=${resolvedTheme === "dark" ? "dark" : "light"}`
 
   useEffect(() => {
-    preload(imageSrc, (url: string) =>
-      fetch(url).then(res => {
-        res.blob()
-        setIsLoading(false)
-      })
-    )
-  }, [imageSrc])
+    return () => setIsLoading(true)
+  }, [])
 
   return (
     <Tooltip.Root delayDuration={0}>
@@ -70,20 +64,28 @@ export default function LinkPreview({
         >
           {name}
           {showExternalIndicator && " ↗"}
+
+          {/*   Preload image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={imageSrc} alt="" aria-hidden onLoad={() => setIsLoading(false)} className="hidden" />
         </a>
       </Tooltip.Trigger>
-      <Tooltip.Content
-        side="top"
-        sideOffset={16}
-        className="h-40 w-64 animate-slide-in rounded-lg border bg-white p-2 border-divider radix-state-closed:animate-slide-out dark:bg-gray-900"
-      >
-        {isLoading ? (
-          <Shimmer h={142} w={238} theme={resolvedTheme} />
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageSrc} alt={alt} className="h-[142px] w-[238px] rounded-md object-cover" />
-        )}
-      </Tooltip.Content>
+      <Tooltip.Portal>
+        <Tooltip.Content
+          side="top"
+          sideOffset={16}
+          className="h-40 w-64 animate-slide-in rounded-lg border bg-white p-2 border-divider radix-state-closed:animate-slide-out dark:bg-gray-900"
+        >
+          {isLoading && <Shimmer h={142} w={238} theme={resolvedTheme} />}
+
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageSrc}
+            alt={alt}
+            className={clsx("h-[142px] w-[238px] rounded-md object-cover", isLoading && "hidden")}
+          />
+        </Tooltip.Content>
+      </Tooltip.Portal>
     </Tooltip.Root>
   )
 }
