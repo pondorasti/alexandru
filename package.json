@@ -47,7 +47,7 @@
     "@supabase/supabase-js": "^2.0.4",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.4",
+    "@tailwindcss/typography": "^0.5.7",
     "chrome-aws-lambda": "^10.1.0",
     "clsx": "^1.2.1",
     "d3": "^7.6.1",
