@@ -14,18 +14,24 @@ export function middleware(req: NextRequest, event: NextFetchEvent) {
 
     const url = req.nextUrl.clone()
     url.pathname = "/api/view"
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        slug,
-      }),
-    })
 
-    if (res.status !== 200) {
-      console.error("Failed to send analytics", res)
+    // Skip fetch if user agent is a bot
+    if (req.headers.get("user-agent")?.includes("bot")) return
+
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          slug,
+        }),
+      })
+
+      if (res.status !== 200) console.error("Failed to send analytics", res)
+    } catch (error) {
+      console.error(error)
     }
   }
 
