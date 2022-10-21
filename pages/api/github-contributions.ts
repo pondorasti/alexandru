@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import supabase from "@lib/supabaseClient"
+import privateClient from "@lib/supabase/private"
 import { normalizeUtc } from "@lib/date"
 import type { IContributionsCollection, IUserInformation, IUserCache } from "@lib/types"
 
@@ -77,7 +77,7 @@ export async function getGithubContributions(username: string): Promise<IUserInf
   }
 
   // Fetch cached contributions history
-  const { data, error } = await supabase.from("github-contributions").select().match({ username })
+  const { data, error } = await privateClient.from("github-contributions").select().match({ username })
   if (data === null || error) throw new Error(error?.message)
 
   // Fetch missing contributions years
@@ -99,9 +99,7 @@ export async function getGithubContributions(username: string): Promise<IUserInf
 
       // Cache result except current year (in order to avoid caching and freezing current year data)
       if (resolvedCollection.data.user.contributionsCollection.year !== new Date().getFullYear()) {
-        await supabase
-          .from("github-contributions")
-          .upsert({ username, year, contributions: resolvedCollection }, { returning: "minimal" })
+        await privateClient.from("github-contributions").upsert({ username, year, contributions: resolvedCollection })
       }
     } else {
       resolvedCollection = cachedYear.contributions

@@ -36,17 +36,17 @@ export default function NavigationBar(): JSX.Element {
   }
 
   // Sticky Scroll Listener
-  function handleScroll() {
-    const position = window.scrollY
-    setShowBlur(position > 40)
-  }
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    function handleScroll() {
+      const position = window.scrollY
+      setShowBlur(position > 40)
+    }
 
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
-  })
+  }, [])
 
   return (
     <header
