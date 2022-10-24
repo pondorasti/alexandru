@@ -41,17 +41,22 @@ export default function TimeMachine(): JSX.Element {
             role="listitem"
             key={book.title}
             onClick={() => {
-              setFocusedIndex((focusedIndex + 1) % 2)
+              // setFocusedIndex((focusedIndex + 1) % 2)
+              if (index === focusedIndex) {
+                setFocusedIndex(-1)
+              } else {
+                setFocusedIndex(index)
+              }
             }}
             className={clsx(
-              "flex shrink-0 flex-row items-center overflow-hidden rounded-sm",
-              // focusedIndex !== index && "hover:-translate-y-4",
+              "flex shrink-0 flex-row items-center",
+              focusedIndex !== index && "hover:-translate-y-4",
               focusedIndex === index ? "basis-60" : "basis-12",
               animationStyle
             )}
             style={{ perspective: "1000px", WebkitPerspective: "1000px" }}
           >
-            <div className="h-full w-[46px] border border-gray-900 bg-red-200 py-4 px-2">
+            <div className={clsx("z-50 h-full w-[46px] shrink-0 border border-gray-900 py-4 px-2")}>
               <h2 className="text-lg font-medium" style={{ writingMode: "vertical-lr" }}>
                 {book.title}
               </h2>
@@ -61,7 +66,7 @@ export default function TimeMachine(): JSX.Element {
               src={book.coverUrl}
               alt={book.title}
               className={clsx(
-                "h-72 w-[193px] origin-left border border-l-0 border-gray-900 bg-blue-500 bg-cover",
+                "z-10 h-72 w-[193px] shrink-0 origin-left border border-l-0 border-gray-900 bg-cover",
                 animationStyle
               )}
               style={{
