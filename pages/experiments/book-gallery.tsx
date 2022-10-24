@@ -9,22 +9,29 @@ const description = "A digital bookshelf"
 interface IBook {
   title: string
   coverUrl: string
+  spineBackgroundColor: string
+  spineForegroundColor: string
 }
 
 const books: IBook[] = [
-  { title: "1984", coverUrl: "/images/experiments/book-gallery/1984.jpeg" },
-  { title: "Steve Jobs", coverUrl: "/images/experiments/book-gallery/steve-jobs.jpeg" },
+  {
+    title: "1984",
+    coverUrl: "/images/experiments/book-gallery/1984.jpeg",
+    spineBackgroundColor: "#ae2d32",
+    spineForegroundColor: "#ffe9a2",
+  },
+  {
+    title: "Steve Jobs",
+    coverUrl: "/images/experiments/book-gallery/steve-jobs.jpeg",
+    spineBackgroundColor: "#ffffff",
+    spineForegroundColor: "#050505",
+  },
   {
     title: "Hitcher's guide to the galaxy",
     coverUrl: "/images/experiments/book-gallery/hitchhikers-guide-to-the-galaxy.webp",
+    spineBackgroundColor: "#1f7189",
+    spineForegroundColor: "#ffffd5",
   },
-  { title: "1984", coverUrl: "/images/experiments/book-gallery/1984.jpeg" },
-  { title: "Steve Jobs", coverUrl: "/images/experiments/book-gallery/steve-jobs.jpeg" },
-  {
-    title: "Hitcher's guide to the galaxy",
-    coverUrl: "/images/experiments/book-gallery/hitchhikers-guide-to-the-galaxy.webp",
-  },
-  { title: "1984", coverUrl: "/images/experiments/book-gallery/1984.jpeg" },
 ]
 
 const animationStyle = "transition-all duration-500 ease will-change-auto"
@@ -58,32 +65,53 @@ export default function TimeMachine(): JSX.Element {
               }
             }}
             className={clsx(
-              "flex shrink-0 flex-row items-center",
-              focusedIndex !== index && "hover:-translate-y-4 focus:-translate-y-4",
+              "flex shrink-0 flex-row items-center outline-none",
+              focusedIndex !== index && "hover:-translate-y-4 focus-visible:-translate-y-4",
               focusedIndex === index ? "basis-60" : "basis-12",
               animationStyle
             )}
             style={{ perspective: "1000px", WebkitPerspective: "1000px" }}
           >
-            <div className={clsx("z-50 h-full w-[46px] shrink-0 border border-gray-900 bg-white py-4 px-2")}>
-              <h2 className="text-lg font-medium" style={{ writingMode: "vertical-lr" }}>
+            <div
+              className={clsx(
+                "z-50 h-full w-[44px] shrink-0 origin-right py-4 brightness-[0.80] contrast-[2.00]",
+                animationStyle
+              )}
+              style={{
+                backgroundColor: book.spineBackgroundColor,
+                color: book.spineForegroundColor,
+                transformStyle: "preserve-3d",
+                transform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
+                  focusedIndex === index ? "-60deg" : "0deg"
+                }) rotateZ(0deg) skew(0deg, 0deg)`,
+                // WebkitTransformStyle: "preserve-3d",
+                // WebkitTransform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
+                //   focusedIndex === index ? "0deg" : "90deg"
+                // }) rotateZ(0deg) skew(0deg, 0deg)`,
+              }}
+            >
+              <span
+                aria-hidden
+                className=" pointer-events-none fixed top-0 left-0 z-50 h-full w-full opacity-40 [filter:url(#paper)]"
+              />
+              <h2 className="text-md m-auto font-medium" style={{ writingMode: "vertical-lr" }}>
                 {book.title}
               </h2>
             </div>
             <div
               className={clsx(
-                "relative z-10 h-72 shrink-0 origin-left overflow-hidden border border-l-0 border-gray-900 brightness-[0.80] contrast-[2.00]",
+                "relative z-10 h-72 shrink-0 origin-left overflow-hidden border-gray-900 brightness-[0.80] contrast-[2.00]",
                 animationStyle
               )}
               style={{
                 transformStyle: "preserve-3d",
                 transform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
-                  focusedIndex === index ? "0deg" : "90deg"
+                  focusedIndex === index ? "30deg" : "90deg"
                 }) rotateZ(0deg) skew(0deg, 0deg)`,
-                WebkitTransformStyle: "preserve-3d",
-                WebkitTransform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
-                  focusedIndex === index ? "0deg" : "90deg"
-                }) rotateZ(0deg) skew(0deg, 0deg)`,
+                // WebkitTransformStyle: "preserve-3d",
+                // WebkitTransform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
+                //   focusedIndex === index ? "0deg" : "90deg"
+                // }) rotateZ(0deg) skew(0deg, 0deg)`,
               }}
             >
               <span
@@ -99,3 +127,10 @@ export default function TimeMachine(): JSX.Element {
     </TransitionPage>
   )
 }
+
+// @media not all and (min-resolution:.001dpcm)
+// { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+// selector {
+// property:value;
+// }
+// }}
