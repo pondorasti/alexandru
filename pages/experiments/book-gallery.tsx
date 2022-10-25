@@ -16,21 +16,33 @@ interface IBook {
 const books: IBook[] = [
   {
     title: "1984",
-    coverUrl: "/images/experiments/book-gallery/1984.jpeg",
+    coverUrl: "/images/experiments/book-gallery/1984.webp",
     spineBackgroundColor: "#ae2d32",
     spineForegroundColor: "#ffe9a2",
   },
   {
     title: "Steve Jobs",
-    coverUrl: "/images/experiments/book-gallery/steve-jobs.jpeg",
+    coverUrl: "/images/experiments/book-gallery/steve-jobs.webp",
     spineBackgroundColor: "#ffffff",
     spineForegroundColor: "#050505",
   },
   {
-    title: "Hitcher's guide to the galaxy",
+    title: "Hitcher's Guide to the Galaxy",
     coverUrl: "/images/experiments/book-gallery/hitchhikers-guide-to-the-galaxy.webp",
     spineBackgroundColor: "#1f7189",
     spineForegroundColor: "#ffffd5",
+  },
+  {
+    title: "The Ascent of Money",
+    coverUrl: "/images/experiments/book-gallery/the-ascent-of-money.webp",
+    spineBackgroundColor: "#000004",
+    spineForegroundColor: "#fffffd",
+  },
+  {
+    title: "Snow Crash",
+    coverUrl: "/images/experiments/book-gallery/snow-crash.webp",
+    spineBackgroundColor: "#262a57",
+    spineForegroundColor: "#fefcff",
   },
 ]
 
@@ -84,10 +96,6 @@ export default function TimeMachine(): JSX.Element {
                 transform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
                   focusedIndex === index ? "-60deg" : "0deg"
                 }) rotateZ(0deg) skew(0deg, 0deg)`,
-                // WebkitTransformStyle: "preserve-3d",
-                // WebkitTransform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
-                //   focusedIndex === index ? "0deg" : "90deg"
-                // }) rotateZ(0deg) skew(0deg, 0deg)`,
               }}
             >
               <span
@@ -108,10 +116,6 @@ export default function TimeMachine(): JSX.Element {
                 transform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
                   focusedIndex === index ? "30deg" : "90deg"
                 }) rotateZ(0deg) skew(0deg, 0deg)`,
-                // WebkitTransformStyle: "preserve-3d",
-                // WebkitTransform: `translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(${
-                //   focusedIndex === index ? "0deg" : "90deg"
-                // }) rotateZ(0deg) skew(0deg, 0deg)`,
               }}
             >
               <span
