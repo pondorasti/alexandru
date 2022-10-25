@@ -3,7 +3,7 @@ import TransitionPage from "@components/TransitionPage"
 import LiquidBlob from "@components/Experiments/LiquidBlob"
 
 const title = "Liquid Blob"
-const description = "Inspired by Apple's Dynamic Island"
+const description = "Metaballs inspired by Apple's Dynamic Island"
 
 export default function TimeMachine(): JSX.Element {
   return (

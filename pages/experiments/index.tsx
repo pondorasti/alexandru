@@ -4,6 +4,7 @@ import TransitionPage from "@components/TransitionPage"
 import BrowserFrame, { transition } from "@components/Experiments/BrowserFrame"
 import LiquidBlob from "@components/Experiments/LiquidBlob"
 import clsx from "clsx"
+import BookGalley from "@components/Experiments/BookGallery"
 
 const title = "Experiments"
 const description = "Playground to try out new ideas"
@@ -29,6 +30,14 @@ export default function Experiments(): JSX.Element {
             <MockWebsite className="group-hover:animate-grow-start" variation="simple" />
           </div>
         </BrowserFrame> */}
+
+        <BrowserFrame href="/experiments/book-gallery" title="Book Gallery" containerClassName="!h-96">
+          <div
+            className={clsx("pointer-events-none m-auto grayscale-0 group-hover:grayscale-0 sm:grayscale", transition)}
+          >
+            <BookGalley />
+          </div>
+        </BrowserFrame>
 
         <BrowserFrame href="/experiments/liquid-blob" title="Liquid Blob">
           <div className={clsx("m-auto invert-0 group-hover:invert-0 sm:invert-[0.50]", transition)}>
