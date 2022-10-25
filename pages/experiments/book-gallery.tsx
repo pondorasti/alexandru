@@ -92,7 +92,7 @@ export default function TimeMachine(): JSX.Element {
             >
               <span
                 aria-hidden
-                className=" pointer-events-none fixed top-0 left-0 z-50 h-full w-full opacity-40 [filter:url(#paper)]"
+                className="pointer-events-none fixed top-0 left-0 z-50 h-full w-full opacity-40 [filter:url(#paper)]"
               />
               <h2 className="text-md m-auto font-medium" style={{ writingMode: "vertical-lr" }}>
                 {book.title}
@@ -118,6 +118,13 @@ export default function TimeMachine(): JSX.Element {
                 aria-hidden
                 className="pointer-events-none fixed top-0 right-0 z-50 h-full w-full opacity-40 [filter:url(#paper)]"
               />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute top-0 left-0 z-50 h-full w-full"
+                style={{
+                  background: `linear-gradient(to right,  rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.5) 3px, rgba(255, 255, 255, 0.25) 4px, rgba(255, 255, 255, 0.25) 6px, transparent 7px, transparent 9px, rgba(255, 255, 255, 0.25) 9px, transparent 12px)`,
+                }}
+              />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={book.coverUrl} alt={book.title} className={clsx("h-full w-48 bg-cover", animationStyle)} />
             </div>
@@ -127,10 +134,3 @@ export default function TimeMachine(): JSX.Element {
     </TransitionPage>
   )
 }
-
-// @media not all and (min-resolution:.001dpcm)
-// { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-// selector {
-// property:value;
-// }
-// }}
