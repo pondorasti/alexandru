@@ -80,7 +80,7 @@ export default function Home(): JSX.Element {
           at heart.
         </p>
         <p className="mt-4 text-gray-600 dark:text-gray-400">
-          Currently working at{" "}
+          Previously working at{" "}
           <a
             className={clsx(
               "animate-text-shimmer bg-[linear-gradient(110deg,#F6A6A6,45%,#f5f5f5,55%,#F6A6A6)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#F6A6A6,45%,#171717,55%,#F6A6A6)]",
