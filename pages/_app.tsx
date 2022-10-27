@@ -9,6 +9,7 @@ import NavigationBar from "@components/NavigationBar"
 import clsx from "clsx"
 import Footer from "@components/Footer"
 import { TooltipProvider } from "@radix-ui/react-tooltip"
+import { Analytics } from "@vercel/analytics/react"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // Fathom Analytics
@@ -64,6 +65,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             </TooltipProvider>
           )}
         </>
+        <Analytics />
       </Inspect>
     </ThemeProvider>
   )
