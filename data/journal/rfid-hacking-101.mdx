@@ -32,7 +32,9 @@ export HOMEBREW_PROXMARK3_PLATFORM=PM3OTHER
 Seems easy enough, am I right? Fast forward ⏩ a couple of hours in the future, guess what? nothing is working. That's because newer version of the library expect you to set the destination platform through command option when doing the installation, which was completely undocumented at the time being 😤.
 
 ```shell
-brew install --with-generic proxmark3
+brew install xquartz
+brew tap RfidResearchGroup/proxmark3
+brew install proxmark3
 ```
 
 The only logical next step was to open a [PR](https://github.com/RfidResearchGroup/proxmark3/pull/1327#event-4920426283) and fix the docs myself 💫.
