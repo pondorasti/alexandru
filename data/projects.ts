@@ -28,7 +28,7 @@ const secrets: IProject[] = [
     description: "Experimental microphone audio visualizer",
     month: "November",
     year: 2021,
-    href: "https://microphone.wtf/",
+    href: "https://alexandru.so/secrets/microphone-wtf",
     preview: "/images/projects/microphone.webp",
   },
   // {

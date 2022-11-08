@@ -75,6 +75,10 @@ export default withMDX({
         source: "/secrets/national-day",
         destination: "/secrets/national-day/index.html",
       },
+      {
+        source: "/secrets/microphone-wtf",
+        destination: "/secrets/microphone-wtf/index.html",
+      },
     ]
   },
 })
