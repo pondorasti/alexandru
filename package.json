@@ -45,7 +45,7 @@
     "@next/mdx": "^12.0.10",
     "@radix-ui/react-tooltip": "^1.0.2",
     "@supabase/supabase-js": "^2.0.4",
-    "@tailwindcss/forms": "^0.5.2",
+    "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@tailwindcss/typography": "^0.5.7",
     "@vercel/analytics": "^0.1.2",
