@@ -10,6 +10,8 @@ import clsx from "clsx"
 import Footer from "@components/Footer"
 import { TooltipProvider } from "@radix-ui/react-tooltip"
 import { Analytics } from "@vercel/analytics/react"
+import "@lib/palette"
+import { PaletteProvider } from "@lib/palette"
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   // Fathom Analytics
@@ -36,37 +38,39 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const showFooter = router.route !== "/"
 
   return (
-    <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
-      <Inspect>
-        <div className="mx-auto max-w-screen-lg">
-          <span
-            className={clsx(
-              "rounded-full bg-gradient-to-r",
-              "dark:from-rose-700 dark:via-pink-700 dark:to-purple-700 dark:opacity-60",
-              "from-blue-300 via-cyan-300 to-green-300 opacity-70",
-              "-z-50 aspect-square w-full max-w-screen-lg blur-3xl filter",
-              "bottom-[calc(100%-200px)] dark:bottom-[calc(100%-180px)]",
-              hideGradient ? "absolute" : "fixed"
-            )}
-          />
-        </div>
-        <TooltipProvider>
-          <NavigationBar />
-        </TooltipProvider>
-        <main className="body">
+    <PaletteProvider>
+      <ThemeProvider attribute="class" storageKey="app-theme" defaultTheme="system">
+        <Inspect>
+          <div className="mx-auto max-w-screen-lg">
+            <span
+              className={clsx(
+                "rounded-full bg-gradient-to-r",
+                "dark:from-rose-700 dark:via-pink-700 dark:to-purple-700 dark:opacity-60",
+                "from-blue-300 via-cyan-300 to-green-300 opacity-70",
+                "-z-50 aspect-square w-full max-w-screen-lg blur-3xl filter",
+                "bottom-[calc(100%-200px)] dark:bottom-[calc(100%-180px)]",
+                hideGradient ? "absolute" : "fixed"
+              )}
+            />
+          </div>
           <TooltipProvider>
-            <Component {...pageProps} />
+            <NavigationBar />
           </TooltipProvider>
-        </main>
-        <>
-          {showFooter && (
+          <main className="body">
             <TooltipProvider>
-              <Footer />
+              <Component {...pageProps} />
             </TooltipProvider>
-          )}
-        </>
-        <Analytics />
-      </Inspect>
-    </ThemeProvider>
+          </main>
+          <>
+            {showFooter && (
+              <TooltipProvider>
+                <Footer />
+              </TooltipProvider>
+            )}
+          </>
+          <Analytics />
+        </Inspect>
+      </ThemeProvider>
+    </PaletteProvider>
   )
 }
