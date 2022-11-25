@@ -1,6 +1,7 @@
 import rehypeHighlight from "rehype-highlight"
 import remarkFrontmatter from "remark-frontmatter"
 import nextMDX from "@next/mdx"
+const PalettePlugin = require("@palette.dev/webpack-plugin")
 
 const withMDX = nextMDX({
   options: {
@@ -16,6 +17,31 @@ export default withMDX({
 
   // Support MDX files as pages:
   pageExtensions: ["mdx", "tsx", "ts", "jsx", "js"],
+
+  // Palette config
+  webpack(config) {
+    config.plugins.push(
+      new PalettePlugin({
+        key: process.env.PALETTE_ASSET_KEY,
+        include: [".next/static"],
+      })
+    )
+    return config
+  },
+
+  headers: async () => {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Document-Policy",
+            value: "js-profiling",
+          },
+        ],
+      },
+    ]
+  },
 
   rewrites: async () => {
     return [
