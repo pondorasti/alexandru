@@ -1,7 +1,7 @@
 import rehypeHighlight from "rehype-highlight"
 import remarkFrontmatter from "remark-frontmatter"
 import nextMDX from "@next/mdx"
-const PalettePlugin = require("@palette.dev/webpack-plugin")
+import PalettePlugin from "@palette.dev/webpack-plugin"
 
 const withMDX = nextMDX({
   options: {
