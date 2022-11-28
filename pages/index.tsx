@@ -80,10 +80,23 @@ export default function Home(): JSX.Element {
           at heart.
         </p>
         <p className="mt-4 text-gray-600 dark:text-gray-400">
-          Previously worked at{" "}
+          Working at{" "}
           <a
             className={clsx(
-              "animate-text-shimmer bg-[linear-gradient(110deg,#F6A6A6,45%,#f5f5f5,55%,#F6A6A6)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#F6A6A6,45%,#171717,55%,#F6A6A6)]",
+              "animate-text-shimmer bg-[linear-gradient(110deg,#0ea5e9,45%,#f5f5f5,55%,#0ea5e9)] bg-[length:250%_100%] dark:bg-[linear-gradient(110deg,#0ea5e9,45%,#171717,55%,#0ea5e9)]",
+              "inline-block cursor-ne-resize bg-clip-text text-transparent",
+              "transition-transform ease-in-out hover:scale-105"
+            )}
+            href="https://palette.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Palette
+          </a>
+          , previously at{" "}
+          <a
+            className={clsx(
+              "text-[#F6A6A6]",
               "inline-block cursor-ne-resize bg-clip-text text-transparent",
               "transition-transform ease-in-out hover:scale-105"
             )}
@@ -93,6 +106,7 @@ export default function Home(): JSX.Element {
           >
             Amie
           </a>
+          .
         </p>
       </Transition>
     </TransitionPage>
