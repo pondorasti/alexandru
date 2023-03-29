@@ -24,7 +24,7 @@ const secrets: IProject[] = [
     preview: "/images/projects/tailwindcss-snippets.png",
   },
   {
-    name: "microphone.wtf",
+    name: "microphone-wtf",
     description: "Experimental microphone audio visualizer",
     month: "November",
     year: 2021,
@@ -44,18 +44,18 @@ const secrets: IProject[] = [
     href: "https://makeschool.fail/",
   },
   {
-    name: "scriptcommands.com",
+    name: "scriptcommands",
     description: "Unofficial Marketplace for Raycast Script Commands",
     month: "April",
-    href: "https://scriptcommands.com/",
+    href: "https://scriptcommands.alexandru.so/",
   },
-  {
-    name: "boringstocks.live",
-    description: "Stocks for the average trader",
-    month: "March",
-    href: "https://boringstocks.live",
-    preview: "/images/projects/boringstocks.png",
-  },
+  // {
+  //   name: "boringstocks.live",
+  //   description: "Stocks for the average trader",
+  //   month: "March",
+  //   href: "https://boringstocks.live",
+  //   preview: "/images/projects/boringstocks.png",
+  // },
   // {
   //   name: "teamo",
   //   description: "Initial prototype of my first startup",
