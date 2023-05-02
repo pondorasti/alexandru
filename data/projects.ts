@@ -9,6 +9,14 @@ interface IProject {
 
 const secrets: IProject[] = [
   {
+    name: "chirp",
+    description: "Embed your favorite tweets in Figma or FigJam",
+    month: "April",
+    year: 2023,
+    href: "https://chirp.alexandru.so/",
+    preview: "/images/projects/chirp.png",
+  },
+  {
     name: "Manual Pages",
     description: "Dynamically generated docs for 450+ CLIs",
     month: "February",
