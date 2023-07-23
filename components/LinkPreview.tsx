@@ -40,8 +40,7 @@ export default function LinkPreview({
 }: ILinkPreview) {
   const [isLoading, setIsLoading] = useState(true)
   const { resolvedTheme } = useTheme()
-
-  const imageSrc = preview 
+  const imageSrc = preview
 
   useEffect(() => {
     return () => setIsLoading(true)
