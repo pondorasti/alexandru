@@ -9,10 +9,16 @@ interface IProject {
 
 const secrets: IProject[] = [
   {
+    name: "instant.qa",
+    description: "QA as a service for startups, enterprises and agencies of tomorrow",
+    month: "July",
+    year: 2023,
+    href: "https://instant.qa/",
+  },
+  {
     name: "chirp",
     description: "Embed your favorite tweets in Figma or FigJam",
     month: "April",
-    year: 2023,
     href: "https://chirp.alexandru.so/",
     preview: "/images/projects/chirp.png",
   },
