@@ -41,9 +41,7 @@ export default function LinkPreview({
   const [isLoading, setIsLoading] = useState(true)
   const { resolvedTheme } = useTheme()
 
-  const sanitizedHref = href.replace(/:/g, "%3A").replace(/\//g, "%2F").replace(/#/g, "%23")
-  const imageSrc =
-    preview || `/api/screenshot?url=${sanitizedHref}&colorScheme=${resolvedTheme === "dark" ? "dark" : "light"}`
+  const imageSrc = preview 
 
   useEffect(() => {
     return () => setIsLoading(true)
