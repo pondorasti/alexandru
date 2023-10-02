@@ -9,10 +9,16 @@ interface IProject {
 
 const secrets: IProject[] = [
   {
+    name: "emojis",
+    description: "Generate your favorite Slack emojis with just one click.",
+    month: "September",
+    year: 2023,
+    href: "https://emojis.alexandru.so/",
+  },
+  {
     name: "instant.qa",
     description: "QA as a service for startups, enterprises and agencies of tomorrow",
     month: "July",
-    year: 2023,
     href: "https://instant.qa/",
   },
   {
