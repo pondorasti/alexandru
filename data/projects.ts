@@ -13,7 +13,7 @@ const secrets: IProject[] = [
     description: "Generate your favorite Slack emojis with just one click.",
     month: "September",
     year: 2023,
-    href: "https://emojis.alexandru.so/",
+    href: "https://emojis.sh/",
   },
   {
     name: "instant.qa",
