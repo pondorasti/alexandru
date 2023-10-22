@@ -66,11 +66,7 @@
     "rehype-highlight": "^5.0.2",
     "remark-frontmatter": "^4.0.1",
     "swr": "^2.0.0-beta.6",
-    "tailwindcss-radix": "^2.6.1",
-    "@react-three/drei": "^9.57.0",
-    "@react-three/fiber": "^8.11.9",
-    "maath": "^0.5.2",
-    "three": "^0.150.1"
+    "tailwindcss-radix": "^2.6.1"
   },
   "devDependencies": {
     "@palette.dev/webpack-plugin": "^1.2.2",

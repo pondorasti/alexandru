@@ -14,7 +14,11 @@ export default function three({ animateOnHover }: trthree): JSX.Element {
       <div className={clsx(blobStyle, "animate-blob-right", animateOnHover && animateOnHoverStyle)} />
       <div className={clsx(blobStyle, "animate-blob-left", animateOnHover && animateOnHoverStyle)} />
       <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.486/build/spline-viewer.js"></script>
-      <spline-viewer hint loading-anim url="https://prod.spline.design/LokC8duZspZU5n5e/scene.splinecode"></spline-viewer>
+      <spline-viewer
+        hint
+        loading-anim
+        url="https://prod.spline.design/LokC8duZspZU5n5e/scene.splinecode"
+      ></spline-viewer>
     </div>
   )
 }
