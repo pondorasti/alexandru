@@ -4,7 +4,7 @@ import { normalizeUtc } from "@lib/date"
 import type { IContributionsCollection, IUserInformation, IUserCache } from "@lib/types"
 
 const api = "https://api.github.com/graphql"
-const ghToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN ?? ""
+const ghToken = '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' ?? ""
 const ghHeaders = { Authorization: `bearer ${ghToken}` }
 
 async function fetchYearlyContributions(username: string | string[], year: number): Promise<IContributionsCollection> {

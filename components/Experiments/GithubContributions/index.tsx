@@ -15,7 +15,7 @@ const description = "visualize, analyze and contrast your commits"
 
 
 export const DEFAULT_USERNAME = "kooya3"
-const fetcher = (username: string): Promise<IUserInformation> => {
+const fetcher = (username: string): Promise<IUserInformation> =>
   fetch(`/api/github-contributions?username=${username}`).then(res => res.json() as Promise<IUserInformation>)
 
 const DEFAULT_INSIGHTS: IUserInsights = {
@@ -149,5 +149,4 @@ export default function GithubContributions() {
       </div>
     </TransitionPage>
   )
-}
 }
