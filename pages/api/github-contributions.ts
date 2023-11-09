@@ -4,7 +4,7 @@ import { normalizeUtc } from "@lib/date"
 import type { IContributionsCollection, IUserInformation, IUserCache } from "@lib/types"
 
 const api = "https://api.github.com/graphql"
-const ghToken = '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' ?? ""
+const ghToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN ?? ""
 const ghHeaders = { Authorization: `bearer ${ghToken}` }
 
 async function fetchYearlyContributions(username: string | string[], year: number): Promise<IContributionsCollection> {
@@ -74,11 +74,13 @@ export async function getGithubContributions(username: string): Promise<IUserInf
 
   if (currentCollection.data.user === null) {
     throw new Error("User not found.")
-  }
 
+  }  
   // Fetch cached contributions history
   const { data, error } = await privateClient.from("github-contributions").select().match({ username })
   if (data === null || error) throw new Error(error?.message)
+
+
 
   // Fetch missing contributions years
   const years = currentCollection.data.user.contributionsCollection.contributionYears
