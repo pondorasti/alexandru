@@ -9,7 +9,7 @@ interface IProject {
 
 const secrets: IProject[] = [
   {
-    name: "emojis",
+    name: "emojis.sh",
     description: "Generate your favorite Slack emojis with just one click.",
     month: "September",
     year: 2023,

@@ -18,10 +18,10 @@ export default function Home(): JSX.Element {
 
   return (
     <TransitionPage
-      title="Alexandru Ţurcanu - Full Stack Engineer"
+      title="Alexandru Ţurcanu - Product Engineer"
       description="On a journey to create best in class best in class apps, obsessed with designing fluid interfaces, and perfectionist at heart."
     >
-      <AnimatedDescription title="Alexandru Ţurcanu" description="Full Stack Engineer" />
+      <AnimatedDescription title="Alexandru Ţurcanu" description="Product Engineer" />
       <Transition
         show={show}
         enter="transition-all duration-500"
