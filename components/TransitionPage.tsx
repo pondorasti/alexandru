@@ -10,7 +10,7 @@ interface ITransitionPage {
   type?: "article" | "website"
 }
 
-const suffixTitle = "Alexandru Ţurcanu"
+const suffixTitle = "Elyees Tatua"
 
 export default function TransitionPage({
   children,
@@ -30,7 +30,7 @@ export default function TransitionPage({
           type,
           locale: "en_IE",
           url: `https://alexandru.so${router.asPath}`,
-          site_name: "Alexandru Ţurcanu",
+          site_name: "Elyees Tatua",
         }}
         twitter={{
           site: "@pondorasti",

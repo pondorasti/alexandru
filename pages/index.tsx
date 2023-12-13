@@ -18,10 +18,10 @@ export default function Home(): JSX.Element {
 
   return (
     <TransitionPage
-      title="Alexandru Ţurcanu - Full Stack Engineer"
+      title="Elyees Tatua- Full Stack Engineer"
       description="On a journey to create best in class best in class apps, obsessed with designing fluid interfaces, and perfectionist at heart."
     >
-      <AnimatedDescription title="Alexandru Ţurcanu" description="Full Stack Engineer" />
+      <AnimatedDescription title="Elyees Tatua" description="Full Stack Engineer" />
       <Transition
         show={show}
         enter="transition-all duration-500"
@@ -87,11 +87,11 @@ export default function Home(): JSX.Element {
               "inline-block cursor-ne-resize bg-clip-text text-transparent",
               "transition-transform ease-in-out hover:scale-105"
             )}
-            href="https://palette.dev/"
+            href="https://chimp.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Palette
+            CHimp
           </a>
           , previously at{" "}
           <a
