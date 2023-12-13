@@ -45,7 +45,7 @@ export default function Experiments(): JSX.Element {
           </div>
         </BrowserFrame>
 
-        <BrowserFrame
+        {/* <BrowserFrame
           href="/experiments/github-contributions?search=pondorasti"
           title="Github Contributions"
           containerClassName="relative m-auto h-full w-full max-w-sm sm:max-w-md grayscale-0 group-hover:grayscale-0 sm:grayscale"
@@ -56,7 +56,7 @@ export default function Experiments(): JSX.Element {
             layout="fill"
             className="dark-img-invert"
           />
-        </BrowserFrame>
+        </BrowserFrame> */}
       </div>
     </TransitionPage>
   )
