@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
         <p className="text-gray-600 dark:text-gray-400">
           On a journey to create{" "}
           <span className="group relative top-[6px] inline-block cursor-text overflow-hidden">
-            <span className="invisible">best in class apps</span>
+            <span className="invisible">best in class websites</span>
             <span
               className={clsx(
                 redGradient,
@@ -39,7 +39,7 @@ export default function Home(): JSX.Element {
                 "transition-transform duration-500 ease-in-out hover:duration-300"
               )}
             >
-              best in class apps
+              best in class websites
             </span>
             <span
               className={clsx(
@@ -48,7 +48,7 @@ export default function Home(): JSX.Element {
                 "transition-transform duration-500 ease-in-out hover:duration-300"
               )}
             >
-              best in class apps
+              best in class web apps
             </span>
           </span>
           , obsessed with designing{" "}
@@ -106,7 +106,7 @@ export default function Home(): JSX.Element {
           >
             Amie
           </a>
-          .
+          . My expertise lies in collaborating with clients to develop scalable, user-friendly solutions that effectively address real-world challenges. I am committed to delivering top-notch work and am proud of my ability to bring complex ideas to fruition. Whether you require a new application built from the ground up or an existing system updated and improved, I possess the skills and expertise necessary to deliver quality results. Let us work together to bring your ideas to life and create solutions that exceed your expectations.
         </p>
       </Transition>
     </TransitionPage>
