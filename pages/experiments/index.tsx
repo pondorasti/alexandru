@@ -7,7 +7,7 @@ import clsx from "clsx"
 import BookGalley from "@components/Experiments/BookGallery"
 
 const title = "Experiments"
-const description = "Playground to try out new ideas"
+const description = "Playground for new ideas "
 
 export default function Experiments(): JSX.Element {
   return (
