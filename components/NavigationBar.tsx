@@ -95,7 +95,7 @@ export default function NavigationBar(): JSX.Element {
             className={clsx(linkStyle, "cursor-ne-resize")}
             target="_blank"
             rel="noopener noreferrer"
-            href="https://twitter.com/Pondorasti/"
+            href="https://twitter.com/ElyeesT/"
           >
             <span className="sr-only">Twitter account</span>
             <svg className={iconStyle} viewBox="0 0 24 24" fill="currentColor">

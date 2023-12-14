@@ -5,7 +5,7 @@ export default function Footer(): JSX.Element {
     <footer className="pb-px body">
       <hr />
       <div className="my-16 text-center text-xs font-light text-gray-600 dark:text-gray-400 sm:text-sm">
-        Crafted with care by{" "}
+        Crafted with love by{" "}
         <span className="font-normal">
           <LinkPreview
             name="Elyees T."

@@ -30,6 +30,11 @@ export default function Experiments(): JSX.Element {
             <MockWebsite className="group-hover:animate-grow-start" variation="simple" />
           </div>
         </BrowserFrame> */}
+        <BrowserFrame href="/experiments/liquid-blob" title="Liquid Blob">
+          <div className={clsx("m-auto invert-0 group-hover:invert-0 sm:invert-[0.50]", transition)}>
+            <LiquidBlob animateOnHover />
+          </div>
+        </BrowserFrame>
 
         <BrowserFrame href="/experiments/book-gallery" title="Book Gallery" containerClassName="!h-96">
           <div
@@ -39,11 +44,7 @@ export default function Experiments(): JSX.Element {
           </div>
         </BrowserFrame>
 
-        <BrowserFrame href="/experiments/liquid-blob" title="Liquid Blob">
-          <div className={clsx("m-auto invert-0 group-hover:invert-0 sm:invert-[0.50]", transition)}>
-            <LiquidBlob animateOnHover />
-          </div>
-        </BrowserFrame>
+        
 
         {/* <BrowserFrame
           href="/experiments/github-contributions?search=pondorasti"
