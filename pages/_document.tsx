@@ -11,6 +11,7 @@ export default class Document extends NextDocument {
           <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
           <link rel="manifest" href="/favicons/site.webmanifest" />
           <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon"/>
+          <link rel="icon" href="/favicons/favicon.ico" type="image/x-icon"></link>
 
           {/* Fonts */}
           {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /> */}
