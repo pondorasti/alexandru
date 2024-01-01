@@ -10,24 +10,24 @@ interface IProject {
 const secrets: IProject[] = [
   {
     name: "Tech Haven",
-    description: "Customize a platform to resell any E-product.",
-    month: "September",
+    description: "E-commerce platform optimized for scalability made for E-products",
+    month: "December",
     year: 2023,
     href: "https://e-commerce-payload-8e26543.payloadcms.app/",
     preview: "/images/projects/Tech.png"
   },
   {
-    name: "instant.qa",
-    description: "QA as a service for startups, enterprises and agencies of tomorrow",
-    month: "July",
+    name: "Jamii-Ya-Jadeite",
+    description: "Foundation that supports monetory API integration to route donations.",
+    month: "October",
     href: "https://instant.qa/",
   },
   {
-    name: "chirp",
-    description: "Embed your favorite tweets in Figma or FigJam",
-    month: "April",
-    href: "https://chirp.alexandru.so/",
-    preview: "/images/projects/chirp.png",
+    name: "MyDuka",
+    description: "E-commerce platform with CMS by Sanity integration.",
+    month: "June",
+    href: "https://online-duka-spbi-leze81v4c-kooya3.vercel.app/",
+    preview: "/images/projects/duka.png",
   },
   {
     name: "Manual Pages",
