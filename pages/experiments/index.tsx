@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Description from "@components/Description"
 import TransitionPage from "@components/TransitionPage"
 import BrowserFrame, { transition } from "@components/Experiments/BrowserFrame"
@@ -16,7 +15,7 @@ export default function Experiments(): JSX.Element {
       <div className="flex flex-col space-y-8">
         {/* <BrowserFrame href="/experiments/time-machine" title="Time Machine">
           <div
-            className={classNames(
+            className={clsx(
               "relative flex w-full items-center justify-center opacity-80 group-hover:opacity-80 sm:opacity-40",
               transition
             )}
@@ -43,8 +42,6 @@ export default function Experiments(): JSX.Element {
             <BookGalley />
           </div>
         </BrowserFrame>
-
-        
 
         {/* <BrowserFrame
           href="/experiments/github-contributions?search=pondorasti"
