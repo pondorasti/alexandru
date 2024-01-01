@@ -9,11 +9,12 @@ interface IProject {
 
 const secrets: IProject[] = [
   {
-    name: "emojis",
-    description: "Generate your favorite Slack emojis with just one click.",
+    name: "Tech Haven",
+    description: "Customize a platform to resell any E-product.",
     month: "September",
     year: 2023,
-    href: "https://emojis.sh/",
+    href: "https://e-commerce-payload-8e26543.payloadcms.app/",
+    preview: "/images/projects/Tech.png"
   },
   {
     name: "instant.qa",
