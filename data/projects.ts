@@ -20,7 +20,8 @@ const secrets: IProject[] = [
     name: "Jamii-Ya-Jadeite",
     description: "Foundation that supports monetory API integration to route donations.",
     month: "October",
-    href: "https://instant.qa/",
+    href: "https://jamiiyajadeite.co.ke/",
+    preview: "/images/projects/jadeite.png",
   },
   {
     name: "MyDuka",
@@ -34,7 +35,7 @@ const secrets: IProject[] = [
     description: "Dynamically generated docs for 450+ CLIs",
     month: "February",
     year: 2022,
-    href: "https://fig.io/manual",
+    href: "https://elyees-youtube.netlify.app/",
     preview: "/images/projects/man-pages.png",
   },
   {
