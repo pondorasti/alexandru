@@ -31,12 +31,11 @@ const secrets: IProject[] = [
     preview: "/images/projects/duka.png",
   },
   {
-    name: "Manual Pages",
-    description: "Dynamically generated docs for 450+ CLIs",
-    month: "February",
-    year: 2022,
+    name: "Mediatrix",
+    description: "Media platform with youtube API integration built on React",
+    month: "March",
     href: "https://elyees-youtube.netlify.app/",
-    preview: "/images/projects/man-pages.png",
+    preview: "/images/projects/youtube.png",
   },
   {
     name: "tailwindcss-snippets",
