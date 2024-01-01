@@ -100,11 +100,11 @@ export default function Home(): JSX.Element {
               "inline-block cursor-ne-resize bg-clip-text text-transparent",
               "transition-transform ease-in-out hover:scale-105"
             )}
-            href="https://amie.so/"
+            href="https://jamiiyajadeite.co.ke/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Amie
+            JamiiYaJadeite
           </a>
           . My expertise lies in collaborating with clients to develop scalable, user-friendly solutions that effectively address real-world challenges. I am committed to delivering top-notch work and am proud of my ability to bring complex ideas to fruition. Whether you require a new application built from the ground up or an existing system updated and improved, I possess the skills and expertise necessary to deliver quality results. Let us work together to bring your ideas to life and create solutions that exceed your expectations.
         </p>
