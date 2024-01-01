@@ -24,6 +24,13 @@ const secrets: IProject[] = [
     preview: "/images/projects/jadeite.png",
   },
   {
+    name: "SamZ",
+    description: "OpenAI API Integration for a Saas system.",
+    month: "August",
+    href: "https://elyss.netlify.app/",
+    preview: "/images/projects/sam.png",
+  },
+  {
     name: "MyDuka",
     description: "E-commerce platform with CMS by Sanity integration.",
     month: "June",
@@ -31,19 +38,40 @@ const secrets: IProject[] = [
     preview: "/images/projects/duka.png",
   },
   {
+    name: "AM-PM",
+    description: "Restaurant web app built on Nextjs",
+    month: "June",
+    href: "http://ampm.onrender.com/",
+    preview: "/images/projects/ampm.png",
+  },
+  {name: "RealEstatez",
+  description: "MERN stack platform designed and optimized for real estate agents.",
+  month: "January",
+  href: "https://yariga-ely.netlify.app/",
+  preview: "/images/projects/estate.png",
+  },
+  {
+  name: "Elyssa-Gym",
+  description: "GraphQL, React home workout web app with exercise API integration.",
+  month: "November",
+  href: "http://elyssa-gym.netlify.app/",
+  preview: "/images/projects/gym.png",
+  },
+  {
     name: "Mediatrix",
-    description: "Media platform with youtube API integration built on React",
-    month: "March",
+    description: "Dynamically generated docs for 450+ CLIs",
+    month: "February",
+    year: 2022,
     href: "https://elyees-youtube.netlify.app/",
     preview: "/images/projects/youtube.png",
   },
   {
-    name: "tailwindcss-snippets",
-    description: "Collection of animation snippets made for TailwindCSS",
-    month: "January",
-    href: "https://snippets.alexandru.so/",
-    preview: "/images/projects/tailwindcss-snippets.png",
-  },
+    name: "Kievy",
+    description: "Simple html with vanilla javascript website.",
+    month: "August",
+    href: "http://kievyinvestments.netlify.app/",
+    preview: "/images/projects/Kievy.png",
+  },/* 
   {
     name: "microphone-wtf",
     description: "Experimental microphone audio visualizer",
@@ -163,6 +191,6 @@ const secrets: IProject[] = [
     href: "https://alexandru.so/secrets/national-day",
     preview: "/images/projects/national-day.png",
   },
-]
+ */]
 
 export default secrets
