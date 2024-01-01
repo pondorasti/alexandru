@@ -1,6 +1,5 @@
 import Description from "@components/Description"
 import TransitionPage from "@components/TransitionPage"
-import { useState } from "react"
 import InteractiveBrowserFrame from "@components/Experiments/TimeMachine/InteractiveBrowserFrame"
 
 const data = [
@@ -15,8 +14,7 @@ const title = "Time Machine"
 const description = "Explore my website through progression of time"
 
 export default function TimeMachine(): JSX.Element {
-  const [isFullscreen, setIsFullscreen] = useState(false)
-
+  // Removed unused variables 'isFullscreen' and 'setIsFullscreen'
   // TODO: disable body scroll on fullscreen
   return (
     <TransitionPage title={title} description={description}>

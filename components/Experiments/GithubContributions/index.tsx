@@ -1,4 +1,4 @@
-import { useRef, Fragment, useLayoutEffect } from "react"
+import React, { useRef, Fragment, useLayoutEffect } from "react"
 import { useRouter } from "next/router"
 import { useHotkeys } from "react-hotkeys-hook"
 import { SearchIcon } from "@heroicons/react/solid"
@@ -11,8 +11,7 @@ import YearlyChart from "@components/Experiments/GithubContributions/YearlyChart
 import InsightsGroup from "@components/Experiments/GithubContributions/InsightsGroup"
 
 const title = "Github Contributions"
-const description = "visualize, analyze and contrast your commits"
-
+const description = "Visualize, analyze, and contrast your commits"
 
 export const DEFAULT_USERNAME = "kooya3"
 const fetcher = (username: string): Promise<IUserInformation> =>
@@ -123,7 +122,7 @@ export default function GithubContributions() {
         )}
       >
         <p className="text-md mt-2 text-gray-400 dark:text-gray-500">
-          Uh oh! It looks like the user you&apos;re looking for doesn&#39;t exist.
+          Uh oh! It looks like the user you are looking for does not exist.
         </p>
       </div>
 

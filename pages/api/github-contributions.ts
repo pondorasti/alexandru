@@ -74,13 +74,11 @@ export async function getGithubContributions(username: string): Promise<IUserInf
 
   if (currentCollection.data.user === null) {
     throw new Error("User not found.")
+  }
 
-  }  
   // Fetch cached contributions history
   const { data, error } = await privateClient.from("github-contributions").select().match({ username })
   if (data === null || error) throw new Error(error?.message)
-
-
 
   // Fetch missing contributions years
   const years = currentCollection.data.user.contributionsCollection.contributionYears
@@ -99,7 +97,7 @@ export async function getGithubContributions(username: string): Promise<IUserInf
       const collection = fetchYearlyContributions(username, year)
       resolvedCollection = await collection
 
-      // Cache result except current year (in order to avoid caching and freezing current year data)
+      // Cache result except the current year (to avoid caching and freezing current year data)
       if (resolvedCollection.data.user.contributionsCollection.year !== new Date().getFullYear()) {
         await privateClient.from("github-contributions").upsert({ username, year, contributions: resolvedCollection })
       }
