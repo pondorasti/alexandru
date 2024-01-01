@@ -74,11 +74,13 @@ export async function getGithubContributions(username: string): Promise<IUserInf
 
   if (currentCollection.data.user === null) {
     throw new Error("User not found.")
-  }
 
+  }  
   // Fetch cached contributions history
   const { data, error } = await privateClient.from("github-contributions").select().match({ username })
   if (data === null || error) throw new Error(error?.message)
+
+
 
   // Fetch missing contributions years
   const years = currentCollection.data.user.contributionsCollection.contributionYears

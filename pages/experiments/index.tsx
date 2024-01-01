@@ -7,7 +7,7 @@ import clsx from "clsx"
 import BookGalley from "@components/Experiments/BookGallery"
 
 const title = "Experiments"
-const description = "Playground to try out new ideas"
+const description = "Playground for new ideas "
 
 export default function Experiments(): JSX.Element {
   return (
@@ -30,6 +30,11 @@ export default function Experiments(): JSX.Element {
             <MockWebsite className="group-hover:animate-grow-start" variation="simple" />
           </div>
         </BrowserFrame> */}
+        <BrowserFrame href="/experiments/liquid-blob" title="Liquid Blob">
+          <div className={clsx("m-auto invert-0 group-hover:invert-0 sm:invert-[0.50]", transition)}>
+            <LiquidBlob animateOnHover />
+          </div>
+        </BrowserFrame>
 
         <BrowserFrame href="/experiments/book-gallery" title="Book Gallery" containerClassName="!h-96">
           <div
@@ -39,13 +44,9 @@ export default function Experiments(): JSX.Element {
           </div>
         </BrowserFrame>
 
-        <BrowserFrame href="/experiments/liquid-blob" title="Liquid Blob">
-          <div className={clsx("m-auto invert-0 group-hover:invert-0 sm:invert-[0.50]", transition)}>
-            <LiquidBlob animateOnHover />
-          </div>
-        </BrowserFrame>
+        
 
-        <BrowserFrame
+        {/* <BrowserFrame
           href="/experiments/github-contributions?search=pondorasti"
           title="Github Contributions"
           containerClassName="relative m-auto h-full w-full max-w-sm sm:max-w-md grayscale-0 group-hover:grayscale-0 sm:grayscale"
@@ -56,7 +57,7 @@ export default function Experiments(): JSX.Element {
             layout="fill"
             className="dark-img-invert"
           />
-        </BrowserFrame>
+        </BrowserFrame> */}
       </div>
     </TransitionPage>
   )

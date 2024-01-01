@@ -13,7 +13,8 @@ import InsightsGroup from "@components/Experiments/GithubContributions/InsightsG
 const title = "Github Contributions"
 const description = "visualize, analyze and contrast your commits"
 
-export const DEFAULT_USERNAME = "pondorasti"
+
+export const DEFAULT_USERNAME = "kooya3"
 const fetcher = (username: string): Promise<IUserInformation> =>
   fetch(`/api/github-contributions?username=${username}`).then(res => res.json() as Promise<IUserInformation>)
 
