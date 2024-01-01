@@ -24,6 +24,9 @@ const entriesList = {
   "recreate-apples-breathing-animation-in-swiftui-part-1": dynamic(
     () => import("@data/journal/recreate-apples-breathing-animation-in-swiftui-part-1.mdx")
   ),
+  "efficient-memory-management-in-python": dynamic(
+    () => import("@data/journal/efficient-memory-management-in-python.mdx")
+  ),
 }
 
 type Entries = typeof entriesList
