@@ -80,7 +80,7 @@ export default function LinkPreview({
             src={imageSrc}
             alt={alt}
             onLoad={() => setIsLoading(false)}
-            className={clsx("h-[142px] w-[238px] rounded-md object-cover", isLoading && "hidden")}
+            className={clsx("h-[142px] w-[238px] rounded object-cover", isLoading && "hidden")}
           />
         </Tooltip.Content>
       </Tooltip.Portal>

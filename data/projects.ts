@@ -14,12 +14,14 @@ const secrets: IProject[] = [
     month: "September",
     year: 2023,
     href: "https://emojis.sh/",
+    preview: "/images/projects/emojis.png",
   },
   {
     name: "instant.qa",
     description: "QA as a service for startups, enterprises and agencies of tomorrow",
     month: "July",
     href: "https://instant.qa/",
+    preview: "/images/projects/instant-qa.png",
   },
   {
     name: "chirp",
@@ -62,12 +64,14 @@ const secrets: IProject[] = [
     description: "Conservatory of Make School before it shutdown",
     month: "July",
     href: "https://makeschool.fail/",
+    preview: "/images/projects/make-school.png",
   },
   {
     name: "scriptcommands",
     description: "Unofficial Marketplace for Raycast Script Commands",
     month: "April",
     href: "https://scriptcommands.alexandru.so/",
+    preview: "/images/projects/script-commands.png",
   },
   // {
   //   name: "boringstocks.live",
@@ -104,13 +108,13 @@ const secrets: IProject[] = [
   //   month: "October",
   //   href: "https://alexandru.so/secrets/amie",
   // },
-  {
-    name: "the-rise-of-micro-computers",
-    description: "Fun design challenge!",
-    month: "September",
-    href: "https://alexandru.so/secrets/the-rise-of-micro-computers",
-    preview: "/images/projects/the-rise-of-micro-computers.png",
-  },
+  // {
+  //   name: "the-rise-of-micro-computers",
+  //   description: "Fun design challenge!",
+  //   month: "September",
+  //   href: "https://alexandru.so/secrets/the-rise-of-micro-computers",
+  //   preview: "/images/projects/the-rise-of-micro-computers.png",
+  // },
   {
     name: "90s-portfolio",
     description: "Portfolio inspired by Raspberry Pi's CLI",
