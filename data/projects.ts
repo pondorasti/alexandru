@@ -17,10 +17,10 @@ const secrets: IProject[] = [
     preview: "/images/projects/emojis.png",
   },
   {
-    name: "instant.qa",
+    name: "instant",
     description: "QA as a service for startups, enterprises and agencies of tomorrow",
     month: "July",
-    href: "https://instant.qa/",
+    href: "https://instant.alexandru.so/",
     preview: "/images/projects/instant-qa.png",
   },
   {
