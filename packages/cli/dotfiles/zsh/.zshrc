@@ -103,7 +103,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# bun
+# bun global packages (`bun link`, `bun add -g`); bun itself comes from Vite+
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$PATH:$BUN_INSTALL/bin"
 # bun end
@@ -120,10 +120,6 @@ export PATH=$PATH:~/Library/Android/sdk/emulator/
 export JAVA_HOME="/opt/homebrew/opt/openjdk@21"
 export PATH="$JAVA_HOME/bin:$PATH"
 # java end
-
-# fnm
-eval "$(fnm env --use-on-cd --shell zsh)"
-# fnm end
 
 # fzf
 if command -v fzf >/dev/null 2>&1; then
