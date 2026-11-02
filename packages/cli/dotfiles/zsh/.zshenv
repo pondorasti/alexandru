@@ -1,4 +1,4 @@
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # Vite+ bin (https://viteplus.dev)
-. "/Users/tuftlord/.config/vite-plus/env"
+if [ -f "$HOME/.config/vite-plus/env" ]; then . "$HOME/.config/vite-plus/env"; fi

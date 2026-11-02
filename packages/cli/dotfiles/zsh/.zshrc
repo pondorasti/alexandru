@@ -149,4 +149,4 @@ alias cc='claude --dangerously-skip-permissions'
 alias ccc='claude --dangerously-skip-permissions --continue'
 
 # Vite+ bin (https://viteplus.dev)
-. "/Users/tuftlord/.config/vite-plus/env"
+if [ -f "$HOME/.config/vite-plus/env" ]; then . "$HOME/.config/vite-plus/env"; fi
