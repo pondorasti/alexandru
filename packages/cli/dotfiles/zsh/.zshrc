@@ -103,11 +103,6 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# bun global packages (`bun link`, `bun add -g`); bun itself comes from Vite+
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$PATH:$BUN_INSTALL/bin"
-# bun end
-
 # rbenv
 eval "$(rbenv init - zsh)"  
 # rbenv end
