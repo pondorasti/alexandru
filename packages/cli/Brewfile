@@ -18,6 +18,7 @@ brew "oven-sh/bun/bun"                    # Fast all-in-one JavaScript runtime, 
 brew "node"                               # JavaScript runtime built on Chrome's V8 JavaScript engine
 brew "rust"                               # Safe, concurrent, practical language
 brew "fnm"                                # Fast Node Manager - simple, fast Node.js version manager built in Rust
+brew "vite-plus"                          # Vite+ (vp) - unified web toolchain that also manages Node.js and package managers
 brew "mise"                               # Polyglot runtime manager for Node.js, Ruby, and other development tools
 brew "rbenv"                              # Ruby version manager - simple, lightweight Ruby environment manager
 brew "stripe/stripe-cli/stripe"           # Stripe CLI for testing and managing Stripe resources
