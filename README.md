@@ -1,6 +1,6 @@
 # pondorasti
 
-working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
+working on [codevisor.dev](https://codevisor.dev/), and vibe coding out the kazoo
 
 ## projects
 
