@@ -5,6 +5,11 @@
 - this is an archive of old and unused code
 - do not edit this directory (i.e. updating deps) unless when explicitly told so
 
+## /artifacts
+
+- standalone one-off projects, not workspaces: deps are pinned in each project's own `package.json`, outside the catalog
+- do not edit this directory (i.e. updating deps) unless when explicitly told so
+
 ## Dependencies
 
 - pin exact versions (no `^`/`~`) in the root `workspaces.catalog` and reference them with `"catalog:"`

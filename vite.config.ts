@@ -8,6 +8,7 @@ export default defineConfig({
     sortPackageJson: false,
     ignorePatterns: [
       "zold/**",
+      "artifacts/**",
       "bun.lock",
       "**/*.html",
       "apps/buff/docs/history/**",
@@ -20,6 +21,7 @@ export default defineConfig({
   lint: {
     ignorePatterns: [
       "zold/**",
+      "artifacts/**",
       "**/dist/**",
       "**/.output/**",
       "**/.wrangler/**",
