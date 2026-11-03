@@ -6,7 +6,7 @@ working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
 
 - 📊 **[tokenmaxxing.sh](https://github.com/851-labs/tokenmaxxing)** - The best place to track token usage.
 - 🖥️ **[MacRack](https://github.com/851-labs/macrack)** - Turn your MacBook into an always-on server.
-- 🎓 **[makeschool.fail](https://github.com/pondorasti/makeschool)** - Conservatory of a YC backed collage.
+- 🎓 **[makeschool.fail](https://github.com/pondorasti/makeschool)** - Conservatory of a YC backed college.
 
 ## legacy
 
