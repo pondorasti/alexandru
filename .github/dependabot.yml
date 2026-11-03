@@ -1,0 +1,20 @@
+version: 2
+
+# Only used to scope Dependabot security updates (enabled in repo settings).
+# `open-pull-requests-limit: 0` keeps routine version-update PRs off.
+updates:
+  - package-ecosystem: npm
+    directories: ["/**"]
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    exclude-paths:
+      - "zold/**"
+
+  - package-ecosystem: bun
+    directories: ["/**"]
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    exclude-paths:
+      - "zold/**"
