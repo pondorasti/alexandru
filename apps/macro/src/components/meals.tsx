@@ -1,50 +1,99 @@
-import type { MealGroup, Totals } from "../lib/nutrition"
+import type { Entry, MealGroup, Totals } from "../lib/nutrition"
 import { grams, kcal, label } from "../lib/format"
 
-const Macros = ({ totals, className = "" }: { totals: Totals; className?: string }) => (
-  <span className={`tabular-nums ${className}`}>
-    {grams(totals.protein)} P · {grams(totals.carbs)} C · {grams(totals.fat)} F ·{" "}
-    {grams(totals.fiber)}
-    {totals.fiberUnknown ? "+" : ""} fiber
-  </span>
+/** "Orange juice (8 oz)" -> name "Orange juice", details "8 oz". */
+function describeItem(item: string) {
+  const match = /^(.*?)\s*\((.*)\)\s*$/.exec(item)
+  return match ? { name: match[1], details: match[2] } : { name: item, details: undefined }
+}
+
+const Macros = ({ of }: { of: Pick<Entry, "protein" | "carbs" | "fat" | "fiber"> }) => (
+  <>
+    {grams(of.protein)} P · {grams(of.carbs)} C · {grams(of.fat)} F ·{" "}
+    {of.fiber === null ? "–" : grams(of.fiber)} fiber
+  </>
 )
 
-/** A day's meals, each with its items and subtotal. */
-export function MealList({ meals }: { meals: MealGroup[] }) {
+/**
+ * A day's items in one table, in time order. The meal is named under the time where it
+ * changes, and a stronger rule marks the change; an item's details show on hover, and a bar
+ * under its calories is its share of the day. On small screens the macro columns fold into
+ * a line under the food.
+ */
+export function MealList({ meals, totals }: { meals: MealGroup[]; totals: Totals }) {
+  const share = (value: number) =>
+    `${Math.min(100, totals.kcal ? (value / totals.kcal) * 100 : 0)}%`
+  const column = "hidden text-right align-top sm:table-cell"
   return (
-    <div className="space-y-3">
-      {meals.map(({ meal, entries, totals }, index) => (
-        <section key={index} aria-label={label(meal)} className="card">
-          <header className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <h3 className="font-medium">
-              {label(meal)}
-              <span className="ml-2 text-sm font-normal text-muted tabular-nums">
-                {entries[0].time}
+    <section aria-label="Meals" className="card overflow-x-auto">
+      <table className="w-full text-sm tabular-nums sm:min-w-[720px]">
+        <thead className="text-left text-xs text-muted">
+          <tr>
+            <th className="w-21 pb-3 font-normal">Time</th>
+            <th className="pb-3 font-normal sm:min-w-64">Food</th>
+            <th className="w-20 pb-3 pl-4 text-right font-normal sm:w-28">Calories</th>
+            <th className={`${column} w-20 pb-3 font-normal`}>Protein</th>
+            <th className={`${column} w-20 pb-3 font-normal`}>Carbs</th>
+            <th className={`${column} w-20 pb-3 font-normal`}>Fat</th>
+            <th className={`${column} w-20 pb-3 font-normal`}>Fiber</th>
+          </tr>
+        </thead>
+        {meals.map(({ meal, entries }, index) => (
+          <tbody key={index} className="border-t border-muted/60">
+            {entries.map((entry, i) => {
+              const { name, details } = describeItem(entry.item)
+              return (
+                <tr key={i} className={i ? "border-t border-line/60" : ""}>
+                  <td className="py-2 pr-3 align-top">
+                    {(i === 0 || entry.time !== entries[i - 1].time) && entry.time}
+                    {i === 0 && (
+                      <span className="block text-[11px] tracking-wide text-muted uppercase">
+                        {label(meal)}
+                      </span>
+                    )}
+                  </td>
+                  <td className="py-2 pr-3 align-top" title={details}>
+                    {name}
+                    <span className="block text-xs text-muted sm:hidden">
+                      <Macros of={entry} />
+                    </span>
+                  </td>
+                  <td className="py-2 pl-4 align-top">
+                    <span className="block text-right">{kcal(entry.kcal)}</span>
+                    <span className="mt-1.5 block h-1 rounded-full bg-track">
+                      <span
+                        className="block h-full rounded-full bg-muted"
+                        style={{ width: share(entry.kcal) }}
+                      />
+                    </span>
+                  </td>
+                  <td className={`${column} py-2 text-muted`}>{grams(entry.protein)} g</td>
+                  <td className={`${column} py-2 text-muted`}>{grams(entry.carbs)} g</td>
+                  <td className={`${column} py-2 text-muted`}>{grams(entry.fat)} g</td>
+                  <td className={`${column} py-2 text-muted`}>
+                    {entry.fiber === null ? "–" : `${grams(entry.fiber)} g`}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        ))}
+        <tfoot>
+          <tr className="border-t border-muted/60 font-medium">
+            <td colSpan={2} className="pt-4">
+              Total
+              <span className="block text-xs font-normal text-muted sm:hidden">
+                <Macros of={totals} />
               </span>
-            </h3>
-            <p className="text-sm">
-              <span className="font-medium tabular-nums">{kcal(totals.kcal)} kcal</span>
-              <Macros totals={totals} className="ml-2 text-muted" />
-            </p>
-          </header>
-          <ul className="mt-3 divide-y divide-line border-t border-line">
-            {entries.map((entry, i) => (
-              <li
-                key={i}
-                className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-0.5 py-2.5 text-sm sm:grid-cols-[3.5rem_1fr_auto_auto]"
-              >
-                <span className="hidden text-muted tabular-nums sm:block">{entry.time}</span>
-                <span className="min-w-0 break-words">{entry.item}</span>
-                <span className="text-right tabular-nums">{kcal(entry.kcal)} kcal</span>
-                <span className="col-span-2 text-xs text-muted tabular-nums sm:col-span-1 sm:w-52 sm:text-right sm:text-sm">
-                  {grams(entry.protein)} P · {grams(entry.carbs)} C · {grams(entry.fat)} F ·{" "}
-                  {entry.fiber === null ? "–" : grams(entry.fiber)} fiber
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-    </div>
+            </td>
+            <td className="pt-4 pl-4 text-right align-top">{kcal(totals.kcal)}</td>
+            <td className={`${column} pt-4`}>{grams(totals.protein)} g</td>
+            <td className={`${column} pt-4`}>{grams(totals.carbs)} g</td>
+            <td className={`${column} pt-4`}>{grams(totals.fat)} g</td>
+            <td className={`${column} pt-4`}>{grams(totals.fiber)} g</td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
   )
 }

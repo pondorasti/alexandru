@@ -64,7 +64,7 @@ function Dashboard() {
         </div>
         <DayTargets totals={latest.totals} />
         <div className="mt-3">
-          <MealList meals={latest.meals} />
+          <MealList meals={latest.meals} totals={latest.totals} />
         </div>
       </section>
 

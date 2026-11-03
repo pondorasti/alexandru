@@ -55,7 +55,7 @@ function Day() {
       </div>
       <DayTargets totals={totals} />
       <h2 className="mt-12 mb-4 section-title">Meals</h2>
-      <MealList meals={day.meals} />
+      <MealList meals={day.meals} totals={totals} />
     </main>
   )
 }
