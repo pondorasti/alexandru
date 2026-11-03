@@ -6,12 +6,16 @@ const formatter = (options: Intl.DateTimeFormatOptions) =>
 const long = formatter({ weekday: "long", month: "long", day: "numeric", year: "numeric" })
 const medium = formatter({ weekday: "short", month: "short", day: "numeric" })
 const short = formatter({ month: "short", day: "numeric" })
+const shortYear = formatter({ month: "short", day: "numeric", year: "numeric" })
 const weekday = formatter({ weekday: "narrow" })
 
 // Dates are calendar days with no time zone of their own, so they're formatted as UTC.
 export const dateLong = (date: string) => long.format(fromIso(date))
 export const dateMedium = (date: string) => medium.format(fromIso(date))
 export const dateShort = (date: string) => short.format(fromIso(date))
+/** Short, with the year only when it isn't `year`. */
+export const dateIn = (date: string, year: string) =>
+  (date.startsWith(year) ? short : shortYear).format(fromIso(date))
 export const weekdayInitial = (date: string) => weekday.format(fromIso(date))
 export const dayOfMonth = (date: string) => String(Number(date.slice(8)))
 

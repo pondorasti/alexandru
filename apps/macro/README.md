@@ -82,8 +82,9 @@ problem listed as
 ## Targets and settings
 
 `src/config.ts` holds the targets (2,500 kcal, 110 g protein, 20 g fiber a day), the
-time zone, the morning cutoff, the rolling-average window (7 calendar days), and how
-many days and weeks the dashboard shows.
+weight goals (125 lb by the end of 2026, 145 lb by the end of 2027), the time zone, the
+morning cutoff, the rolling-average window (7 calendar days), the estimate window (28
+days), and how many days and weeks the dashboard shows.
 
 - The rolling average for a morning is the mean of the morning readings in the 7
   calendar days ending on it, so a missed weigh-in shortens the window instead of
@@ -93,6 +94,13 @@ many days and weeks the dashboard shows.
 - The energy balance is eaten minus burned for each day with both logged: positive is a
   surplus, negative a deficit. Its averages, and the weekly Burned and Balance columns,
   cover only the days with the numbers they need.
+- The weight trend is the least-squares slope of the morning readings over the 28 days
+  ending on the last day with energy logged. Maintenance over the same days is the mean
+  intake less the energy the weight change stored, at 7,700 kcal per kg; the watch's mean
+  burn is shown beside it as a check.
+- Each goal's date is when the latest rolling average reaches it at the current trend.
+  The next goal due within 120 days is drawn on the weight chart: a dotted line from the
+  rolling average to its due date, and the goal as a level line.
 - The dashboard's "Today" is the latest logged day; it's labeled Today or Yesterday when
   it is one in Los Angeles.
 

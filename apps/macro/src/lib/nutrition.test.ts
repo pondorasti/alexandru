@@ -4,13 +4,16 @@ import {
   calendarDays,
   dailyTotals,
   energyBalance,
+  estimate,
   type Entry,
   groupMeals,
   IsoDate,
   morningWeights,
+  reachDate,
   rollingAverage,
   weekStart,
-  weeklyAverages
+  weeklyAverages,
+  weightRate
 } from "./nutrition"
 
 const entry = (date: string, time: string, values: Partial<Entry> = {}): Entry => ({
@@ -193,5 +196,56 @@ describe("energyBalance", () => {
       { date: "2026-10-06", eaten: null, burned: 1870, balance: null },
       { date: "2026-10-07", eaten: 1900, burned: null, balance: null }
     ])
+  })
+})
+
+describe("weightRate", () => {
+  const mornings = [
+    { date: "2026-10-01", time: "08:00", kg: 54 },
+    { date: "2026-10-03", time: "08:00", kg: 54.4 },
+    { date: "2026-10-05", time: "08:00", kg: 54.4 },
+    { date: "2026-10-07", time: "08:00", kg: 54.6 }
+  ]
+
+  it("fits a least-squares line through the readings in the window, in kg a day", () => {
+    expect(weightRate(mornings, "2026-10-01", "2026-10-07")).toBeCloseTo(0.09, 10)
+  })
+
+  it("needs readings on two different days", () => {
+    expect(weightRate(mornings, "2026-10-06", "2026-10-30")).toBeNull()
+  })
+})
+
+describe("estimate", () => {
+  it("takes the energy the weight change stored out of the intake", () => {
+    const totals = dailyTotals([
+      entry("2026-10-01", "08:00", { kcal: 2600, protein: 100, fiber: 20 }),
+      entry("2026-10-02", "08:00", { kcal: 2800, protein: 100, fiber: 20 })
+    ])
+    const energy = [{ date: "2026-10-01", resting: 1600, active: 600 }]
+    const mornings = [
+      { date: "2026-10-01", time: "08:00", kg: 54 },
+      { date: "2026-10-08", time: "08:00", kg: 54.7 }
+    ]
+    expect(estimate(totals, energy, mornings, "2026-10-01", "2026-10-08")).toEqual({
+      from: "2026-10-01",
+      to: "2026-10-08",
+      rate: expect.closeTo(0.1, 10),
+      eaten: 2700,
+      burned: 2200,
+      maintenance: 1930
+    })
+  })
+})
+
+describe("reachDate", () => {
+  it("projects the trend forward to the goal, rounding up to a whole day", () => {
+    expect(reachDate("2026-11-02", 54.7, 0.06, 56.7)).toBe("2026-12-06")
+  })
+
+  it("is the given day once the goal is reached, and null when the trend never gets there", () => {
+    expect(reachDate("2026-11-02", 57, 0.06, 56.7)).toBe("2026-11-02")
+    expect(reachDate("2026-11-02", 54.7, -0.01, 56.7)).toBeNull()
+    expect(reachDate("2026-11-02", 54.7, null, 56.7)).toBeNull()
   })
 })

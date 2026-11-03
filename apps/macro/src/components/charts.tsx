@@ -1,6 +1,12 @@
 import { Link } from "@tanstack/react-router"
 import { ROLLING_DAYS } from "../config"
-import type { BalanceDay, DayTotals, WeightPoint } from "../lib/nutrition"
+import {
+  type BalanceDay,
+  type DayTotals,
+  daysBetween,
+  fromIso,
+  type WeightPoint
+} from "../lib/nutrition"
 import {
   dateMedium,
   dateShort,
@@ -12,22 +18,51 @@ import {
 } from "../lib/format"
 const pct = (value: number) => `${value}%`
 
-/** Morning readings as dots, with their rolling average as a line, scaled by date. */
-export function WeightChart({ points }: { points: WeightPoint[] }) {
+/** The rolling average carried forward at the current rate, toward a goal. */
+export interface Projection {
+  /** Where the projection starts: the latest rolling average. */
+  from: { date: string; kg: number }
+  /** Kg a day. */
+  rate: number
+  /** The goal's due date, where the projection ends. */
+  to: string
+  goal: { label: string; kg: number }
+}
+
+/**
+ * Morning readings as dots, with their rolling average as a line, scaled by date. A
+ * projection extends the axis to its end date, drawn dashed, with the goal as a level line.
+ */
+export function WeightChart({
+  points,
+  projection
+}: {
+  points: WeightPoint[]
+  projection?: Projection
+}) {
   if (!points.length) {
     return <p className="py-12 text-center text-sm text-muted">No morning weigh-ins yet.</p>
   }
-  const values = points.flatMap((point) => [point.kg, point.average])
+  const last = points.at(-1)!
+  const end = projection
+    ? {
+        date: projection.to,
+        kg: projection.from.kg + projection.rate * daysBetween(projection.from.date, projection.to)
+      }
+    : null
+  const values = [
+    ...points.flatMap((point) => [point.kg, point.average]),
+    ...(projection && end ? [end.kg, projection.goal.kg] : [])
+  ]
   const rawMin = Math.min(...values)
   const rawMax = Math.max(...values)
   const pad = Math.max((rawMax - rawMin) * 0.15, 0.3)
   const lo = rawMin - pad
   const hi = rawMax + pad
   const y = (value: number) => ((hi - value) / (hi - lo)) * 100
-  const times = points.map((point) => Date.parse(`${point.date}T00:00:00Z`))
-  const first = times[0]
-  const span = times.at(-1)! - first
-  const x = (i: number) => (span ? ((times[i] - first) / span) * 100 : 50)
+  const first = fromIso(points[0].date)
+  const span = fromIso(end?.date ?? last.date) - first
+  const x = (date: string) => (span ? ((fromIso(date) - first) / span) * 100 : 50)
   const ticks = [hi - pad, (hi + lo) / 2, lo + pad]
   return (
     <div>
@@ -40,6 +75,16 @@ export function WeightChart({ points }: { points: WeightPoint[] }) {
               style={{ top: pct(y(tick)) }}
             />
           ))}
+          {projection && (
+            <div
+              className="absolute inset-x-0 z-10 border-t border-dashed border-muted"
+              style={{ top: pct(y(projection.goal.kg)) }}
+            >
+              <span className="absolute bottom-1 left-0 rounded bg-surface px-1 text-[11px] text-muted">
+                {projection.goal.label} goal
+              </span>
+            </div>
+          )}
           <svg
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
@@ -47,7 +92,7 @@ export function WeightChart({ points }: { points: WeightPoint[] }) {
             aria-hidden="true"
           >
             <polyline
-              points={points.map((point, i) => `${x(i)},${y(point.average)}`).join(" ")}
+              points={points.map((point) => `${x(point.date)},${y(point.average)}`).join(" ")}
               fill="none"
               stroke="var(--color-accent)"
               strokeWidth={2.5}
@@ -55,15 +100,35 @@ export function WeightChart({ points }: { points: WeightPoint[] }) {
               strokeLinejoin="round"
               vectorEffect="non-scaling-stroke"
             />
+            {projection && end && (
+              <line
+                x1={x(projection.from.date)}
+                y1={y(projection.from.kg)}
+                x2={x(end.date)}
+                y2={y(end.kg)}
+                stroke="var(--color-accent)"
+                strokeWidth={2}
+                strokeDasharray="2 6"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+            )}
           </svg>
-          {points.map((point, i) => (
+          {points.map((point) => (
             <span
               key={point.date}
               title={`${dateMedium(point.date)} ${point.time}: ${kg(point.kg)} kg (${ROLLING_DAYS}-day avg ${kg(point.average)} kg)`}
               className="absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-muted/70"
-              style={{ left: pct(x(i)), top: pct(y(point.kg)) }}
+              style={{ left: pct(x(point.date)), top: pct(y(point.kg)) }}
             />
           ))}
+          {projection && end && (
+            <span
+              title={`${dateMedium(end.date)}: ${kg(end.kg)} kg at the current pace`}
+              className="absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent ring-2 ring-surface"
+              style={{ left: pct(x(end.date)), top: pct(y(end.kg)) }}
+            />
+          )}
         </div>
         <div className="relative w-9 shrink-0 text-xs text-muted tabular-nums">
           {ticks.map((tick) => (
@@ -73,9 +138,14 @@ export function WeightChart({ points }: { points: WeightPoint[] }) {
           ))}
         </div>
       </div>
-      <div className="mt-3 flex justify-between pr-12 text-xs text-muted">
-        <span>{dateShort(points[0].date)}</span>
-        <span>{dateShort(points.at(-1)!.date)}</span>
+      <div className="relative mt-3 mr-12 h-4 text-xs text-muted">
+        <span className="absolute left-0">{dateShort(points[0].date)}</span>
+        {end && x(last.date) > 15 && x(last.date) < 85 && (
+          <span className="absolute -translate-x-1/2" style={{ left: pct(x(last.date)) }}>
+            {dateShort(last.date)}
+          </span>
+        )}
+        <span className="absolute right-0">{dateShort(end?.date ?? last.date)}</span>
       </div>
     </div>
   )

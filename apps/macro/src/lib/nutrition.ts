@@ -1,5 +1,5 @@
 import { z } from "zod/mini"
-import { MORNING_BEFORE } from "../config"
+import { KCAL_PER_KG, MORNING_BEFORE } from "../config"
 
 export const MEALS = ["breakfast", "lunch", "dinner", "dessert", "snack", "post-workout"] as const
 export const Meal = z.enum(MEALS)
@@ -83,6 +83,22 @@ export interface WeightPoint {
   average: number
 }
 
+export interface Estimate {
+  from: string
+  to: string
+  /** Slope of the morning weights, in kg a day; null with fewer than two of them. */
+  rate: number | null
+  /** Mean intake over the days with food logged. */
+  eaten: number | null
+  /** Mean daily burn the watch reported. */
+  burned: number | null
+  /**
+   * The intake that would hold weight steady: what was eaten, less the energy that went into
+   * the weight change. Null unless both the rate and the intake are known.
+   */
+  maintenance: number | null
+}
+
 export interface WeekAverages {
   /** Monday of the week. */
   week: string
@@ -104,6 +120,7 @@ const DAY_MS = 86_400_000
 export const fromIso = (date: string) => Date.parse(`${date}T00:00:00Z`)
 export const toIso = (ms: number) => new Date(ms).toISOString().slice(0, 10)
 export const addDays = (date: string, days: number) => toIso(fromIso(date) + days * DAY_MS)
+export const daysBetween = (from: string, to: string) => (fromIso(to) - fromIso(from)) / DAY_MS
 
 /** Monday on or before `date`. */
 export const weekStart = (date: string) =>
@@ -268,4 +285,49 @@ export function weeklyAverages(
         kg: average(kg, 2)
       }
     })
+}
+
+/**
+ * Least-squares slope of the morning weights from `from` to `to`, in kg a day: steadier than
+ * the change between two rolling averages, since every reading in the window counts.
+ */
+export function weightRate(mornings: WeighIn[], from: string, to: string): number | null {
+  const points = mornings
+    .filter((reading) => reading.date >= from && reading.date <= to)
+    .map((reading) => ({ x: daysBetween(from, reading.date), y: reading.kg }))
+  if (new Set(points.map((point) => point.x)).size < 2) return null
+  const mx = mean(points.map((point) => point.x))!
+  const my = mean(points.map((point) => point.y))!
+  const covariance = points.reduce((sum, point) => sum + (point.x - mx) * (point.y - my), 0)
+  const variance = points.reduce((sum, point) => sum + (point.x - mx) ** 2, 0)
+  return covariance / variance
+}
+
+/** Gain rate, intake, burn and the maintenance they imply, over `from` to `to`. */
+export function estimate(
+  totals: DayTotals[],
+  energy: EnergyDay[],
+  mornings: WeighIn[],
+  from: string,
+  to: string
+): Estimate {
+  const within = (day: { date: string }) => day.date >= from && day.date <= to
+  const rate = weightRate(mornings, from, to)
+  const eaten = mean(totals.filter(within).map((day) => day.kcal))
+  const burned = mean(energy.filter(within).map((day) => day.resting + day.active))
+  return {
+    from,
+    to,
+    rate,
+    eaten: eaten === null ? null : round(eaten, 0),
+    burned: burned === null ? null : round(burned, 0),
+    maintenance: rate === null || eaten === null ? null : round(eaten - rate * KCAL_PER_KG, 0)
+  }
+}
+
+/** The day a trend at `kg` on `date`, moving `rate` kg a day, reaches `goal`; null if it never does. */
+export function reachDate(date: string, kg: number, rate: number | null, goal: number) {
+  if (kg >= goal) return date
+  if (!rate || rate <= 0) return null
+  return addDays(date, Math.ceil((goal - kg) / rate))
 }

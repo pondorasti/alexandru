@@ -5,6 +5,21 @@ export const TARGETS = {
   fiber: 20
 } as const
 
+/** Morning-weight goals: the trend weight to reach, in kilograms, and the date it's due. */
+export const GOALS = [
+  { label: "125 lb", kg: 56.7, by: "2026-12-31" },
+  { label: "145 lb", kg: 65.77, by: "2027-12-31" }
+] as const
+
+/** Calendar days of food, energy and weigh-ins behind the gain-rate and maintenance estimates. */
+export const ESTIMATE_DAYS = 28
+
+/** Energy in one kilogram of body-weight change, for turning gain into kilocalories. */
+export const KCAL_PER_KG = 7700
+
+/** Goals due within this many days of the last weigh-in are projected on the weight chart. */
+export const PROJECT_DAYS = 120
+
 /** Every `date` and `time` in `content/` is wall-clock time here. */
 export const TIME_ZONE = "America/Los_Angeles"
 

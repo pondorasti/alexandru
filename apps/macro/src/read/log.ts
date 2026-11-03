@@ -1,5 +1,13 @@
 import { energy, meals, weighIns } from "virtual:macro-content"
-import { RECENT_DAYS, RECENT_WEEKS, ROLLING_DAYS, TIME_ZONE, WEIGHT_DAYS } from "../config"
+import {
+  ESTIMATE_DAYS,
+  GOALS,
+  RECENT_DAYS,
+  RECENT_WEEKS,
+  ROLLING_DAYS,
+  TIME_ZONE,
+  WEIGHT_DAYS
+} from "../config"
 import {
   addDays,
   type BalanceDay,
@@ -7,9 +15,12 @@ import {
   dailyTotals,
   type DayTotals,
   energyBalance,
+  type Estimate,
+  estimate,
   groupMeals,
   type MealGroup,
   morningWeights,
+  reachDate,
   rollingAverage,
   sumEntries,
   type Totals,
@@ -27,6 +38,14 @@ export interface Day {
   next: string | null
 }
 
+export interface Progress {
+  /** Over the `ESTIMATE_DAYS` ending on the last day with energy (or a weigh-in) logged. */
+  estimate: Estimate
+  /** The latest rolling-average weight, which the goals are measured from. */
+  current: { date: string; kg: number }
+  goals: { label: string; kg: number; by: string; eta: string | null }[]
+}
+
 export interface Dashboard {
   /** Today's date in `TIME_ZONE`. */
   today: string
@@ -36,6 +55,7 @@ export interface Dashboard {
   /** Eaten against burned over the same days as `recent`. */
   balance: BalanceDay[]
   weights: WeightPoint[]
+  progress: Progress | null
   weeks: WeekAverages[]
 }
 
@@ -60,6 +80,22 @@ export function getDay(date: string): Day | null {
   }
 }
 
+function getProgress(): Progress | null {
+  const latest = trend.at(-1)
+  const to = energy.at(-1)?.date ?? latest?.date
+  if (!latest || !to) return null
+  const range = estimate(totals, energy, mornings, addDays(to, -(ESTIMATE_DAYS - 1)), to)
+  const current = { date: latest.date, kg: latest.average }
+  return {
+    estimate: range,
+    current,
+    goals: GOALS.map((goal) => ({
+      ...goal,
+      eta: reachDate(current.date, current.kg, range.rate, goal.kg)
+    }))
+  }
+}
+
 export function getDashboard(): Dashboard {
   const last = dates.at(-1)
   const lastWeighIn = trend.at(-1)?.date
@@ -72,6 +108,7 @@ export function getDashboard(): Dashboard {
     weights: lastWeighIn
       ? trend.filter((point) => point.date > addDays(lastWeighIn, -WEIGHT_DAYS))
       : [],
+    progress: getProgress(),
     weeks: weeklyAverages(totals, mornings, energy).slice(0, RECENT_WEEKS)
   }
 }

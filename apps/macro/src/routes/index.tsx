@@ -2,13 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { ArrowRight } from "lucide-react"
 import type { ReactNode } from "react"
-import { RECENT_DAYS, ROLLING_DAYS, TARGETS } from "../config"
-import { BalanceBars, DailyBars, WeightChart } from "../components/charts"
+import { ESTIMATE_DAYS, PROJECT_DAYS, RECENT_DAYS, ROLLING_DAYS, TARGETS } from "../config"
+import { BalanceBars, DailyBars, type Projection, WeightChart } from "../components/charts"
 import { DayTargets } from "../components/day"
 import { MealList } from "../components/meals"
 import { dashboardQuery } from "../read/queries"
-import { dateLong, dateShort, grams, kcal, kg, signedKcal } from "../lib/format"
-import { addDays } from "../lib/nutrition"
+import { dateIn, dateLong, dateShort, grams, kcal, kg, signedKcal } from "../lib/format"
+import { addDays, daysBetween } from "../lib/nutrition"
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.fetchQuery(dashboardQuery),
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
 
 function Dashboard() {
   const { data } = useSuspenseQuery(dashboardQuery)
-  const { today, latest, recent, balance, weights, weeks } = data
+  const { today, latest, recent, balance, weights, progress, weeks } = data
   if (!latest) {
     return (
       <main id="main" className="page-width py-24">
@@ -35,6 +35,15 @@ function Dashboard() {
         ? "Yesterday"
         : "Latest day"
   const lastWeight = weights.at(-1)
+  const rate = progress?.estimate.rate ?? null
+  const next = progress?.goals.find(
+    (goal) =>
+      progress.current.kg < goal.kg && daysBetween(progress.current.date, goal.by) <= PROJECT_DAYS
+  )
+  const projection: Projection | undefined =
+    progress && next && rate !== null
+      ? { from: progress.current, rate, to: next.by, goal: next }
+      : undefined
   const balanced = balance.filter((day) => day.balance !== null)
   const average = (pick: (day: (typeof balanced)[number]) => number) =>
     balanced.reduce((sum, day) => sum + pick(day), 0) / balanced.length
@@ -72,8 +81,44 @@ function Dashboard() {
           )
         }
       >
+        {progress && (
+          <div className="mb-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <Stat
+              label="Weight trend"
+              value={rate === null ? "–" : `${rate < 0 ? "−" : "+"}${kg(Math.abs(rate * 7))} kg/wk`}
+              note={`Trend over the last ${ESTIMATE_DAYS} days`}
+            />
+            <Stat
+              label="Maintenance"
+              value={
+                progress.estimate.maintenance === null
+                  ? "–"
+                  : `${kcal(progress.estimate.maintenance)} kcal`
+              }
+              note={
+                progress.estimate.burned === null
+                  ? "From intake and weight change"
+                  : `From intake and weight change · watch says ${kcal(progress.estimate.burned)}`
+              }
+            />
+            {progress.goals.map((goal) => (
+              <Stat
+                key={goal.label}
+                label={`${goal.label} by ${dateIn(goal.by, progress.current.date.slice(0, 4))}`}
+                value={
+                  goal.eta === null
+                    ? "–"
+                    : goal.eta === progress.current.date
+                      ? "Reached"
+                      : dateIn(goal.eta, progress.current.date.slice(0, 4))
+                }
+                note={goalNote(goal.eta, goal.by, progress.current.date)}
+              />
+            ))}
+          </div>
+        )}
         <div className="card">
-          <WeightChart points={weights} />
+          <WeightChart points={weights} projection={projection} />
           <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
             <span className="inline-flex items-center gap-1.5">
               <span className="size-2 rounded-full bg-muted/70" /> First weigh-in before noon
@@ -82,6 +127,11 @@ function Dashboard() {
               <span className="h-0.5 w-4 rounded-full bg-accent" /> {ROLLING_DAYS}-day rolling
               average
             </span>
+            {projection && (
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-4 border-t-2 border-dotted border-accent" /> At the current pace
+              </span>
+            )}
           </p>
         </div>
       </Section>
@@ -112,7 +162,6 @@ function Dashboard() {
               <span className="inline-flex items-center gap-1.5">
                 <span className="size-2 rounded-[2px] bg-deficit" /> Deficit: burned more than ate
               </span>
-              <span>Burned is resting plus active energy from Apple Watch.</span>
             </p>
           </div>
         </Section>
@@ -209,6 +258,28 @@ function Section({
       </div>
       {children}
     </section>
+  )
+}
+
+/** When a goal is due against when the trend reaches it. */
+function goalNote(eta: string | null, by: string, today: string) {
+  if (eta === null) return "The trend isn't rising"
+  if (eta === today) return `Due ${dateIn(by, today.slice(0, 4))}`
+  const days = daysBetween(eta, by)
+  if (days === 0) return "Right on the due date"
+  const weeks = Math.round(Math.abs(days) / 7)
+  const amount =
+    Math.abs(days) < 14 ? `${Math.abs(days)} days` : `${weeks} week${weeks === 1 ? "" : "s"}`
+  return `Projected · ${amount} ${days > 0 ? "early" : "late"}`
+}
+
+function Stat({ label, value, note }: { label: string; value: string; note: string }) {
+  return (
+    <div className="card">
+      <p className="eyebrow">{label}</p>
+      <p className="mt-3 text-[28px] leading-none font-medium tracking-[-0.02em]">{value}</p>
+      <p className="mt-2 text-xs text-muted">{note}</p>
+    </div>
   )
 }
 
