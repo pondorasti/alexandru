@@ -1,6 +1,6 @@
 /** Daily targets: below one is short, at or above it is on target. */
 export const TARGETS = {
-  kcal: 2850,
+  kcal: 2500,
   protein: 110,
   fiber: 20
 } as const
