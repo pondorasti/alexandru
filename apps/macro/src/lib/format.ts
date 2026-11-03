@@ -23,6 +23,9 @@ const kgFormat = new Intl.NumberFormat("en-US", {
 })
 
 export const kcal = (value: number) => integer.format(value)
+/** Surplus and deficit: +412, −180, 0. */
+export const signedKcal = (value: number) =>
+  `${value > 0 ? "+" : value < 0 ? "−" : ""}${integer.format(Math.abs(value))}`
 export const grams = (value: number) => decimal.format(value)
 export const kg = (value: number) => kgFormat.format(value)
 

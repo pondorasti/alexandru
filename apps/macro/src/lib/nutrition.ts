@@ -36,6 +36,23 @@ export interface WeighIn {
   kg: number
 }
 
+/** Energy burned over a whole day, as the watch reports it to Apple Health. */
+export interface EnergyDay {
+  date: string
+  resting: number
+  active: number
+}
+
+export interface BalanceDay {
+  date: string
+  /** Null when no food was logged. */
+  eaten: number | null
+  /** Resting plus active energy; null when the day's energy isn't logged. */
+  burned: number | null
+  /** Eaten minus burned: positive is a surplus. Null unless both are known. */
+  balance: number | null
+}
+
 export interface Totals {
   kcal: number
   protein: number
@@ -74,6 +91,10 @@ export interface WeekAverages {
   kcal: number | null
   protein: number | null
   fiber: number | null
+  /** Mean energy burned over the week's days with energy logged. */
+  burned: number | null
+  /** Mean surplus (or deficit, negative) over the days with both food and energy logged. */
+  balance: number | null
   /** Mean morning weight over the week's readings. */
   kg: number | null
 }
@@ -136,6 +157,26 @@ export function calendarDays(totals: DayTotals[], from: string, to: string) {
   return days
 }
 
+/** Eaten against burned for every calendar day from `from` to `to`. */
+export function energyBalance(
+  totals: DayTotals[],
+  energy: EnergyDay[],
+  from: string,
+  to: string
+): BalanceDay[] {
+  const burnedOn = new Map(energy.map((day) => [day.date, day.resting + day.active]))
+  return calendarDays(totals, from, to).map(({ date, totals }) => {
+    const eaten = totals?.kcal ?? null
+    const burned = burnedOn.get(date) ?? null
+    return {
+      date,
+      eaten,
+      burned,
+      balance: eaten === null || burned === null ? null : round(eaten - burned, 0)
+    }
+  })
+}
+
 /**
  * A day's entries in time order, grouped into runs of the same meal, so an afternoon snack
  * and an evening snack stay apart.
@@ -175,15 +216,29 @@ export function rollingAverage(readings: WeighIn[], days: number): WeightPoint[]
 }
 
 /** Averages per Monday-start week, newest first, over the days that have food logged. */
-export function weeklyAverages(totals: DayTotals[], mornings: WeighIn[]): WeekAverages[] {
-  const weeks = new Map<string, { days: DayTotals[]; kg: number[] }>()
+export function weeklyAverages(
+  totals: DayTotals[],
+  mornings: WeighIn[],
+  energy: EnergyDay[]
+): WeekAverages[] {
+  const weeks = new Map<
+    string,
+    { days: DayTotals[]; kg: number[]; burned: number[]; balance: number[] }
+  >()
   const week = (date: string) => {
     const key = weekStart(date)
-    if (!weeks.has(key)) weeks.set(key, { days: [], kg: [] })
+    if (!weeks.has(key)) weeks.set(key, { days: [], kg: [], burned: [], balance: [] })
     return weeks.get(key)!
   }
+  const eatenOn = new Map(totals.map((day) => [day.date, day.kcal]))
   for (const day of totals) week(day.date).days.push(day)
   for (const reading of mornings) week(reading.date).kg.push(reading.kg)
+  for (const day of energy) {
+    const burned = day.resting + day.active
+    const eaten = eatenOn.get(day.date)
+    week(day.date).burned.push(burned)
+    if (eaten !== undefined) week(day.date).balance.push(eaten - burned)
+  }
   const average = (values: number[], digits: number) => {
     const value = mean(values)
     return value === null ? null : round(value, digits)
@@ -192,7 +247,7 @@ export function weeklyAverages(totals: DayTotals[], mornings: WeighIn[]): WeekAv
     .sort()
     .reverse()
     .map((key) => {
-      const { days, kg } = weeks.get(key)!
+      const { days, kg, burned, balance } = weeks.get(key)!
       return {
         week: key,
         days: days.length,
@@ -208,6 +263,8 @@ export function weeklyAverages(totals: DayTotals[], mornings: WeighIn[]): WeekAv
           days.map((day) => day.fiber),
           1
         ),
+        burned: average(burned, 0),
+        balance: average(balance, 0),
         kg: average(kg, 2)
       }
     })

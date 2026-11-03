@@ -11,6 +11,8 @@
   --color-accent: #22c55e;
   --color-warn: #a16207;
   --color-track: #ebebeb;
+  --color-surplus: #2a78d6;
+  --color-deficit: #eb6834;
 }
 
 @layer base {
@@ -32,6 +34,8 @@
       --color-line: #2c2c2c;
       --color-warn: #e1b97b;
       --color-track: #262626;
+      --color-surplus: #3987e5;
+      --color-deficit: #d95926;
     }
   }
 

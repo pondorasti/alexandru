@@ -1,7 +1,15 @@
 import { Link } from "@tanstack/react-router"
 import { ROLLING_DAYS } from "../config"
-import type { DayTotals, WeightPoint } from "../lib/nutrition"
-import { dateMedium, dateShort, dayOfMonth, kg, weekdayInitial } from "../lib/format"
+import type { BalanceDay, DayTotals, WeightPoint } from "../lib/nutrition"
+import {
+  dateMedium,
+  dateShort,
+  dayOfMonth,
+  kcal,
+  kg,
+  signedKcal,
+  weekdayInitial
+} from "../lib/format"
 const pct = (value: number) => `${value}%`
 
 /** Morning readings as dots, with their rolling average as a line, scaled by date. */
@@ -133,6 +141,87 @@ export function DailyBars({
         </div>
       </div>
       <div className="mt-2 flex gap-1 text-center text-[11px] leading-tight text-muted sm:gap-1.5">
+        {days.map(({ date }) => (
+          <span key={date} className="flex-1">
+            <span className="block">{weekdayInitial(date)}</span>
+            <span className="block tabular-nums">{dayOfMonth(date)}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Each day's surplus above the zero line and deficit below it, on a scale symmetric around
+ * zero so the two read as equal and opposite. Days missing food or energy draw no bar.
+ */
+export function BalanceBars({ days }: { days: BalanceDay[] }) {
+  const values = days.map((day) => day.balance ?? 0)
+  const extent = Math.ceil(Math.max(...values.map(Math.abs), 250) / 250) * 250
+  const h = (value: number) => (Math.abs(value) / extent) * 50
+  const ticks = [extent, 0, -extent]
+  return (
+    <div>
+      <div className="flex gap-3">
+        <div className="relative h-44 flex-1">
+          <div className="absolute inset-x-0 top-1/2 border-t border-line" />
+          <div className="absolute inset-0 flex gap-1 sm:gap-1.5">
+            {days.map((day, i) => {
+              const value = values[i]
+              const title =
+                day.balance === null
+                  ? `${dateMedium(day.date)}: ${
+                      day.eaten === null
+                        ? "nothing logged"
+                        : `ate ${kcal(day.eaten)} kcal, burn not logged yet`
+                    }`
+                  : `${dateMedium(day.date)}: ate ${kcal(day.eaten!)}, burned ${kcal(day.burned!)}, ${signedKcal(value)} kcal`
+              const bar =
+                day.balance === null ? (
+                  <span className="absolute inset-x-0 top-1/2 mx-auto h-[3px] max-w-6 -translate-y-1/2 rounded-full bg-track" />
+                ) : (
+                  <span
+                    className={`absolute inset-x-0 mx-auto max-w-6 ${
+                      value >= 0
+                        ? "bottom-1/2 rounded-t-[4px] bg-surplus"
+                        : "top-1/2 rounded-b-[4px] bg-deficit"
+                    }`}
+                    style={{ height: `max(${pct(h(value))}, 2px)` }}
+                  />
+                )
+              return day.eaten === null ? (
+                <span key={day.date} title={title} className="relative h-full flex-1">
+                  {bar}
+                </span>
+              ) : (
+                <Link
+                  key={day.date}
+                  to="/days/$date"
+                  params={{ date: day.date }}
+                  title={title}
+                  aria-label={title}
+                  className="relative h-full flex-1 transition-opacity hover:opacity-70"
+                >
+                  {bar}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+        <div className="relative w-9 shrink-0 text-xs text-muted tabular-nums">
+          {ticks.map((tick) => (
+            <span
+              key={tick}
+              className="absolute -translate-y-1/2"
+              style={{ top: pct(50 - (tick / extent) * 50) }}
+            >
+              {signedKcal(tick)}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="mt-2 flex gap-1 pr-12 text-center text-[11px] leading-tight text-muted sm:gap-1.5">
         {days.map(({ date }) => (
           <span key={date} className="flex-1">
             <span className="block">{weekdayInitial(date)}</span>

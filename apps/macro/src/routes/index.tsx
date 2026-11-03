@@ -3,11 +3,11 @@ import { useSuspenseQuery } from "@tanstack/react-query"
 import { ArrowRight } from "lucide-react"
 import type { ReactNode } from "react"
 import { RECENT_DAYS, ROLLING_DAYS, TARGETS } from "../config"
-import { DailyBars, WeightChart } from "../components/charts"
+import { BalanceBars, DailyBars, WeightChart } from "../components/charts"
 import { DayTargets } from "../components/day"
 import { MealList } from "../components/meals"
 import { dashboardQuery } from "../read/queries"
-import { dateLong, dateShort, grams, kcal, kg } from "../lib/format"
+import { dateLong, dateShort, grams, kcal, kg, signedKcal } from "../lib/format"
 import { addDays } from "../lib/nutrition"
 
 export const Route = createFileRoute("/")({
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
 
 function Dashboard() {
   const { data } = useSuspenseQuery(dashboardQuery)
-  const { today, latest, recent, weights, weeks } = data
+  const { today, latest, recent, balance, weights, weeks } = data
   if (!latest) {
     return (
       <main id="main" className="page-width py-24">
@@ -35,6 +35,9 @@ function Dashboard() {
         ? "Yesterday"
         : "Latest day"
   const lastWeight = weights.at(-1)
+  const balanced = balance.filter((day) => day.balance !== null)
+  const average = (pick: (day: (typeof balanced)[number]) => number) =>
+    balanced.reduce((sum, day) => sum + pick(day), 0) / balanced.length
   return (
     <main id="main" className="page-width space-y-12 pb-16">
       <section aria-labelledby="latest" className="pt-6 sm:pt-10">
@@ -83,6 +86,38 @@ function Dashboard() {
         </div>
       </Section>
 
+      {balanced.length > 0 && (
+        <Section
+          id="balance"
+          title="Energy balance"
+          aside={
+            <span>
+              {balanced.length}-day avg: ate{" "}
+              <span className="text-ink tabular-nums">{kcal(average((day) => day.eaten!))}</span>,
+              burned{" "}
+              <span className="text-ink tabular-nums">{kcal(average((day) => day.burned!))}</span>,{" "}
+              <span className="text-ink tabular-nums">
+                {signedKcal(average((day) => day.balance!))} kcal
+              </span>{" "}
+              a day
+            </span>
+          }
+        >
+          <div className="card">
+            <BalanceBars days={balance} />
+            <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="size-2 rounded-[2px] bg-surplus" /> Surplus: ate more than burned
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="size-2 rounded-[2px] bg-deficit" /> Deficit: burned more than ate
+              </span>
+              <span>Burned is resting plus active energy from Apple Watch.</span>
+            </p>
+          </div>
+        </Section>
+      )}
+
       <Section id="recent" title={`Last ${RECENT_DAYS} days`}>
         <div className="grid gap-3 lg:grid-cols-3">
           <Chart title="Calories" unit="kcal">
@@ -105,7 +140,7 @@ function Dashboard() {
 
       <Section id="weeks" title="Weekly averages">
         <div className="card overflow-x-auto p-0 sm:p-0">
-          <table className="w-full min-w-[560px] text-sm tabular-nums">
+          <table className="w-full min-w-[760px] text-sm tabular-nums">
             <thead className="text-left text-muted">
               <tr className="border-b border-line">
                 <th className="px-5 py-3 font-normal sm:px-6">Week of</th>
@@ -113,6 +148,8 @@ function Dashboard() {
                 <th className="px-3 py-3 text-right font-normal">Calories</th>
                 <th className="px-3 py-3 text-right font-normal">Protein</th>
                 <th className="px-3 py-3 text-right font-normal">Fiber</th>
+                <th className="px-3 py-3 text-right font-normal">Burned</th>
+                <th className="px-3 py-3 text-right font-normal">Balance</th>
                 <th className="px-5 py-3 text-right font-normal sm:px-6">Morning weight</th>
               </tr>
             </thead>
@@ -124,6 +161,20 @@ function Dashboard() {
                   <Cell value={week.kcal} goal={TARGETS.kcal} format={kcal} unit="kcal" />
                   <Cell value={week.protein} goal={TARGETS.protein} format={grams} unit="g" />
                   <Cell value={week.fiber} goal={TARGETS.fiber} format={grams} unit="g" />
+                  <td className="px-3 py-3 text-right">
+                    {week.burned === null ? (
+                      <span className="text-muted">–</span>
+                    ) : (
+                      `${kcal(week.burned)} kcal`
+                    )}
+                  </td>
+                  <td className="px-3 py-3 text-right">
+                    {week.balance === null ? (
+                      <span className="text-muted">–</span>
+                    ) : (
+                      `${signedKcal(week.balance)} kcal`
+                    )}
+                  </td>
                   <td className="px-5 py-3 text-right sm:px-6">
                     {week.kg === null ? <span className="text-muted">–</span> : `${kg(week.kg)} kg`}
                   </td>

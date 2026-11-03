@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test"
-import { parseMeals, parseWeighIns } from "./parse"
+import { parseEnergy, parseMeals, parseWeighIns } from "./parse"
 
 const MEALS = "date,time,meal,item,kcal,protein_g,carbs_g,fat_g,fiber_g\n"
 
@@ -77,5 +77,19 @@ describe("weigh-ins.csv", () => {
     expect(() => parseWeighIns("date,time,kg\n2026-10-13,07:17,\n")).toThrow(
       "weigh-ins.csv:2: kg: expected a non-negative number"
     )
+  })
+})
+
+describe("energy.csv", () => {
+  it("parses one row per day and rejects a repeated date", () => {
+    expect(parseEnergy("date,resting_kcal,active_kcal\n2026-10-13,1570,716\n")).toEqual([
+      { date: "2026-10-13", resting: 1570, active: 716 }
+    ])
+    expect(() =>
+      parseEnergy(
+        "date,resting_kcal,active_kcal\n2026-10-13,1570,716\n2026-10-13,1570,700\n",
+        "content/energy.csv"
+      )
+    ).toThrow("content/energy.csv: date: 2026-10-13 is logged more than once")
   })
 })

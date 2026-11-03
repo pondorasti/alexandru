@@ -1,10 +1,12 @@
-import { meals, weighIns } from "virtual:macro-content"
+import { energy, meals, weighIns } from "virtual:macro-content"
 import { RECENT_DAYS, RECENT_WEEKS, ROLLING_DAYS, TIME_ZONE, WEIGHT_DAYS } from "../config"
 import {
   addDays,
+  type BalanceDay,
   calendarDays,
   dailyTotals,
   type DayTotals,
+  energyBalance,
   groupMeals,
   type MealGroup,
   morningWeights,
@@ -31,6 +33,8 @@ export interface Dashboard {
   /** The latest logged day, which is usually today. */
   latest: Day | null
   recent: { date: string; totals: DayTotals | null }[]
+  /** Eaten against burned over the same days as `recent`. */
+  balance: BalanceDay[]
   weights: WeightPoint[]
   weeks: WeekAverages[]
 }
@@ -59,13 +63,15 @@ export function getDay(date: string): Day | null {
 export function getDashboard(): Dashboard {
   const last = dates.at(-1)
   const lastWeighIn = trend.at(-1)?.date
+  const range = last ? ([addDays(last, -(RECENT_DAYS - 1)), last] as const) : null
   return {
     today: localDate(),
     latest: last ? getDay(last) : null,
-    recent: last ? calendarDays(totals, addDays(last, -(RECENT_DAYS - 1)), last) : [],
+    recent: range ? calendarDays(totals, ...range) : [],
+    balance: range ? energyBalance(totals, energy, ...range) : [],
     weights: lastWeighIn
       ? trend.filter((point) => point.date > addDays(lastWeighIn, -WEIGHT_DAYS))
       : [],
-    weeks: weeklyAverages(totals, mornings).slice(0, RECENT_WEEKS)
+    weeks: weeklyAverages(totals, mornings, energy).slice(0, RECENT_WEEKS)
   }
 }

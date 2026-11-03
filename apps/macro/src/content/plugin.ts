@@ -14,8 +14,9 @@ export function content(dir: string): Plugin {
     resolveId: (id) => (id === ID ? RESOLVED : undefined),
     load(id) {
       if (id !== RESOLVED) return
-      const { meals, weighIns } = load()
-      return `export const meals = ${JSON.stringify(meals)}\nexport const weighIns = ${JSON.stringify(weighIns)}`
+      return Object.entries(load())
+        .map(([name, rows]) => `export const ${name} = ${JSON.stringify(rows)}`)
+        .join("\n")
     },
     configureServer(server) {
       server.watcher.add(dir)

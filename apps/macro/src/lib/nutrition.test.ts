@@ -3,6 +3,7 @@ import {
   addDays,
   calendarDays,
   dailyTotals,
+  energyBalance,
   type Entry,
   groupMeals,
   IsoDate,
@@ -148,9 +149,49 @@ describe("weeklyAverages", () => {
       { date: "2026-10-05", time: "07:00", kg: 72 },
       { date: "2026-10-06", time: "07:00", kg: 72.5 }
     ]
-    expect(weeklyAverages(totals, mornings)).toEqual([
-      { week: "2026-10-05", days: 2, kcal: 2750, protein: 110.5, fiber: 15, kg: 72.25 },
-      { week: "2026-09-28", days: 1, kcal: 2000, protein: 100, fiber: 20, kg: null }
+    const energy = [
+      { date: "2026-10-05", resting: 1600, active: 600 },
+      { date: "2026-10-06", resting: 1600, active: 400 }
+    ]
+    expect(weeklyAverages(totals, mornings, energy)).toEqual([
+      {
+        week: "2026-10-05",
+        days: 2,
+        kcal: 2750,
+        protein: 110.5,
+        fiber: 15,
+        burned: 2100,
+        balance: 800,
+        kg: 72.25
+      },
+      {
+        week: "2026-09-28",
+        days: 1,
+        kcal: 2000,
+        protein: 100,
+        fiber: 20,
+        burned: null,
+        balance: null,
+        kg: null
+      }
+    ])
+  })
+})
+
+describe("energyBalance", () => {
+  it("subtracts burned from eaten per calendar day, null where either is missing", () => {
+    const totals = dailyTotals([
+      entry("2026-10-05", "08:00", { kcal: 2600, protein: 100, fiber: 20 }),
+      entry("2026-10-07", "08:00", { kcal: 1900, protein: 100, fiber: 20 })
+    ])
+    const energy = [
+      { date: "2026-10-05", resting: 1580, active: 620 },
+      { date: "2026-10-06", resting: 1570, active: 300 }
+    ]
+    expect(energyBalance(totals, energy, "2026-10-05", "2026-10-07")).toEqual([
+      { date: "2026-10-05", eaten: 2600, burned: 2200, balance: 400 },
+      { date: "2026-10-06", eaten: null, burned: 1870, balance: null },
+      { date: "2026-10-07", eaten: 1900, burned: null, balance: null }
     ])
   })
 })

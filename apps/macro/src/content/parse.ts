@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { type Entry, IsoDate, Meal, Time, type WeighIn } from "../lib/nutrition"
+import { type EnergyDay, type Entry, IsoDate, Meal, Time, type WeighIn } from "../lib/nutrition"
 import { parseCsv } from "./csv"
 
 export const MEALS_HEADER = [
@@ -14,6 +14,7 @@ export const MEALS_HEADER = [
   "fiber_g"
 ] as const
 export const WEIGH_INS_HEADER = ["date", "time", "kg"] as const
+export const ENERGY_HEADER = ["date", "resting_kcal", "active_kcal"] as const
 
 const amount = (max: number) =>
   z
@@ -52,6 +53,18 @@ const WeighInRow = z.strictObject({
   time: Time,
   kg: amount(500).pipe(z.number().min(20, "kg looks wrong"))
 })
+
+const EnergyRow = z
+  .strictObject({
+    date: IsoDate,
+    resting_kcal: amount(5_000),
+    active_kcal: amount(10_000)
+  })
+  .transform((row): EnergyDay => ({
+    date: row.date,
+    resting: row.resting_kcal,
+    active: row.active_kcal
+  }))
 
 /**
  * Parses a CSV with an exact header into validated rows. Every bad row is reported, as
@@ -99,3 +112,16 @@ export const parseMeals = (text: string, file = "meals.csv") =>
 
 export const parseWeighIns = (text: string, file = "weigh-ins.csv"): WeighIn[] =>
   parseRows(file, text, WEIGH_INS_HEADER, WeighInRow)
+
+/** One row per day, so a date logged twice is an error rather than a silent double count. */
+export function parseEnergy(text: string, file = "energy.csv"): EnergyDay[] {
+  const days = parseRows(file, text, ENERGY_HEADER, EnergyRow)
+  const seen = new Set<string>()
+  const repeated = days.filter((day) => seen.size === seen.add(day.date).size)
+  if (repeated.length) {
+    throw new Error(
+      repeated.map((day) => `${file}: date: ${day.date} is logged more than once`).join("\n")
+    )
+  }
+  return days
+}

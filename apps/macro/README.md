@@ -1,8 +1,9 @@
 # Macro
 
 Alexandru's nutrition dashboard: daily calories, protein and fiber against targets, the
-meals behind them, and the morning-weight trend. The logs live in this repository as
-two CSV files, and they're public, as is this repository's history.
+meals behind them, the morning-weight trend, and the energy balance of eating against
+burning. The logs live in this repository as three CSV files, and they're public, as is
+this repository's history.
 
 ## Stack
 
@@ -13,7 +14,7 @@ site by deploying.
 
 ## Data
 
-Both files are UTF-8 CSV with the exact header shown, one row per line, appended in any
+All three files are UTF-8 CSV with the exact header shown, one row per line, appended in any
 order (rows are sorted by date and time when loaded). `date` is `YYYY-MM-DD` and `time`
 is 24-hour `HH:MM`, both America/Los_Angeles wall-clock time. Numbers are plain
 non-negative decimals with a `.` and no units or thousands separators. Quote a field
@@ -54,12 +55,28 @@ first reading before 12:00 is the day's morning weight, the one charted and aver
 afternoon and evening readings aren't logged. To discard a mis-weigh, delete its row
 rather than adding a second morning reading after it.
 
+### `content/energy.csv`
+
+One row per finished day: the energy Apple Watch reports to Apple Health as burned, in
+kilocalories, rounded to whole numbers. `resting_kcal` is resting (basal) energy and
+`active_kcal` is active energy; the day's burn is their sum.
+
+```csv
+date,resting_kcal,active_kcal
+2026-10-13,1570,716
+2026-10-14,1576,593
+```
+
+A date appears at most once. A day still in progress isn't logged, so today shows no
+balance until tomorrow.
+
 ### Validation
 
-`src/content/` parses both files whenever the site builds, the dev server loads them, or
+`src/content/` parses every file whenever the site builds, the dev server loads them, or
 the tests run, and exposes the rows as `virtual:macro-content` (server only). A wrong
 header, a malformed or impossible date, an unknown meal, a missing or non-numeric
-amount, or a wrong number of fields fails with every problem listed as
+amount, a wrong number of fields, or a date logged twice in `energy.csv` fails with every
+problem listed as
 `content/<file>:<line>: <column>: <problem>`, so a broken log never deploys.
 
 ## Targets and settings
@@ -73,17 +90,20 @@ many days and weeks the dashboard shows.
   reaching further back.
 - Weekly averages run Monday to Sunday. Food averages are over the days with anything
   logged; a day with nothing logged is treated as missing, not as zero.
+- The energy balance is eaten minus burned for each day with both logged: positive is a
+  surplus, negative a deficit. Its averages, and the weekly Burned and Balance columns,
+  cover only the days with the numbers they need.
 - The dashboard's "Today" is the latest logged day; it's labeled Today or Yesterday when
   it is one in Los Angeles.
 
 ## Layout
 
-- `content/`: the two CSV logs.
+- `content/`: the three CSV logs.
 - `src/config.ts`: targets and dashboard settings.
 - `src/content/`: the CSV parser, row validation, and the Vite plugin behind
   `virtual:macro-content`.
-- `src/lib/`: daily totals, meal grouping, morning weights, rolling and weekly averages,
-  and formatting, shared by server and browser.
+- `src/lib/`: daily totals, meal grouping, morning weights, energy balance, rolling and
+  weekly averages, and formatting, shared by server and browser.
 - `src/read/`: the server functions and query options.
 - `src/components/` and `src/routes/`: the dashboard (`/`) and day pages (`/days/<date>`).
 
@@ -120,7 +140,7 @@ remain disabled. Regenerate Worker types with `bun run cf-typegen` after changin
 ## Checks
 
 `bun run test` in this directory runs the unit tests, colocated as `*.test.ts`: CSV
-parsing, row validation, daily totals, meal grouping, morning weights, rolling and
-weekly averages, and a load of both files in `content/`. `bun run check` at the
+parsing, row validation, daily totals, meal grouping, morning weights, energy balance,
+rolling and weekly averages, and a load of every file in `content/`. `bun run check` at the
 repository root runs formatting, lint and type checks, then every workspace's tests and
 builds.
