@@ -4,7 +4,7 @@ working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
 
 ## projects
 
-- 🧑‍✈️ **[codevisor.dev](https://github.com/851-labs/codevisor)** - The agent IDE for your Mac mini.
+- 🛠️ **[codevisor.dev](https://github.com/851-labs/codevisor)** - The agent IDE for your Mac mini.
 - 😎 **[emojis.com](https://www.emojis.com/)** - AI emojis generator.
 - 🎬 **[Honest Thumbnails](https://github.com/851-labs/honest-thumbnails)** - Unslop YouTube thumbnails with stills from the video.
 - 📊 **[tokenmaxxing.sh](https://github.com/851-labs/tokenmaxxing)** - The best place to track token usage.
