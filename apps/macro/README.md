@@ -40,18 +40,19 @@ date,time,meal,item,kcal,protein_g,carbs_g,fat_g,fiber_g
 
 ### `content/weigh-ins.csv`
 
-One row per reading, in kilograms.
+One row per morning reading, in kilograms.
 
 ```csv
 date,time,kg
 2026-10-07,08:54,53.43
-2026-10-07,19:30,54.16
+2026-10-08,09:07,53.25
 ```
 
-Two readings a day are normal: in the morning after a shower and before breakfast, and
-in the evening. The first reading before 12:00 is the day's morning weight, the one
-charted and averaged; later readings are kept but not trended. To discard a mis-weigh, delete its row rather
-than adding a second morning reading after it.
+Only the morning reading is logged, taken after a shower and before breakfast, at the
+time the scale recorded it. It comes from the Fitdays scale through Apple Health. The
+first reading before 12:00 is the day's morning weight, the one charted and averaged;
+afternoon and evening readings aren't logged. To discard a mis-weigh, delete its row
+rather than adding a second morning reading after it.
 
 ### Validation
 
