@@ -39,11 +39,11 @@ export function MealList({ meals, totals }: { meals: MealGroup[]; totals: Totals
           </tr>
         </thead>
         {meals.map(({ meal, entries }, index) => (
-          <tbody key={index} className="border-t border-muted/60">
+          <tbody key={index} className="border-t border-muted">
             {entries.map((entry, i) => {
               const { name, details } = describeItem(entry.item)
               return (
-                <tr key={i} className={i ? "border-t border-line/60" : ""}>
+                <tr key={i} className={i ? "border-t border-line" : ""}>
                   <td className="py-2 pr-3 align-top">
                     {(i === 0 || entry.time !== entries[i - 1].time) && entry.time}
                     {i === 0 && (
@@ -79,7 +79,7 @@ export function MealList({ meals, totals }: { meals: MealGroup[]; totals: Totals
           </tbody>
         ))}
         <tfoot>
-          <tr className="border-t border-muted/60 font-medium">
+          <tr className="border-t border-muted font-medium">
             <td colSpan={2} className="pt-4">
               Total
               <span className="block text-xs font-normal text-muted sm:hidden">
