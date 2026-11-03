@@ -66,11 +66,14 @@
   .display {
     @apply text-[32px] leading-[1.1] font-medium tracking-[-0.02em] sm:text-4xl;
   }
+  .text-link {
+    @apply rounded-md underline-offset-4 hover:underline;
+  }
   .control {
     @apply inline-flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-full bg-surface px-3.5 text-sm text-ink transition-opacity hover:opacity-80;
   }
   .icon-control {
-    @apply inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-surface text-ink transition-opacity hover:opacity-80 aria-disabled:pointer-events-none aria-disabled:opacity-35;
+    @apply inline-flex size-9 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface hover:text-ink;
   }
   .card {
     @apply rounded-2xl bg-surface p-5 sm:p-6;
